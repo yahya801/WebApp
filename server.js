@@ -1,10 +1,18 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyparser = require("body-parser");
-const users = require("./models/users");
+const cors = require('cors')
+
 
 
 const app = express();
+//use cors to allow cross origin resource sharing
+app.use(
+  cors({
+    origin: 'http://localhost:5000',
+    credentials: true,
+  })
+);
 
 //Body-parser middleware
 app.use(bodyparser.json());
@@ -16,6 +24,11 @@ mongoose
   .connect(db,{ useUnifiedTopology: true, useNewUrlParser: true  })
   .then(() => console.log("MongoDb Connected..."))
   .catch(err => console.log(err));
+
+//redirect to /user
+app.use('/user',require('./routes/api/user'))
+
+  
 
 const port = process.env.PORT || 3000;
 
