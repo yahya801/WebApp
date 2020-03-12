@@ -1,32 +1,21 @@
-import React from 'react';
-import Login from './components/login'
-//import FindForm from './components/Findform'
-//import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBInput } from 'mdbreact';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
-
-function App() {
-
-
-  return (
-    <Router>
-    <div >
-      <Switch>
-          <Route exact path="/">
-          <h1 >   Register </h1>
-          <Login />
-          </Route>
-          </Switch>
-     
-      
-     
-    </div>
-    </Router>
-  );
+import React, { Component } from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import Navbar from "./components/Layout/Navbar";
+import Landing from "./components/Layout/Landing";
+import Register from "./components/auth/Register";
+import Login from "./components/auth/Login";
+class App extends Component {
+  render() {
+    return (
+      <Router>
+        <div className="App">
+          <Navbar />
+          <Route exact path="/" component={Landing} />
+          <Route exact path="/register" component={Register} />
+          <Route exact path="/login" component={Login} />
+        </div>
+      </Router>
+    );
+  }
 }
-
 export default App;
