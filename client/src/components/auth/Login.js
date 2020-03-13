@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-class Login extends Component {
-  constructor() {
-    super();
+import axios from 'axios';
+class Login extends React.Component {
+  constructor(props) {
+    super(props);
     this.state = {
       email: "",
       password: "",
@@ -14,10 +15,21 @@ onChange = e => {
   };
 onSubmit = e => {
     e.preventDefault();
+    
 const userData = {
       email: this.state.email,
       password: this.state.password
     };
+    axios
+    .post("http://localhost:3000/user/login", userData)
+    .then(() => {
+      console.log("hehhehe")
+      console.log("User Created")
+      window.location = "/success" })
+    .catch(err => {
+      console.log(err)
+      console.error(err);
+    });
 console.log(userData);
   };
 render() {
@@ -69,6 +81,7 @@ return (
                   }}
                   type="submit"
                   className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+                  
                 >
                   Login
                 </button>

@@ -4,6 +4,7 @@ import Navbar from "./components/Layout/Navbar";
 import Landing from "./components/Layout/Landing";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
+import Dashboard from './components/auth/Dashboard';
 class App extends Component {
   render() {
     return (
@@ -12,7 +13,8 @@ class App extends Component {
           <Navbar />
           <Route exact path="/" component={Landing} />
           <Route exact path="/register" component={Register} />
-          <Route exact path="/login" component={Login} />
+          <Route exact path="/login" component={Login}  />
+          <Route exact path="/success" component={Dashboard} />
         </div>
       </Router>
     );
