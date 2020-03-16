@@ -1,12 +1,21 @@
 import React, { Component } from "react";
+import {Link,Redirect } from "react-router-dom"
+import Logout from './Logout';
 
 export class Dashboard extends React.Component {
     constructor(props) {
-        super(props);
+        super(props)
+        const token = localStorage.getItem("token")
+        console.log(token)
+        let loggedin = true
+        if (token == null){
+          loggedin = false
+        }
         this.state = {
           email: "",
           password: "",
-          errors: {}
+          errors: {},
+          loggedin
         };
       }
     onChange = e => {
@@ -14,6 +23,9 @@ export class Dashboard extends React.Component {
       };
     
   render() {
+    if (this.state.loggedin == false){
+      return <Redirect to="/login" />
+    }
    
 
     return (
@@ -59,6 +71,7 @@ export class Dashboard extends React.Component {
           Delete
         </button>
         </form>
+       <Link to="/logout">Log out</Link>
       </div>
     );
   }

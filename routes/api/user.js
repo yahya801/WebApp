@@ -1,33 +1,106 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const User = require("../../models/users");
 const route = express.Router();
+const bycrypt = require("bcryptjs");
+const config = require('config');
+const jwt = require('jsonwebtoken');
 
-route.post("/", (req, res) => {
-  const { name, email, password, date } = req.body;
-  let user = {};
-  user.name = name;
-  user.email = email;
-  user.password = password;
-  user.date = date;
-  let usermodal = new User(user);
-  usermodal.save();
-  console.log(usermodal);
-  res.json(usermodal);
-  res.status(201).json({ some: "response" });
-});
+//Register Api
+route.post('/register',(req,res) => {
+  const {name , email, password} = req.body;
+  //simple validation
+  if (!name || !email || !password){
+    return res.status(400).json({msg : 'Please enter all details'});
+  }
+  //check for existing user
+  User.findOne({email})
+  .then(user => {
+    if(user) return res.status(400).json({msg : 'User already exists'});
 
-route.post("/login", function(req, res) {
-  User.findOne({ email: req.body.email } && { password: req.body.password })
-    .exec()
-    .then(user => {
-      console.log(user);
-      console.log("hehhhh");
-      return res.sendStatus(200);
+    const newuser = new User({
+      name,
+      email,
+      password
     });
+    //Salt and Hash
+    bycrypt.genSalt(10, (err,salt) => {
+      bycrypt.hash(newuser.password,salt,(err,hash)=>{
+        if(err) throw err;
+
+        newuser.password = hash;
+        newuser.save()
+          .then(user => {
+
+            jwt.sign(
+              {id: user.id},
+              config.get('JWT_SECRET'),
+              {expiresIn: 3600 },
+              (err,token) => {
+                if(err) throw err;
+                 res.json({
+                  token,
+                  user: {
+                    id: user.id,
+                    name: user.name,
+                    email: user.email
+                  }
+                });
+
+
+              }
+
+            )
+            })
+      })
+    })
+  })
+
 });
+
+
+route.post('/signin',(req,res)=>{
+  const { email, password} = req.body;
+  //simple validation
+  if ( !email || !password){
+    
+    return res.status(400).json({msg : 'Please enter all details'});
+  }
+  User.findOne({email})
+    .then(user => {
+      if(!user) return res.status(400).json({msg : 'User doesnot exists'});
+
+    //Validate Password
+
+    bycrypt.compare(password, user.password)
+      .then(isMatch => {
+        if(!isMatch) return res.status(400).json({ msg : 'Invalid credentials'});
+        jwt.sign(
+          {id: user.id},
+          
+          config.get('JWT_SECRET'),
+          {expiresIn: 3600 },
+          (err,token) => {
+           
+              res.json({
+              token,
+              user: {
+                id: user.id,
+                name: user.name,
+                email: user.email
+              }
+            });
+          }
+
+        )
+      })
+
+})
+
+}
+);
 
 //  console.log("Got a GET request for the homepage");
 //  res.json(User);
 
 module.exports = route;
+ 

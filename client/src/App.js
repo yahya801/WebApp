@@ -4,17 +4,21 @@ import Navbar from "./components/Layout/Navbar";
 import Landing from "./components/Layout/Landing";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
-import Dashboard from './components/auth/Dashboard';
+import Dashboard from "./components/auth/Dashboard"
+import Logout from './components/auth/Logout'
+
 class App extends Component {
   render() {
     return (
       <Router>
         <div className="App">
-          <Navbar />
-          <Route exact path="/" component={Landing} />
+          
+          <Route exact path="/" component={Landing,Navbar} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login}  />
-          <Route exact path="/success" component={Dashboard} />
+          <Route exact path = "/dashboard" component={Dashboard} /> 
+          <Route exact path = "/logout" component={Logout} /> 
+          
         </div>
       </Router>
     );

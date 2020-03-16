@@ -1,18 +1,24 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link,Redirect } from "react-router-dom";
 import axios from 'axios';
+
 class Login extends React.Component {
   constructor(props) {
     super(props);
+    let loggedin = false
     this.state = {
       email: "",
       password: "",
-      errors: {}
+      errors: {},
+      loggedin
     };
+    this.onChange = this.onChange.bind(this)
+    this.onSubmit = this.onSubmit.bind(this)
   }
 onChange = e => {
     this.setState({ [e.target.id]: e.target.value });
   };
+  
 onSubmit = e => {
     e.preventDefault();
     
@@ -21,11 +27,13 @@ const userData = {
       password: this.state.password
     };
     axios
-    .post("http://localhost:3000/user/login", userData)
-    .then(() => {
-      console.log("hehhehe")
-      console.log("User Created")
-      window.location = "/success" })
+    .post("http://localhost:3000/user/signin", userData)
+    .then(response => {
+      localStorage.setItem("token",response.data.token)
+      this.setState({
+        loggedin: true
+      })
+  })
     .catch(err => {
       console.log(err)
       console.error(err);
@@ -34,6 +42,10 @@ console.log(userData);
   };
 render() {
     const { errors } = this.state;
+      if (this.state.loggedin){
+        return <Redirect to ='/dashboard' />
+
+      }
 return (
       <div className="container">
         <div style={{ marginTop: "4rem" }} className="row">

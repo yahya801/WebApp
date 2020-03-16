@@ -26,7 +26,7 @@ const newUser = {
       password2: this.state.password2
     };
     axios
-      .post("http://localhost:3000/user", newUser)
+      .post("http://localhost:3000/user/register", newUser)
       .then(() => {
         console.log("User Created")
         window.location = "/w" })
