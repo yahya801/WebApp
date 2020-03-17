@@ -1,5 +1,6 @@
 const express = require("express");
 const User = require("../../models/users");
+
 const route = express.Router();
 const bycrypt = require("bcryptjs");
 const config = require('config');
@@ -98,6 +99,16 @@ route.post('/signin',(req,res)=>{
 
 }
 );
+
+
+route.get('/get',(req,res)=>{
+  User.find()
+  .exec()
+  .then(user =>{
+    console.log(user);
+    res.status(200).json(user)
+  })
+})
 
 //  console.log("Got a GET request for the homepage");
 //  res.json(User);

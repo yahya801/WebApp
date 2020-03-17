@@ -10,7 +10,7 @@ export class Lougout extends Component {
     render() {
         return (
             <div>
-                <h1> You have been logged out</h1>
+                <h1> You have been logged out</h1> 
                 <Link to="/"> Login in Again</Link>
                 
             </div>

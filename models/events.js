@@ -5,6 +5,16 @@ const eventschema = new moongoes.Schema({
     type: String,
     required: true
   },
+  location: {
+    type: String,
+    required: true
+
+  },
+  category: {
+    type: String,
+    required: true
+
+  },  
   description:{
       type: String,
       required: true
@@ -15,8 +25,9 @@ const eventschema = new moongoes.Schema({
   },
   date: {
     type: Date,
-    default: Date.now
-  }
+    
+  },
+  
 });
 
 const Event = moongoes.model("Events", eventschema);

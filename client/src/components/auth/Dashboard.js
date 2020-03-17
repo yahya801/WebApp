@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import {Link,Redirect } from "react-router-dom"
-import Logout from './Logout';
+
 
 export class Dashboard extends React.Component {
     constructor(props) {
@@ -12,18 +12,20 @@ export class Dashboard extends React.Component {
           loggedin = false
         }
         this.state = {
+          name: "",
           email: "",
           password: "",
-          errors: {},
+          date: "",
           loggedin
         };
       }
     onChange = e => {
         this.setState({ [e.target.id]: e.target.value });
       };
+      
     
   render() {
-    if (this.state.loggedin == false){
+    if (this.state.loggedin === false){
       return <Redirect to="/login" />
     }
    

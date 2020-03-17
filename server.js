@@ -17,7 +17,7 @@ app.use(
 app.use(bodyparser.json());
 
 //Db config
-const db = config.get("mongoURI");
+const db = config.get("mongoURI")   ;
 //connect to mongo
 mongoose
   .connect(db, { useUnifiedTopology: true, useNewUrlParser: true })
@@ -25,8 +25,8 @@ mongoose
   .catch(err => console.log(err));
 
 //redirect to /user
-app.use("/user", require("./routes/api/user"));
-app.use("/event", require("./routes/api/events"));
+app.use("/:user", require("./routes/api/user"))    ;
+app.use("/user/event", require("./routes/api/events"));
 
 const port = process.env.PORT || 3000;
 

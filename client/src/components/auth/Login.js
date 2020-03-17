@@ -1,52 +1,52 @@
-import React, { Component } from "react";
-import { Link,Redirect } from "react-router-dom";
-import axios from 'axios';
+import React from "react";
+import { Link, Redirect } from "react-router-dom";
+import axios from "axios";
 
 class Login extends React.Component {
   constructor(props) {
     super(props);
-    let loggedin = false
+    let loggedin = false;
     this.state = {
       email: "",
       password: "",
       errors: {},
       loggedin
     };
-    this.onChange = this.onChange.bind(this)
-    this.onSubmit = this.onSubmit.bind(this)
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
   }
-onChange = e => {
+  onChange = e => {
     this.setState({ [e.target.id]: e.target.value });
   };
-  
-onSubmit = e => {
+
+  onSubmit = e => {
     e.preventDefault();
-    
-const userData = {
+
+    const userData = {
       email: this.state.email,
       password: this.state.password
     };
     axios
-    .post("http://localhost:3000/user/signin", userData)
-    .then(response => {
-      localStorage.setItem("token",response.data.token)
-      this.setState({
-        loggedin: true
+      .post(`http://localhost:3000/${this.state.email}/signin`, userData)
+      .then(response => {
+        console.log(response.data.user )
+        localStorage.setItem("token", response.data.token);
+        this.setState({
+          loggedin: true
+        });
       })
-  })
-    .catch(err => {
-      console.log(err)
-      console.error(err);
-    });
-console.log(userData);
+      .catch(err => {
+        console.log(err);
+        console.error(err);
+      });
+    console.log(userData);
   };
-render() {
+  render() {
     const { errors } = this.state;
-      if (this.state.loggedin){
-        return <Redirect to ='/dashboard' />
-
-      }
-return (
+    if (this.state.loggedin) {
+      return <Redirect to="/dashboard" />;
+    }
+    return (
       <div className="container">
         <div style={{ marginTop: "4rem" }} className="row">
           <div className="col s8 offset-s2">
@@ -93,7 +93,6 @@ return (
                   }}
                   type="submit"
                   className="btn btn-large waves-effect waves-light hoverable blue accent-3"
-                  
                 >
                   Login
                 </button>
