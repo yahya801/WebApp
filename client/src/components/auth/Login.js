@@ -1,8 +1,11 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import classnames from "classnames";
+
 class Login extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       email: "",
       password: "",
@@ -18,8 +21,21 @@ const userData = {
       email: this.state.email,
       password: this.state.password
     };
+    axios
+    .post("http://localhost:3000/user", userData)
+    .then(() => {
+      console.log("hehhehe")
+      console.log("User Created")
+      window.location = "/success" })
+    .catch(err => {
+      console.log(err)
+      console.error(err);
+    });
 console.log(userData);
   };
+
+
+  
 render() {
     const { errors } = this.state;
 return (
@@ -46,8 +62,16 @@ return (
                   error={errors.email}
                   id="email"
                   type="email"
+                  className={classnames("", {
+                    invalid: errors.email || errors.emailnotfound
+                  })}
                 />
+
                 <label htmlFor="email">Email</label>
+                <span className="red-text">
+                  {errors.email}
+                  {errors.emailnotfound}
+                </span>
               </div>
               <div className="input-field col s12">
                 <input
@@ -56,8 +80,15 @@ return (
                   error={errors.password}
                   id="password"
                   type="password"
+                  className={classnames("", {
+                    invalid: errors.password || errors.passwordincorrect
+                  })}
                 />
                 <label htmlFor="password">Password</label>
+                <span className="red-text">
+                  {errors.password}
+                  {errors.passwordincorrect}
+                </span>
               </div>
               <div className="col s12" style={{ paddingLeft: "11.250px" }}>
                 <button

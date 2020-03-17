@@ -1,11 +1,15 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyparser = require("body-parser");
-const cors = require('cors')
-
-
-
+const cors = require('cors');
+const passport = require("passport");
 const app = express();
+
+const user = require("./routes/api/user");
+const event = require("./routes/api/event");
+
+
+
 //use cors to allow cross origin resource sharing
 app.use(
   cors({
@@ -25,8 +29,14 @@ mongoose
   .then(() => console.log("MongoDb Connected..."))
   .catch(err => console.log(err));
 
-//redirect to /user
-app.use('/user',require('./routes/api/user'))
+// Passport middleware
+app.use(passport.initialize());
+// Passport config
+require("./config/passport")(passport);
+
+// Routes
+app.use("/user", user);
+app.use("/event", event);
 
   
 
