@@ -29,11 +29,12 @@ class Login extends React.Component {
     axios
       .post(`http://localhost:3000/${this.state.email}/signin`, userData)
       .then(response => {
-        console.log(response.data.user )
+        console.log(response.data.user);
         localStorage.setItem("token", response.data.token);
         this.setState({
           loggedin: true
-        });
+        })
+        window.location= 'http://localhost:3000/admin/resources/user';
       })
       .catch(err => {
         console.log(err);
@@ -41,11 +42,19 @@ class Login extends React.Component {
       });
     console.log(userData);
   };
+  onredirect = e => {
+    window.location.replace("//http://localhost:3000/admin/resources/user");
+  };
   render() {
     const { errors } = this.state;
     if (this.state.loggedin) {
-      return <Redirect to="/dashboard" />;
-    }
+     
+    //     return <Redirect component={() => { 
+    //  window.location= 'http://localhost:3000/admin/resources/user'; 
+    
+    // //  to="http://localhost:3000/admin/resources/user" />;
+    //     } } /> 
+  }
     return (
       <div className="container">
         <div style={{ marginTop: "4rem" }} className="row">

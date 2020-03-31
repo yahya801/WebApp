@@ -102,7 +102,7 @@ p a:active
 	position: relative;
 	color: #FF6347;
 }
-p a:hover
+p a:hover	
 {
 	color: #FFFFFF;
 	background: #ffa07f;

@@ -27,6 +27,9 @@ mongoose
 //redirect to /user
 app.use("/:user", require("./routes/api/user"))    ;
 app.use("/user/event", require("./routes/api/events"));
+app.use("/admin", require("./admin")); //for the admin panel
+
+
 
 const port = process.env.PORT || 3000;
 

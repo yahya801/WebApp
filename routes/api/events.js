@@ -39,4 +39,17 @@ route.get("/:eventname", (req, res) => {
      );
   });
 });
+
+route.get('/',(req,res) => {
+  Event.find({},function (err, events){
+    if(err){
+      res.send('Error');
+      next();
+    }
+    
+    res.json({
+      events
+    });
+  });
+})
 module.exports = route;
