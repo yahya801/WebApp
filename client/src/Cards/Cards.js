@@ -29,6 +29,18 @@ export class Cards extends Component {
                         <Card imgsrc = {img3} title = "Concert"/>
                        
                     </div>
+                    <div className="col-md-4">
+                        <Card imgsrc = {img3} title = "Concert"/>
+                       
+                    </div>
+                    <div className="col-md-4">
+                        <Card imgsrc = {img3} title = "Concert"/>
+                       
+                    </div>
+                    <div className="col-md-4">
+                        <Card imgsrc = {img3} title = "Concert"/>
+                       
+                    </div>
                 </div>
             </div>
         )
