@@ -8,7 +8,7 @@ export class event extends Component {
         event: null
     }
     componentDidMount(){
-        axios.get(`http://localhost:3000/user/event/`)
+        axios.get(`http://localhost:3000/event/`)
         .then(res => {
       //    const event = res.data[0];
        //  this.setState({ event});
