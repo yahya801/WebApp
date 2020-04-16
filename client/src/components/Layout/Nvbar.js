@@ -22,10 +22,10 @@ class Header extends Component {
     super(props);
     this.state = {
       links: [
-        { path: "/1", text: "Home", isActive: false },
-        { path: "/2", text: "About", isActive: false },
-        { path: "/3", text: "Create Event", isActive: false },
-        { path: "/4", text: "Likes", isActive: false }
+        { path: "/register", text: "Sign-up", isActive: false },
+        { path: "/about", text: "About", isActive: false },
+        { path: "/create_event", text: "Create Event", isActive: false },
+        { path: "/likes", text: "Likes", isActive: false }
       ]
     };
   }
@@ -42,7 +42,7 @@ class Header extends Component {
     return (
       <div>
 
-        <nav className="navbar navbar-expand-lg navbar-light  bg-light justify-content-between">
+        <nav className="navbar navbar-expand-md navbar-dark bg-dark">
           <Link className="navbar-brand" to="/">
             EventBrite        </Link>
           <button
@@ -56,9 +56,10 @@ class Header extends Component {
           >
             <span class="navbar-toggler-icon"></span>
           </button>
-          <form class="form-inline my-2 my-lg-0">
+          
+          <form class="form-inline ml-auto">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"></input>
-            <button class="btn btn-outline-success ml-auto" type="submit"> Search </button>
+            <button class="btn btn-outline-light ml-auto" type="submit"> Search </button>
           </form>
 
 
@@ -66,7 +67,7 @@ class Header extends Component {
 
 
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
+            <ul class="navbar-nav ml-auto">
               {this.state.links.map((link, i) => (
                 <NavLink
                   path={link.path}
