@@ -3,6 +3,7 @@ import Table from "react-bootstrap/Table";
 import { Link, Redirect } from "react-router-dom";
 import axios from "axios";
 import { Container, Button, Alert } from "react-bootstrap";
+import history from './../history';
 
 export class eventlist extends Component {
   constructor(props) {
@@ -23,10 +24,10 @@ export class eventlist extends Component {
       console.log(Event);
     });
   }
-  onSubmit = (e) => {
-    this.setState({ addevent: true });
-    console.log(this.state.addevent);
-  };
+  onClick() {
+    window.location('/create-event')  
+    }
+  
 
   editevent = eventname =>{
     console.log(eventname);
@@ -41,19 +42,19 @@ export class eventlist extends Component {
       console.log('Deleted Successfully')
     })
   }
+  onClick(){
+    history.push('/create-event')
+  }
 
   render() {
-    if (this.addevent) {
-      console.log("hqdkq");
-      return <Redirect to="/create-event" />;
-    }
+   
     return (
       <div>
         <br />
         <Container>
-          <Button variant="primary" onClick={() => this.onSubmit()}>
+          {/* <Button variant="btn btn-success" onClick={() => this.onClick()}>
             Add Event
-          </Button>
+          </Button> */}
           <h2>Event List</h2>
           <Table>
             <thead>

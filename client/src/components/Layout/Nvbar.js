@@ -24,7 +24,7 @@ class Header extends Component {
       links: [
         { path: "/register", text: "Sign-up", isActive: false },
         { path: "/about", text: "About", isActive: false },
-        { path: "/create_event", text: "Create Event", isActive: false },
+        { path: "/create-event", text: "Create Event", isActive: false },
         { path: "/likes", text: "Likes", isActive: false },
         { path: "/logout", text: "Logout", isActive: false }
         
