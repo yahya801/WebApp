@@ -16,6 +16,11 @@ const userschema = new moongoes.Schema({
   date: {
     type: Date,
     default: Date.now
+  },
+  role: {
+    type: String,
+    default: "customer",
+    enum:["customer","admin","super-admin"]
   }
 });
 

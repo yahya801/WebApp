@@ -12,8 +12,13 @@ export class create extends Component {
       category: "",
       description: "",
       price: "",
-      submitted
-    };
+      submitted,
+      
+    }
+    if (props.event){
+      this.setState = props.event
+    }
+   
   }
   onChange = e => {
     this.setState({ [e.target.id]: e.target.value });
@@ -30,7 +35,7 @@ export class create extends Component {
       price: this.state.price
     };
     axios
-      .post("http://localhost:3000/user/event/create", eventData)
+      .post("http://localhost:3000/event/create", eventData)
       .then(() => {
         this.setState({
           submitted: true
@@ -45,7 +50,7 @@ export class create extends Component {
 
   render() {
     if (this.submitted) {
-      return <Redirect to="/create" />;
+      return <Redirect to="/read-events" />;
     }
 
     return (

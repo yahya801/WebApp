@@ -17,8 +17,16 @@ route.post("/create", (req, res) => {
   res.json(eventmodal);
 });
 
+route.delete("/delete",(req,res) => {
+  console.log(req.body.eventname)
+  Event.findOneAndDelete({eventname : req.body.eventname})
+    .exec()
+    .then()
+      return res.sendStatus(200)
+})
+
 route.patch("/update", (req, res) => {
-  Event.findOneAndUpdate({ eventname: req.body.eventname })
+  Event.deleteOne({ eventname: req.body.eventname })
     .exec()
     .then(user => {
       console.log(user);

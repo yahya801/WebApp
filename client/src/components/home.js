@@ -13,7 +13,7 @@ export class home extends Component {
                 <Container>
                     <Jumbotron>
                         <h2> Welcome To Event Brite! </h2>
-                        <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus at, corporis consequatur cupiditate temporibus iste impedit ullam nostrum. Nulla, magnam?</p>
+                        <p> Eventbrite is a global platform for live experiences that allows anyone to create, share, find and attend events that fuel their passions and enrich their lives. From music festivals, marathons, conferences, community rallies, and fundraisers, to gaming competitions and air guitar contests. Our mission is to bring the world together through live experiences.</p>
                     </Jumbotron>
                     <Row className = "show-container text-center">
                         <h3 class= "text-right">Popular Events</h3>

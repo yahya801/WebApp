@@ -9,8 +9,9 @@ class Login extends React.Component {
     this.state = {
       email: "",
       password: "",
-      errors: {},
-      loggedin
+      errors: "",
+      loggedin,
+      errmsg: ""
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -34,13 +35,16 @@ class Login extends React.Component {
         this.setState({
           loggedin: true
         })
-        window.location= 'http://localhost:3000/admin/resources/user';
+        window.location='/read-events'
+        //window.location= 'http://localhost:3000/admin/resources/user';
       })
       .catch(err => {
-        console.log(err);
-        console.error(err);
+      //  console.log(err);
+        console.error(err.response.data);
+        this.setState({ errmsg: err.response.data.msg });
+        console.log(this.state.errmsg)
       });
-    console.log(userData);
+   
   };
   onredirect = e => {
     window.location.replace("//http://localhost:3000/admin/resources/user");
@@ -90,7 +94,9 @@ class Login extends React.Component {
                   id="password"
                   type="password"
                 />
+                <div>{this.state.errmsg}</div>
                 <label htmlFor="password">Password</label>
+                
               </div>
               <div className="col s12" style={{ paddingLeft: "11.250px" }}>
                 <button

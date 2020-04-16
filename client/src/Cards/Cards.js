@@ -24,7 +24,7 @@ export class Cards extends Component {
       console.log(Event);
     });
   }
-
+ 
   render() {
     return (
       <div>
