@@ -11,6 +11,7 @@ import create from "./components/CRUD/create";
 import read from "./components/CRUD/read";
 import NB from "./components/Layout/Nvbar";
 import Home from "./components/home";
+import EventList from "./components/CRUD/eventlist";
 
 import Event from "./components/Mainpage/event";
 
@@ -26,11 +27,11 @@ class App extends Component {
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/logout" component={Logout} />
-          <Route exact path="/dashboard" component={sidebar} />
-          <Route exact path="/create-event" component={sidebar} />
+          <Route exact path="/dashboard" component={EventList} />
+
           <Route exact path="/create-event" component={create} />
-          <Route exact path="/read-events" component={sidebar} />
-          <Route exact path="/read-events" component={read} />
+          <Route exact path="/read-events" component={EventList} />
+
           <Route exact path="/update-event" component={sidebar} />
           <Route exact path="/delete-event" component={sidebar} />
         </div>

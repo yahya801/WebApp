@@ -24,21 +24,24 @@ export class Cards extends Component {
       console.log(Event);
     });
   }
-
+ 
   render() {
     return (
       <div>
+         <div className= 'row'>
         {this.state.Event.map(Event => (
           <div Key={Event.id}>
-            <div className="container-fluid d-flex justify-content-">
-              <div className="row">
-                <div className="column">
+            <div className="justify-content">
+             
+                <div className='col-sm-4'>
                   <Card imgsrc={img1} title={Event.eventname} description={Event.description} />
                 </div>
               </div>
-            </div>
+            
           </div>
         ))}
+        </div>
+        
       </div>
     );
   }

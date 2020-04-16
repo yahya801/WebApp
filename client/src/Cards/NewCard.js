@@ -14,7 +14,7 @@ export class NewCard extends Component {
         <Card.Body>
           <Card.Title> {this.props.title} </Card.Title>
           <Card.Text>{this.props.description}</Card.Text>
-          <Button variant="primary">Go somewhere</Button>
+          <Button variant="primary">Explore</Button>
         </Card.Body>
       </Card>
     );
