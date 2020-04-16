@@ -25,7 +25,9 @@ class Header extends Component {
         { path: "/register", text: "Sign-up", isActive: false },
         { path: "/about", text: "About", isActive: false },
         { path: "/create_event", text: "Create Event", isActive: false },
-        { path: "/likes", text: "Likes", isActive: false }
+        { path: "/likes", text: "Likes", isActive: false },
+        { path: "/logout", text: "Logout", isActive: false }
+        
       ]
     };
   }
@@ -59,7 +61,7 @@ class Header extends Component {
           
           <form class="form-inline ml-auto">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"></input>
-            <button class="btn btn-outline-light ml-auto" type="submit"> Search </button>
+            {/* <button class="btn btn-outline-light ml-auto" type="submit"> Search </button> */}
           </form>
 
 

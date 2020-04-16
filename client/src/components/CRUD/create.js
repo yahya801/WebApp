@@ -14,7 +14,11 @@ export class create extends Component {
       price: "",
       submitted,
       
-    };
+    }
+    if (props.event){
+      this.setState = props.event
+    }
+   
   }
   onChange = e => {
     this.setState({ [e.target.id]: e.target.value });

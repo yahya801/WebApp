@@ -28,6 +28,20 @@ export class eventlist extends Component {
     console.log(this.state.addevent);
   };
 
+  editevent = eventname =>{
+    console.log(eventname);
+  }
+
+  deleteevent = eventname => {
+    axios
+    .delete("http://localhost:3000/event/delete", eventname)
+    .then(() => {
+      console.log('lknckjn')
+      console.log(this.props.loggedin)
+      console.log('Deleted Successfully')
+    })
+  }
+
   render() {
     if (this.addevent) {
       console.log("hqdkq");
@@ -60,7 +74,8 @@ export class eventlist extends Component {
                 <td>{Event.category}</td>
                 <td>{Event.price}</td>
                 <td>
-                  <Button variant="info" onClick={() => this.props.editevent(Event.eventname)}>Edit</Button>
+                  <Button variant="info" onClick={() => this.editevent(Event.eventname)}>Edit</Button>
+                  <Button variant="danger" onClick={() => this.deleteevent(Event.eventname)}>Delete</Button>
                 </td>
               </tr>
             ))}
