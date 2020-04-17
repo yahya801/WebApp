@@ -3,6 +3,8 @@ import React, { Component } from 'react'
 import {Link, Router} from 'react-router-dom';
 import {Jumbotron, Container, Row, Col, Image, Button} from 'react-bootstrap';
 import Cards from '../Cards/Cards';
+import Slider from './slider';
+import Coupons from './Layout/coupons';
 
 import './home.css';
 
@@ -22,6 +24,7 @@ export class home extends Component {
                         </Col>
 
                     </Row>
+                    <Coupons/>
 
                 </Container>
                 

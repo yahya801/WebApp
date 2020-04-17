@@ -12,6 +12,7 @@ import read from "./components/CRUD/read";
 import NB from "./components/Layout/Nvbar";
 import Home from "./components/home";
 import EventList from "./components/CRUD/eventlist";
+import About from "./components/Layout/about";
 
 import Event from "./components/Mainpage/event";
 
@@ -28,6 +29,7 @@ class App extends Component {
           <Route exact path="/login" component={Login} />
           <Route exact path="/logout" component={Logout} />
           <Route exact path="/dashboard" component={EventList} />
+          <Route exact path = "/about" component = {About} />
 
           <Route exact path="/create-event" component={create} />
           <Route exact path="/read-events" component={EventList} />

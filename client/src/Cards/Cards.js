@@ -28,25 +28,6 @@ export class Cards extends Component {
   render() {
     return (
       <div>
-<<<<<<< Updated upstream
-        <div className = "container-fluid">
-        <div className = 'row'>
-          {this.state.Event.map(Event => (
-            <div Key = {Event.id}>
-              <div className = "justify-content">
-                <div className = 'col-sm-4'>
-                  <Card imgsrc ={img1} title={Event.eventname} description={Event.description}/>
-                </div>
-              </div>
-            </div>
-
-          ))}
-        </div>
-        </div>
-      </div> 
-
-      )  }
-=======
         <div class="container-fluid">
         <div className= 'row'>
         {this.state.Event.map(Event => (
@@ -67,7 +48,6 @@ export class Cards extends Component {
       </div>
     );
   }
->>>>>>> Stashed changes
 }
 
 export default Cards;

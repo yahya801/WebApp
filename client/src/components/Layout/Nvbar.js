@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import "./Navbar.css"
 
 
 class NavLink extends Component {
@@ -59,11 +60,10 @@ class Header extends Component {
           >
             <span class="navbar-toggler-icon"></span>
           </button>
-          
           <form class="form-inline ml-auto">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"></input>
-            {/* <button class="btn btn-outline-light ml-auto" type="submit"> Search </button> */}
+            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search"></input>
           </form>
+          
 
 
 

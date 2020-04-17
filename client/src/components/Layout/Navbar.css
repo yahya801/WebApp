@@ -1,0 +1,38 @@
+.search-box{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background-color: #2f3640;
+    transform: translate(-50%, -50%);
+    height: 40px;
+    border-radius: 40px;
+    padding: 10px
+}
+
+.search-btn {
+color: tomato;
+float: right;
+width: 40px; 
+height: 40px;
+border-radius: 50%;
+background-color: #2f3640;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.search-txt{
+    border: none;
+    background: none;
+    outline: none;
+    float: left; 
+    padding: 0px;
+    color: white;
+    font-size: 16px;
+    transition: 0.4s;
+
+}
+
+.white, .white a {
+    color: #fff;
+  }
