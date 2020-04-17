@@ -23,7 +23,10 @@ const adminBro = new AdminBro({
           isVisible: { list: true, filter: true, show: true, edit: true }
         },
         password: {
-          isVisible: { list: false, filter: false, show: false, edit: true }
+          isVisible: { list: false, filter: false, show: false, edit: false }
+        },
+        _id: {
+          isVisible: { list: false, filter: false, show: false, edit: false }
         }
       }
     }},
