@@ -28,23 +28,26 @@ export class Cards extends Component {
   render() {
     return (
       <div>
-        <div className = "container-fluid">
-        <div className = 'row'>
-          {this.state.Event.map(Event => (
-            <div Key = {Event.id}>
-              <div className = "justify-content">
-                <div className = 'col-sm-4'>
-                  <Card imgsrc ={img1} title={Event.eventname} description={Event.description}/>
+        <div class="container-fluid">
+        <div className= 'row'>
+        {this.state.Event.map(Event => (
+          <div Key={Event.id}>
+            <div className="justify-content">
+             
+                <div className='col-sm-4'>
+                  <Card imgsrc={img1} title={Event.eventname} description={Event.description} />
                 </div>
               </div>
-            </div>
-
-          ))}
+            
+          </div>
+        ))}
         </div>
         </div>
-      </div> 
-
-      )  }
+        
+        
+      </div>
+    );
+  }
 }
 
 export default Cards;
