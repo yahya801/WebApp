@@ -33,12 +33,13 @@ export class eventlist extends Component {
     console.log(eventname);
   }
 
-  deleteevent = eventname => {
+  deleteevent = _id => {
+    console.log(_id)
     axios
-    .delete("http://localhost:3000/event/delete", eventname)
+    .delete(`http://localhost:3000/event/delete/${_id}`)
     .then(() => {
       console.log('lknckjn')
-      console.log(this.props.loggedin)
+     
       console.log('Deleted Successfully')
     })
   }
@@ -68,7 +69,7 @@ export class eventlist extends Component {
             </thead>
 
             {this.state.Event.map((Event) => (
-              <tr Key={Event.id}>
+              <tr Key={Event._id}>
                 <td>{Event.eventname}</td>
                 <td>{Event.location}</td>
                 <td>{Event.description}</td>
@@ -76,7 +77,7 @@ export class eventlist extends Component {
                 <td>{Event.price}</td>
                 <td>
                   <Button variant="info" onClick={() => this.editevent(Event.eventname)}>Edit</Button>
-                  <Button variant="danger" onClick={() => this.deleteevent(Event.eventname)}>Delete</Button>
+                  <Button variant="danger" onClick={() => this.deleteevent(Event._id)}>Delete</Button>
                 </td>
               </tr>
             ))}

@@ -17,12 +17,11 @@ route.post("/create", (req, res) => {
   res.json(eventmodal);
 });
 
-route.delete("/delete",(req,res) => {
-  console.log(req.body.eventname)
-  Event.findOneAndDelete({eventname : req.body.eventname})
-    .exec()
-    .then()
-      return res.sendStatus(200)
+route.delete("/delete/:id",(req,res) => {
+
+  Event.findById(req.params.id)
+  .then(event => event.remove().then(() => res.json({ success: true })))
+  .catch(err => res.status(404).json({ success: false }));
 })
 
 route.patch("/update", (req, res) => {
