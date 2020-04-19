@@ -15,9 +15,7 @@ export class create extends Component {
       submitted,
       
     }
-    if (props.event){
-      this.setState = props.event
-    }
+    
    
   }
   onChange = e => {
@@ -49,7 +47,7 @@ export class create extends Component {
   };
 
   render() {
-    if (this.submitted) {
+    if (this.state.submitted) {
       return <Redirect to="/read-events" />;
     }
 

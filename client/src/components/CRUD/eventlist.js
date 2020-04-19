@@ -3,17 +3,19 @@ import Table from "react-bootstrap/Table";
 import { Link, Redirect } from "react-router-dom";
 import axios from "axios";
 import { Container, Button, Alert } from "react-bootstrap";
-import history from './../history';
+import history from "./../history";
 
 export class eventlist extends Component {
   constructor(props) {
     super(props);
     let addevent = false;
+    let editevent = false;
 
     this.state = {
       error: null,
       Event: [],
       addevent,
+      editevent,
     };
   }
   async componentDidMount() {
@@ -25,30 +27,35 @@ export class eventlist extends Component {
     });
   }
   onClick() {
-    window.location('/create-event')  
+    window.location("/create-event");
+  }
+
+  editevent = (eventname) => {
+    //console.log(eventname);
+    if (!this.state.editevent) {
+      this.setState({ editevent: true });
     }
-  
+    console.log(this.state.editevent);
+  };
 
-  editevent = eventname =>{
-    console.log(eventname);
-  }
+  deleteevent = (_id) => {
+    console.log(_id);
+    axios.delete(`http://localhost:3000/event/delete/${_id}`).then(() => {
+     // window.location('/read-events')
+      console.log("lknckjn");
 
-  deleteevent = _id => {
-    console.log(_id)
-    axios
-    .delete(`http://localhost:3000/event/delete/${_id}`)
-    .then(() => {
-      console.log('lknckjn')
-     
-      console.log('Deleted Successfully')
-    })
-  }
-  onClick(){
-    history.push('/create-event')
+      console.log("Deleted Successfully");
+    });
+  };
+  onClick() {
+    history.push("/create-event");
   }
 
   render() {
-   
+    if (this.state.editevent) {
+      window.location("/edit-event");
+    }
+
     return (
       <div>
         <br />
@@ -76,8 +83,18 @@ export class eventlist extends Component {
                 <td>{Event.category}</td>
                 <td>{Event.price}</td>
                 <td>
-                  <Button variant="info" onClick={() => this.editevent(Event.eventname)}>Edit</Button>
-                  <Button variant="danger" onClick={() => this.deleteevent(Event._id)}>Delete</Button>
+                  <Button
+                    variant="info"
+                    onClick={() => this.editevent(Event.eventname)}
+                  >
+                    Edit
+                  </Button>
+                  <Button
+                    variant="danger"
+                    onClick={() => this.deleteevent(Event._id)}
+                  >
+                    Delete
+                  </Button>
                 </td>
               </tr>
             ))}
