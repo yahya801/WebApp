@@ -1,19 +1,23 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import axios from "axios";
+import DatePicker from 'react-datepicker'
 export class create extends Component {
   constructor(props) {
     super(props);
     let submitted = false;
     this.state = {
-      eventname: "",
-      date: "",
-      location: "",
-      category: "",
-      description: "",
-      price: "",
+      eventname: this.props.eventname || "",
+      date: this.props.date || "",
+      location: this.props.loc || "",
+      category: this.props.category || "",
+      description: this.props.description || "",
+      price: this.props.price || "",
       submitted,
-      
+      edit: this.props.edit || false,
+     selectedDate: "", 
+     setselectedDate: ""
+
     }
     
    
@@ -45,13 +49,13 @@ export class create extends Component {
       });
     console.log(eventData);
   };
-
   render() {
     if (this.state.submitted) {
       return <Redirect to="/read-events" />;
     }
-
+    
     return (
+
       <div>
         <div className="container">
           <div className="row">
@@ -76,6 +80,7 @@ export class create extends Component {
                   <label htmlFor="event-name">Event-Name</label>
                 </div>
                 <div className="input-field col s12">
+                <DatePicker selected = {this.state.selectedDate} onChange={date => this.state.setselectedDate(date)} />
                   <input
                     id="date"
                     type="Date"

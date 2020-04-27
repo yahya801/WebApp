@@ -1,6 +1,7 @@
-const moongoes = require("mongoose");
+const mongoose = require("mongoose");
+// const DateOnly = require('mongoose-dateonly')(mongoose);
 
-const eventschema = new moongoes.Schema({
+const eventschema = new mongoose.Schema({
   eventname: {
     type: String,
     required: true
@@ -24,12 +25,12 @@ const eventschema = new moongoes.Schema({
     required: true
   },
   date: {
-    type: Date,
+    type: Date
     
   },
   
 });
 
-const Event = moongoes.model("Events", eventschema);
+const Event = mongoose.model("Events", eventschema);
 
 module.exports = Event;  

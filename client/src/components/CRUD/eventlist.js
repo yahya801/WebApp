@@ -3,7 +3,9 @@ import Table from "react-bootstrap/Table";
 import { Link, Redirect } from "react-router-dom";
 import axios from "axios";
 import { Container, Button, Alert } from "react-bootstrap";
-import history from "./../history";
+import Create from "./create";
+
+import Moment from 'moment'
 
 export class eventlist extends Component {
   constructor(props) {
@@ -16,7 +18,16 @@ export class eventlist extends Component {
       Event: [],
       addevent,
       editevent,
+      // date: Date(this.props.date),
+      // formattedDate: Moment(date).format("LL"),
     };
+    // this.handleClick = this.handleClick.bind(this);
+  }
+  getComponent() {
+    if ((this.state.editevent = false)) {
+      console.log("hxhxb");
+      return <Create />;
+    }
   }
   async componentDidMount() {
     axios.get(`http://localhost:3000/event/`).then((res) => {
@@ -32,30 +43,31 @@ export class eventlist extends Component {
 
   editevent = (eventname) => {
     //console.log(eventname);
-    if (!this.state.editevent) {
-      this.setState({ editevent: true });
-    }
+    this.setState({ editevent: true });
     console.log(this.state.editevent);
+    if (this.state.editevent) {
+    }
   };
 
   deleteevent = (_id) => {
     console.log(_id);
-    axios.delete(`http://localhost:3000/event/delete/${_id}`).then(() => {
-     // window.location('/read-events')
-      console.log("lknckjn");
 
+    var removeindex = this.state.Event.map(function (Event) {
+      return Event._id;
+    }).indexOf(_id);
+    console.log(removeindex);
+    let neweventlist = [];
+    neweventlist = this.state.Event;
+    neweventlist.splice(removeindex, 1);
+    this.setState({ Event: neweventlist });
+
+    axios.delete(`http://localhost:3000/event/delete/${_id}`).then(() => {
       console.log("Deleted Successfully");
     });
   };
-  onClick() {
-    history.push("/create-event");
-  }
+  onClick() {}
 
   render() {
-    if (this.state.editevent) {
-      window.location("/edit-event");
-    }
-
     return (
       <div>
         <br />
@@ -71,6 +83,7 @@ export class eventlist extends Component {
                 <th>Location</th>
                 <th>Description</th>
                 <th>Category</th>
+                <th>Date</th>
                 <th>Price</th>
               </tr>
             </thead>
@@ -81,14 +94,16 @@ export class eventlist extends Component {
                 <td>{Event.location}</td>
                 <td>{Event.description}</td>
                 <td>{Event.category}</td>
+                <td>{Moment(Event.date).format("LL")}</td>
                 <td>{Event.price}</td>
                 <td>
-                  <Button
+                  <Link
                     variant="info"
-                    onClick={() => this.editevent(Event.eventname)}
+                    className="btn"
+                    to={`/edit-event/${Event._id}`}
                   >
                     Edit
-                  </Button>
+                  </Link>
                   <Button
                     variant="danger"
                     onClick={() => this.deleteevent(Event._id)}
