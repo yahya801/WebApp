@@ -33,11 +33,11 @@ const adminBro = new AdminBro({
     {
       resource: Event,
       options: {
-        name: {
+        eventname: {
           isVisible: { list: true, filter: true, show: true, edit: true }
         },
-        Qualification: {
-          isVisible: { list: true, filter: true, show: true, edit: true }
+        _id: {
+          isVisible: { list: false, filter: false, show: false, edit: false }
         }
       }
     }

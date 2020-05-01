@@ -6,7 +6,6 @@ export class create1 extends Component {
   constructor(props) {
     super(props);
     let submitted = false;
-    let userloggedin= false;
     this.state = {
       eventname: this.props.eventname || "",
       date: this.props.date || "",
@@ -17,15 +16,14 @@ export class create1 extends Component {
       time: this.props.time || "",
       submitted,
       edit: this.props.edit || false,
-      selectedFile: null,
-      userloggedin 
+      selectedDate: "",
+      setselectedDate: "",
     };
   }
   onChange = (e) => {
     this.setState({ [e.target.id]: e.target.value });
   };
   onSubmit = (e) => {
-    console.log(localStorage.getItem("user"))
     e.preventDefault();
 
     const eventData = {
@@ -35,53 +33,23 @@ export class create1 extends Component {
       category: this.state.category,
       description: this.state.description,
       price: this.state.price,
-      time: this.state.time,
-      //  image: this.state.selectedFile
+      time: this.state.time
     };
-    // const fd = new FormData();
-    // fd.append('image',this.state.selectedFile)
-    // console.log(eventData)
-    // fd.append('name',eventData)
-
-    var fd = new FormData()
-    // fd.append('files',this.state.selectedFile)
-    // var statebody = Object.assign({},eventData)
-    // fd.append('state',JSON.stringify(statebody))
-    // axios.post('/api/',fd)
-    console.log(fd.state)
-    // axios
-    //   .post("http://localhost:3000/event/create",eventData)
-    //   .then(() => {
-    //     this.setState({
-    //       submitted: true,
-    //     });
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //     console.error(err);
-    //   });
-    // console.log(eventData);
+    axios
+      .post("http://localhost:3000/event/create", eventData)
+      .then(() => {
+        this.setState({
+          submitted: true,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        console.error(err);
+      });
+    console.log(eventData);
   };
-  fileSelectedHandler = e => {
-    this.setState({
-      selectedFile: e.target.files[0]
-    })
-    console.log(e.target.files[0])
-  }
-  notloggedin(){
-    window.location =("/")
-  }
   render() {
-    if(!localStorage.getItem("user")== ""){
-      console.log("ahajcb")
-      }
-      else{
-       return  <Redirect to="/" />
-      }
-    
-    
     return (
-      
       <div>
         <div style={{paddingLeft: "100px"}}className="container">
           <form
@@ -128,7 +96,7 @@ export class create1 extends Component {
               </div>
             </div>
             <div className="form-group">
-              <label htmlFor="Time" className="col-sm-3 control-label">
+              <label htmlFor="Date" className="col-sm-3 control-label">
              Time*{" "}
               </label>
               <div className="col-sm-9">
@@ -207,16 +175,6 @@ export class create1 extends Component {
                   placeholder="Price"
                   className="form-control"
                 />
-              </div>
-            </div>
-            
-            <div>
-            <label htmlFor="Upload Image" className="col-sm-3 control-label">
-                Upload Image*
-              </label>
-              <br/>
-              <div  style ={{paddingLeft: "15px"}}>
-              <input type ="file" onChange={this.fileSelectedHandler} />
               </div>
             </div>
             <div>{this.state.errmissing}</div>

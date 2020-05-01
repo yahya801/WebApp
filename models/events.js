@@ -1,35 +1,39 @@
-const moongoes = require("mongoose");
+const mongoose = require("mongoose");
+// const DateOnly = require('mongoose-dateonly')(mongoose);
 
-const eventschema = new moongoes.Schema({
+const eventschema = new mongoose.Schema({
   eventname: {
     type: String,
-    required: true
+    required: true,
   },
   location: {
     type: String,
-    required: true
-
+    required: true,
   },
   category: {
     type: String,
-    required: true
-
-  },  
-  description:{
-      type: String,
-      required: true
+    required: true,
+  },
+  description: {
+    type: String,
+    required: true,
   },
   price: {
     type: Number,
-    required: true
+    required: true,
   },
   date: {
     type: Date,
+  },
+  time: {
+    type: String,
+  },
+  image: {
+    type: String,
     
   },
-  
 });
 
-const Event = moongoes.model("Events", eventschema);
+const Event = mongoose.model("Events", eventschema);
 
-module.exports = Event;  
+module.exports = Event;

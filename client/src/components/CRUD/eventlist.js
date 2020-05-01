@@ -3,18 +3,31 @@ import Table from "react-bootstrap/Table";
 import { Link, Redirect } from "react-router-dom";
 import axios from "axios";
 import { Container, Button, Alert } from "react-bootstrap";
-import history from './../history';
+import Create from "./create";
+
+import Moment from 'moment'
 
 export class eventlist extends Component {
   constructor(props) {
     super(props);
     let addevent = false;
+    let editevent = false;
 
     this.state = {
       error: null,
       Event: [],
       addevent,
+      editevent,
+      // date: Date(this.props.date),
+      // formattedDate: Moment(date).format("LL"),
     };
+    // this.handleClick = this.handleClick.bind(this);
+  }
+  getComponent() {
+    if ((this.state.editevent = false)) {
+      console.log("hxhxb");
+      return <Create />;
+    }
   }
   async componentDidMount() {
     axios.get(`http://localhost:3000/event/`).then((res) => {
@@ -25,30 +38,44 @@ export class eventlist extends Component {
     });
   }
   onClick() {
-    window.location('/create-event')  
-    }
-  
-
-  editevent = eventname =>{
-    console.log(eventname);
+    window.location("/create-event");
   }
 
-  deleteevent = _id => {
-    console.log(_id)
-    axios
-    .delete(`http://localhost:3000/event/delete/${_id}`)
-    .then(() => {
-      console.log('lknckjn')
-     
-      console.log('Deleted Successfully')
+  editevent = (_id) => {
+    const index = this.state.Event.map(function (Event) {
+      return Event._id;
     })
-  }
-  onClick(){
-    history.push('/create-event')
-  }
+
+    window.location = (`/edit-event/${_id}`)
+    console.log(index)
+    }
+  ;
+
+  deleteevent = (_id) => {
+    console.log(_id);
+
+    var removeindex = this.state.Event.map(function (Event) {
+      return Event._id;
+    }).indexOf(_id);
+    console.log(removeindex);
+    let neweventlist = [];
+    neweventlist = this.state.Event;
+    neweventlist.splice(removeindex, 1);
+    this.setState({ Event: neweventlist });
+
+    axios.delete(`http://localhost:3000/event/delete/${_id}`).then(() => {
+      console.log("Deleted Successfully");
+    });
+  };
+  onClick() {}
 
   render() {
-   
+    if(!localStorage.getItem("user")== ""){
+      console.log("ahajcb")
+      }
+      else{
+       return  <Redirect to="/" />
+      }
     return (
       <div>
         <br />
@@ -64,6 +91,8 @@ export class eventlist extends Component {
                 <th>Location</th>
                 <th>Description</th>
                 <th>Category</th>
+                <th>Date</th>
+                <th>Time</th>
                 <th>Price</th>
               </tr>
             </thead>
@@ -74,10 +103,24 @@ export class eventlist extends Component {
                 <td>{Event.location}</td>
                 <td>{Event.description}</td>
                 <td>{Event.category}</td>
+                <td>{Moment(Event.date).format("LL")}</td>
+                <td>{Event.time}</td>
                 <td>{Event.price}</td>
                 <td>
-                  <Button variant="info" onClick={() => this.editevent(Event.eventname)}>Edit</Button>
-                  <Button variant="danger" onClick={() => this.deleteevent(Event._id)}>Delete</Button>
+                  <Link
+                    variant="info"
+                    className="btn"
+                    // to={`/edit-event/${Event._id}`}
+                    onClick={() => this.editevent(Event._id)}
+                  >
+                    Edit
+                  </Link>
+                  <Button
+                    variant="danger"
+                    onClick={() => this.deleteevent(Event._id)}
+                  >
+                    Delete
+                  </Button>
                 </td>
               </tr>
             ))}

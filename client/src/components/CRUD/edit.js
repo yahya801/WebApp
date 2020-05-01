@@ -1,88 +1,44 @@
-import React, { Component, useState } from "react";
+import React, { Component } from 'react'
 import { Link, Redirect } from "react-router-dom";
-import axios from "axios";
-
-export class create1 extends Component {
-  constructor(props) {
-    super(props);
-    let submitted = false;
-    let userloggedin= false;
-    this.state = {
-      eventname: this.props.eventname || "",
-      date: this.props.date || "",
-      location: this.props.loc || "",
-      category: this.props.category || "",
-      description: this.props.description || "",
-      price: this.props.price || "",
-      time: this.props.time || "",
-      submitted,
-      edit: this.props.edit || false,
-      selectedFile: null,
-      userloggedin 
-    };
-  }
-  onChange = (e) => {
-    this.setState({ [e.target.id]: e.target.value });
-  };
-  onSubmit = (e) => {
-    console.log(localStorage.getItem("user"))
-    e.preventDefault();
-
-    const eventData = {
-      eventname: this.state.eventname,
-      date: this.state.date,
-      location: this.state.location,
-      category: this.state.category,
-      description: this.state.description,
-      price: this.state.price,
-      time: this.state.time,
-      //  image: this.state.selectedFile
-    };
-    // const fd = new FormData();
-    // fd.append('image',this.state.selectedFile)
-    // console.log(eventData)
-    // fd.append('name',eventData)
-
-    var fd = new FormData()
-    // fd.append('files',this.state.selectedFile)
-    // var statebody = Object.assign({},eventData)
-    // fd.append('state',JSON.stringify(statebody))
-    // axios.post('/api/',fd)
-    console.log(fd.state)
-    // axios
-    //   .post("http://localhost:3000/event/create",eventData)
-    //   .then(() => {
-    //     this.setState({
-    //       submitted: true,
-    //     });
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //     console.error(err);
-    //   });
-    // console.log(eventData);
-  };
-  fileSelectedHandler = e => {
-    this.setState({
-      selectedFile: e.target.files[0]
-    })
-    console.log(e.target.files[0])
-  }
-  notloggedin(){
-    window.location =("/")
-  }
-  render() {
-    if(!localStorage.getItem("user")== ""){
-      console.log("ahajcb")
+import axios from 'axios';
+import Moment from 'moment'
+export class edit extends Component {
+    constructor(props) {
+        super(props);
+       
+        this.state = {
+        Event: []
+        
+        }
+        // this.onChange = this.onChange.bind(this);
+    }
+    async componentWillMount(){
+        this.getEventDetails()
+    }
+   onChange = event => {
+        const { id, value } = event.target;
+        this.setState({
+          [id]: value
+        });
       }
-      else{
-       return  <Redirect to="/" />
-      }
-    
-    
-    return (
-      
-      <div>
+
+     getEventDetails(){
+        let eventid= this.props.match.params.id
+        axios.get(`http://localhost:3000/event/edit/${eventid}`)
+        .then(res => {
+          //  console.log(res.data.event)
+           this.setState({ Event: res.data.event });  
+            console.log(this.state.Event)
+        })
+        .catch(err => {
+            console.log(err);
+            console.error(err);
+          });
+        
+    }
+    render() {
+      return (
+        <div>
         <div style={{paddingLeft: "100px"}}className="container">
           <form
             noValidate
@@ -93,14 +49,14 @@ export class create1 extends Component {
             <h2>Create Event.</h2>
 
             <div className="form-group">
-              <label htmlFor="eventName" className="col-sm-3 control-label">
+              <label htmlFor="eventname" className="col-sm-3 control-label">
                 Event Name
               </label>
               <div className="col-sm-9">
                 <input
                   id="eventname"
                   type="text"
-                  value={this.state.eventname}
+                  value={this.state.Event.eventname}
                   onChange={this.onChange}
                   placeholder="Event Name"
                   className="form-control"
@@ -116,8 +72,8 @@ export class create1 extends Component {
               <div className="col-sm-9">
                 <input
                   id="date"
-                  type="Date"
-                  value={this.state.date}
+                  type="text"
+                  value={Moment( this.state.Event.date).format('L')}
                   onChange={this.onChange}
                   //   error={errors.email}
 
@@ -134,8 +90,8 @@ export class create1 extends Component {
               <div className="col-sm-9">
                 <input
                   id="time"
-                  type="Time"
-                  value={this.state.time}
+                  type="text"
+                  value={this.state.Event.time}
                   onChange={this.onChange}
                   //   error={errors.email}
 
@@ -153,7 +109,7 @@ export class create1 extends Component {
                 <input
                   id="location"
                   type="text"
-                  value={this.state.location}
+                  value={this.state.Event.location}
                   onChange={this.onChange}
                   //   error={errors.password}
 
@@ -170,7 +126,7 @@ export class create1 extends Component {
                 <input
                   id="category"
                   type="text"
-                  value={this.state.category}
+                  value={this.state.Event.category}
                   onChange={this.onChange}
                   placeholder="Category"
                   className="form-control"
@@ -185,7 +141,7 @@ export class create1 extends Component {
                 <input
                   id="description"
                   type="text"
-                  value={this.state.description}
+                  value={this.state.Event.description}
                   onChange={this.onChange}
                   id="description"
                   type="text"
@@ -202,7 +158,7 @@ export class create1 extends Component {
                 <input
                   id="price"
                   type="number"
-                  value={this.state.price}
+                  value={this.state.Event.price}
                   onChange={this.onChange}
                   placeholder="Price"
                   className="form-control"
@@ -227,15 +183,15 @@ export class create1 extends Component {
               </div>
             </div>
             <button type="submit" className="btn btn-primary">
-              Register
+              Update
             </button>
           </form>
           {/* /form */}
         </div>
         ;{/* ./container */}
       </div>
-    );
-  }
-}
+      );
+        }
+      }
 
-export default create1;
+export default edit
