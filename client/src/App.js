@@ -9,9 +9,10 @@ import Login from "./NewComponents/login&register/login";
 import Dashboard from "./components/auth/Dashboard";
 import Logout from "./components/auth/Logout";
 import sidebar from "./components/Layout/sidebar";
-import create from "./components/CRUD/create";
+import Create from "./components/CRUD/create";
 import read from "./components/CRUD/read";
 import NB from "./components/Layout/Nvbar";
+import Edit from './components/CRUD/edit'
 import Home from "./components/home";
 import EventList from "./components/CRUD/eventlist";
 import About from "./components/Layout/about";
@@ -26,6 +27,8 @@ import EventSearch from './NewComponents/eventpage/eventsearch'
 // import Eventpage from './NewComponents/eventpage/eventspage'
 import Eventcards from './NewComponents/eventpage/eventcard'
 import Google from './NewComponents/googlemap'
+import Container from './NewComponents/singleevent/container'
+import CRUDheader from './NewComponents/CRUD/crudheader'
 
 
 import Event from "./components/Mainpage/event";
@@ -57,14 +60,20 @@ class App extends Component {
           <Route exact path="/logout" component={Logout} />
           <Route exact path="/dashboard" component={EventList} />
           <Route exact path = "/about" component = {About} />
-
-          <Route exact path="/create-event" component={create} />
+          <Route exact path="/create-event" component={CRUDheader} />
+          <Route exact path="/create-event" component={Create} />
+          <Route path ="/single-event" component={Container} />
+          <Route exact path="/read-events" component={EventpageHeader} />
           <Route exact path="/read-events" component={EventList} />
-
+          {/* <Route exact path="/read-events" component={Edit} /> */}
+          <Route path='/edit-event/:id' component = {Edit} />
+          {/* <Route exact path="/edit-event/:id" component = {edit} /> */}
           <Route exact path="/update-event" component={sidebar} />
           <Route exact path="/delete-event" component={sidebar} />
+          {/* <Route exact path="/single-event" component={Container} /> */}
+
           <Footer />
-        </div>
+        </div> 
       </Router>
     );
   }

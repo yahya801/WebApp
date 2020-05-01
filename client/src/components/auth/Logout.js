@@ -6,6 +6,7 @@ export class Lougout extends Component {
     constructor(props){
         super(props)
         localStorage.removeItem("token")
+        localStorage.removeItem("user")
     }
     render() {
         return (

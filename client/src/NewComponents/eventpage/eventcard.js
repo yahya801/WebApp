@@ -25,8 +25,9 @@ export class eventcard extends Component {
         <div className="container">
           <div class="row events-list">
             {this.state.Event.map((Event) => (
-              <div Key={Event.id}>
+              <div Key={Event._id}>
                 <Eventpage
+                  event_id={Event._id}
                   eventname={Event.eventname}
                   location={Event.location}
                   date={Event.date}

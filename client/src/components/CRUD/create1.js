@@ -1,44 +1,56 @@
-import React, { Component } from 'react'
+import React, { Component, useState } from "react";
 import { Link, Redirect } from "react-router-dom";
-import axios from 'axios';
-import Moment from 'moment'
-export class edit extends Component {
-    constructor(props) {
-        super(props);
-       
-        this.state = {
-        Event: []
-        
-        }
-        // this.onChange = this.onChange.bind(this);
-    }
-    async componentWillMount(){
-        this.getEventDetails()
-    }
-   onChange = event => {
-        const { id, value } = event.target;
-        this.setState({
-          [id]: value
-        });
-      }
+import axios from "axios";
 
-     getEventDetails(){
-        let eventid= this.props.match.params.id
-        axios.get(`http://localhost:3000/event/edit/${eventid}`)
-        .then(res => {
-          //  console.log(res.data.event)
-           this.setState({ Event: res.data.event });  
-            console.log(this.state.Event)
-        })
-        .catch(err => {
-            console.log(err);
-            console.error(err);
-          });
-        
-    }
-    render() {
-      return (
-        <div>
+export class create1 extends Component {
+  constructor(props) {
+    super(props);
+    let submitted = false;
+    this.state = {
+      eventname: this.props.eventname || "",
+      date: this.props.date || "",
+      location: this.props.loc || "",
+      category: this.props.category || "",
+      description: this.props.description || "",
+      price: this.props.price || "",
+      time: this.props.time || "",
+      submitted,
+      edit: this.props.edit || false,
+      selectedDate: "",
+      setselectedDate: "",
+    };
+  }
+  onChange = (e) => {
+    this.setState({ [e.target.id]: e.target.value });
+  };
+  onSubmit = (e) => {
+    e.preventDefault();
+
+    const eventData = {
+      eventname: this.state.eventname,
+      date: this.state.date,
+      location: this.state.location,
+      category: this.state.category,
+      description: this.state.description,
+      price: this.state.price,
+      time: this.state.time
+    };
+    axios
+      .post("http://localhost:3000/event/create", eventData)
+      .then(() => {
+        this.setState({
+          submitted: true,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        console.error(err);
+      });
+    console.log(eventData);
+  };
+  render() {
+    return (
+      <div>
         <div style={{paddingLeft: "100px"}}className="container">
           <form
             noValidate
@@ -49,14 +61,14 @@ export class edit extends Component {
             <h2>Create Event.</h2>
 
             <div className="form-group">
-              <label htmlFor="eventname" className="col-sm-3 control-label">
+              <label htmlFor="eventName" className="col-sm-3 control-label">
                 Event Name
               </label>
               <div className="col-sm-9">
                 <input
                   id="eventname"
                   type="text"
-                  value={this.state.Event.eventname}
+                  value={this.state.eventname}
                   onChange={this.onChange}
                   placeholder="Event Name"
                   className="form-control"
@@ -72,8 +84,8 @@ export class edit extends Component {
               <div className="col-sm-9">
                 <input
                   id="date"
-                  type="text"
-                  value={Moment( this.state.Event.date).format('L')}
+                  type="Date"
+                  value={this.state.date}
                   onChange={this.onChange}
                   //   error={errors.email}
 
@@ -84,14 +96,14 @@ export class edit extends Component {
               </div>
             </div>
             <div className="form-group">
-              <label htmlFor="Time" className="col-sm-3 control-label">
+              <label htmlFor="Date" className="col-sm-3 control-label">
              Time*{" "}
               </label>
               <div className="col-sm-9">
                 <input
                   id="time"
-                  type="text"
-                  value={this.state.Event.time}
+                  type="Time"
+                  value={this.state.time}
                   onChange={this.onChange}
                   //   error={errors.email}
 
@@ -109,7 +121,7 @@ export class edit extends Component {
                 <input
                   id="location"
                   type="text"
-                  value={this.state.Event.location}
+                  value={this.state.location}
                   onChange={this.onChange}
                   //   error={errors.password}
 
@@ -126,7 +138,7 @@ export class edit extends Component {
                 <input
                   id="category"
                   type="text"
-                  value={this.state.Event.category}
+                  value={this.state.category}
                   onChange={this.onChange}
                   placeholder="Category"
                   className="form-control"
@@ -141,7 +153,7 @@ export class edit extends Component {
                 <input
                   id="description"
                   type="text"
-                  value={this.state.Event.description}
+                  value={this.state.description}
                   onChange={this.onChange}
                   id="description"
                   type="text"
@@ -158,21 +170,11 @@ export class edit extends Component {
                 <input
                   id="price"
                   type="number"
-                  value={this.state.Event.price}
+                  value={this.state.price}
                   onChange={this.onChange}
                   placeholder="Price"
                   className="form-control"
                 />
-              </div>
-            </div>
-            
-            <div>
-            <label htmlFor="Upload Image" className="col-sm-3 control-label">
-                Upload Image*
-              </label>
-              <br/>
-              <div  style ={{paddingLeft: "15px"}}>
-              <input type ="file" onChange={this.fileSelectedHandler} />
               </div>
             </div>
             <div>{this.state.errmissing}</div>
@@ -183,15 +185,15 @@ export class edit extends Component {
               </div>
             </div>
             <button type="submit" className="btn btn-primary">
-              Update
+              Register
             </button>
           </form>
           {/* /form */}
         </div>
         ;{/* ./container */}
       </div>
-      );
-        }
-      }
+    );
+  }
+}
 
-export default edit
+export default create1;

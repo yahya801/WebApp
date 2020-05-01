@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import img1 from "../../images/event-1.jpg";
 
+import { Link, Redirect } from "react-router-dom";
+
 import location from "../../images/location-icon.png";
 
 export class eventspage extends Component {
@@ -8,31 +10,36 @@ export class eventspage extends Component {
     super(props);
     //let loading = true;
     this.state = {
-      	
+      	event_id: this.props.event_id
      
     };
   }
+ handleClick()  {
+   window.location = `/single-event/${this.state.event_id}`
+  };
+  
   render() {
     return (
       <div>
         <div class="col-sm">
           <figure className="events-thumbnail">
-            <a href="#">
-              <img src={img1} alt />
+          
+            <a>
+              <img src={img1} alt  onClick={()=> this.handleClick()}/>
             </a>
           </figure>
           <div className="event-content-wrap">
             <header className="entry-header flex justify-content-between">
               <div>
                 <h2 className="entry-title">
-                  <a href="#">{this.props.eventname}</a>
+                  <a onClick={()=> this.handleClick()}>{this.props.eventname}</a>
                 </h2>
                 <div className="event-location">
-                  <a href="#">{this.props.location}</a>
+                  <a onClick={()=> this.handleClick()}>{this.props.location}</a>
                 </div>
-                <div className="event-date">{this.props.date}</div>
+                <div className="event-date" onClick={()=> this.handleClick()}>{this.props.date}</div>
               </div>
-              <div className="event-cost flex justify-content-center align-items-center">
+              <div onClick={()=> this.handleClick()} className="event-cost flex justify-content-center align-items-center">
                 from{" Rs  "}
                 <b>
                   <span>{this.props.price}</span>
@@ -40,7 +47,7 @@ export class eventspage extends Component {
               </div>
             </header>
             <footer className="entry-footer">
-              <a href="#">Buy Tickets</a>
+              <a onClick={()=> this.handleClick()}>Buy Tickets</a>
             </footer>
           </div>
         </div>

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link, Redirect } from "react-router-dom";
 import axios from 'axios';
 import Moment from 'moment'
-export class edit extends Component {
+export class edit1 extends Component {
     constructor(props) {
         super(props);
        
@@ -194,4 +194,4 @@ export class edit extends Component {
         }
       }
 
-export default edit
+export default edit1

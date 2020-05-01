@@ -1,73 +1,7 @@
-import React from "react";
-import { Link, Redirect } from "react-router-dom";
-import axios from "axios";
+import React, { Component } from "react";
 
-class login extends React.Component {
-  constructor(props) {
-    super(props);
-    let loggedin = false;
-    this.state = {
-      email: "",
-      password: "",
-      errors: "",
-      loggedin,
-      errmsg: "",
-    };
-    this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-  }
-  onChange = (e) => {
-    this.setState({ [e.target.id]: e.target.value });
-  };
-
-  onSubmit = (e) => {
-    e.preventDefault();
-
-    const userData = {
-      email: this.state.email,
-      password: this.state.password,
-    };
-    axios
-      .post(`http://localhost:3000/${this.state.email}/signin`, userData)
-      .then((response) => {
-        console.log(response.data.user);
-        localStorage.setItem("token", response.data.token);
-        localStorage.setItem("user",response.data.user.name)
-      
-        this.setState({
-      //    loggedin: true,
-        });
-        if (response.data.user.role == "super-admin"){
-            console.log('hell')
-          window.location= 'http://localhost:3000/admin/resources/user';
-
-        }
-        if (response.data.user.role == "admin"){
-            console.log('hell')
-           window.location= '/read-events';
-
-        }
-        // window.location = "/read-events";
-        //window.location= 'http://localhost:3000/admin/resources/user';
-      })
-      .catch((err) => {
-        //  console.log(err);
-        console.error(err.response.data);
-        this.setState({ errmsg: err.response.data.msg });
-        console.log(this.state.errmsg);
-      });
-  };
-  onredirect = (e) => {
-    window.location.replace("//http://localhost:3000/admin/resources/user");
-  };
+export class login1 extends Component {
   render() {
-    const { errors } = this.state;
-    if (this.state.loggedin) {
-      //     return <Redirect component={() => {
-      //  window.location= 'http://localhost:3000/admin/resources/user';
-      // //  to="http://localhost:3000/admin/resources/user" />;
-      //     } } />
-    }
     return (
       <div>
         <div className="container">
@@ -78,7 +12,7 @@ class login extends React.Component {
                   <div className="logo mb-3">
                     <div className="col-md-12 text-center"></div>
                   </div>
-                  <form onSubmit={this.onSubmit} name="login">
+                  <form action method="post" name="login">
                     <div className="form-group">
                       <label htmlFor="exampleInputEmail1">Email address</label>
                       <input
@@ -88,9 +22,6 @@ class login extends React.Component {
                         id="email"
                         aria-describedby="emailHelp"
                         placeholder="Enter email"
-                        onChange={this.onChange}
-                        value={this.state.email}
-                        error={errors.email}
                       />
                     </div>
                     <div className="form-group">
@@ -102,12 +33,8 @@ class login extends React.Component {
                         className="form-control"
                         aria-describedby="emailHelp"
                         placeholder="Enter Password"
-                        onChange={this.onChange}
-                        value={this.state.password}
-                        error={errors.password}
                       />
                     </div>
-                    <div>{this.state.errmsg}</div>
                     <div className="form-group">
                       <p className="text-center">
                         By signing up you accept our{" "}
@@ -159,6 +86,4 @@ class login extends React.Component {
   }
 }
 
-export default login;
-
-
+export default login1;

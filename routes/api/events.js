@@ -1,10 +1,35 @@
 const express = require("express");
 const Event = require("../../models/events");
+const Image = require("../../models/eventimage");
 const route = express.Router();
-const multer = require("multer");
+const upload = require("../../middleware/upload");
 
 route.post("/create", (req, res) => {
-  const { eventname, date, location, category, description, price } = req.body;
+ 
+  const {
+    eventname,
+    date,
+    location,
+    category,
+    description,
+    price,
+    time,
+  } = req.body;
+  if (
+    !eventname ||
+    !date ||
+    !location ||
+    !category ||
+    !description ||
+    !price ||
+    !time
+  ) {
+    return res.status(400).json({ msg: "Please enter all Event details" });
+  }
+  Event.findOne({ eventname }).then((event) => {
+    if (event) return res.status(400).json({ msg: "Event already exists" });
+  });
+
   let event = {};
   event.eventname = eventname;
   event.location = location;
@@ -12,11 +37,18 @@ route.post("/create", (req, res) => {
   event.category = category;
   event.price = price;
   event.date = date;
+  event.time = time;
+  
   let eventmodal = new Event(event);
   eventmodal.save();
   console.log(eventmodal);
   res.json(eventmodal);
 });
+route.post("/upload-image", (req, res) => {
+
+
+}
+)
 
 route.delete("/delete/:id", (req, res) => {
   Event.findById(req.params.id)
@@ -36,7 +68,7 @@ route.patch("/update", (req, res) => {
 route.get("/edit/:id", (req, res) => {
   Event.findOne(req.param.id).then((event) => {
     return res.json({
-      event
+      event,
     });
   });
 });

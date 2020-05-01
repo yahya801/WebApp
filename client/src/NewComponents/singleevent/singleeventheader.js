@@ -4,7 +4,17 @@ import img1 from '../../images/events-page-header-bg.jpg'
 import axios from 'axios'
 
 export class pageheader extends Component {
+  constructor(props) {
+    super(props);
+   
+    this.state = {
+      eventname: this.props.eventname
+    };
+  }
+ 
+ 
   render() {
+  
     
     return (
       <div>
@@ -14,7 +24,7 @@ export class pageheader extends Component {
             <div className="row">
               <div className="col-12">
                 <header className="entry-header">
-                  <h1 className="entry-title">Events.</h1>
+                  <h1 className="entry-title">{this.state.eventname}</h1>
                 </header>
               </div>
             </div>

@@ -41,13 +41,15 @@ export class eventlist extends Component {
     window.location("/create-event");
   }
 
-  editevent = (eventname) => {
-    //console.log(eventname);
-    this.setState({ editevent: true });
-    console.log(this.state.editevent);
-    if (this.state.editevent) {
+  editevent = (_id) => {
+    const index = this.state.Event.map(function (Event) {
+      return Event._id;
+    })
+
+    window.location = (`/edit-event/${_id}`)
+    console.log(index)
     }
-  };
+  ;
 
   deleteevent = (_id) => {
     console.log(_id);
@@ -68,6 +70,12 @@ export class eventlist extends Component {
   onClick() {}
 
   render() {
+    if(!localStorage.getItem("user")== ""){
+      console.log("ahajcb")
+      }
+      else{
+       return  <Redirect to="/" />
+      }
     return (
       <div>
         <br />
@@ -84,6 +92,7 @@ export class eventlist extends Component {
                 <th>Description</th>
                 <th>Category</th>
                 <th>Date</th>
+                <th>Time</th>
                 <th>Price</th>
               </tr>
             </thead>
@@ -95,12 +104,14 @@ export class eventlist extends Component {
                 <td>{Event.description}</td>
                 <td>{Event.category}</td>
                 <td>{Moment(Event.date).format("LL")}</td>
+                <td>{Event.time}</td>
                 <td>{Event.price}</td>
                 <td>
                   <Link
                     variant="info"
                     className="btn"
-                    to={`/edit-event/${Event._id}`}
+                    // to={`/edit-event/${Event._id}`}
+                    onClick={() => this.editevent(Event._id)}
                   >
                     Edit
                   </Link>
