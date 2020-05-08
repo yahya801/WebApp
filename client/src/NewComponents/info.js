@@ -33,7 +33,7 @@ export class info extends Component {
                   <a href="#" className="btn gradient-bg">
                     Read More
                   </a>
-                  <a href="#" className="btn dark">
+                  <a href="/register" className="btn dark">
                     Register Now
                   </a>
                 </footer>

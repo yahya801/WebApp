@@ -42,12 +42,16 @@ export class eventlist extends Component {
   }
 
   editevent = (_id) => {
-    const index = this.state.Event.map(function (Event) {
+    var index = this.state.Event.map(function (Event) {
       return Event._id;
-    })
-
-    window.location = (`/edit-event/${_id}`)
+    }).indexOf(_id)
     console.log(index)
+    let neweventlist = [];
+    neweventlist = this.state.Event;
+    console.log(neweventlist[index]._id)
+
+    window.location = (`/editevent/${_id}`)
+    // console.log(index)
     }
   ;
 

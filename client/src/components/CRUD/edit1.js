@@ -10,20 +10,21 @@ export class edit1 extends Component {
         Event: []
         
         }
-        // this.onChange = this.onChange.bind(this);
+        this.onChange = this.onChange.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
     }
     async componentWillMount(){
         this.getEventDetails()
     }
-   onChange = event => {
-        const { id, value } = event.target;
-        this.setState({
-          [id]: value
-        });
-      }
+   onChange(event) {
+    const name = event.target.name;
+    const value = event.target.value;
 
+    this.setState({
+      [name]: value
+    })}
      getEventDetails(){
-        let eventid= this.props.match.params.id
+        let eventid= this.props.match.params.Id
         axios.get(`http://localhost:3000/event/edit/${eventid}`)
         .then(res => {
           //  console.log(res.data.event)
@@ -36,6 +37,36 @@ export class edit1 extends Component {
           });
         
     }
+    onSubmit = (e) => {
+      console.log(localStorage.getItem("user"))
+      e.preventDefault();
+  
+      const eventData = {
+        eventname: this.state.eventname,
+        date: this.state.date,
+        location: this.state.location,
+        category: this.state.category,
+        description: this.state.description,
+        price: this.state.price,
+        time: this.state.time,
+     
+      };
+    
+   
+      axios
+        // let eventid= this.props.match.params.id
+        .put(`http://localhost:3000/event/update/${this.props.match.params.id}`,eventData)
+        .then(() => {
+          this.setState({
+            submitted: true,
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+          console.error(err);
+        });
+      console.log(eventData);
+    };
     render() {
       return (
         <div>
@@ -46,7 +77,7 @@ export class edit1 extends Component {
             className="form-horizontal"
             role="form"
           >
-            <h2>Create Event.</h2>
+            <h2>Edit Event.</h2>
 
             <div className="form-group">
               <label htmlFor="eventname" className="col-sm-3 control-label">
@@ -73,7 +104,7 @@ export class edit1 extends Component {
                 <input
                   id="date"
                   type="text"
-                  value={Moment( this.state.Event.date).format('L')}
+                  value={Moment( this.state.Event.date).format('LL')}
                   onChange={this.onChange}
                   //   error={errors.email}
 

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import img1 from "../images/logo.png";
 import img2 from"../images/header-bg.jpg"
-import Navbar from './navbar'
+import Navbar from '././Navbar/navbar'
 import Home from './home'
 
 export class header extends Component {

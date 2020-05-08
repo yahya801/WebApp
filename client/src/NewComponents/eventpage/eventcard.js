@@ -19,22 +19,40 @@ export class eventcard extends Component {
       console.log(Event);
     });
   }
+  handleClick() {
+    window.location = `/single_event/${this.state.event_id}`;
+  }
+  singleevent = (_id) => {
+    const index = this.state.Event.map(function (Event) {
+      return Event._id;
+    });
+
+    window.location = `singleevent/${_id}`;
+    console.log(index);
+  };
   render() {
     return (
       <div>
-        <div className="container">
-          <div class="row events-list">
-            {this.state.Event.map((Event) => (
-              <div Key={Event._id}>
-                <Eventpage
-                  event_id={Event._id}
-                  eventname={Event.eventname}
-                  location={Event.location}
-                  date={Event.date}
-                  price={Event.price}
-                />
-              </div>
-            ))}
+          <div style={{ paddingLeft: "100px" }}>
+          <div className="container-fuid">
+            <div class="row events-list">
+              {this.state.Event.map((Event) => (
+                <div
+                  Key={Event._id}
+                  onClick={() => this.singleevent(Event._id)}
+                >
+                  <div class="col-sm">
+                    <Eventpage
+                      eventid={Event._id}
+                      eventname={Event.eventname}
+                      location={Event.location}
+                      date={Event.date}
+                      price={Event.price}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

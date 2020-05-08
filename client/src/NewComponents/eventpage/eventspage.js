@@ -10,18 +10,19 @@ export class eventspage extends Component {
     super(props);
     //let loading = true;
     this.state = {
-      	event_id: this.props.event_id
+      	event_id: this.props.eventid
      
     };
   }
+  // window.location = (`/edit-event/${_id}`)
  handleClick()  {
-   window.location = `/single-event/${this.state.event_id}`
+  //  window.location = (`/single_event/${this.state.event_id}`)
   };
   
   render() {
     return (
       <div>
-        <div class="col-sm">
+     
           <figure className="events-thumbnail">
           
             <a>
@@ -50,7 +51,7 @@ export class eventspage extends Component {
               <a onClick={()=> this.handleClick()}>Buy Tickets</a>
             </footer>
           </div>
-        </div>
+       
       </div>
     );
   }

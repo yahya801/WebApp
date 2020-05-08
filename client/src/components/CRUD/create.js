@@ -43,24 +43,24 @@ export class create1 extends Component {
     // console.log(eventData)
     // fd.append('name',eventData)
 
-    var fd = new FormData()
+    // var fd = new FormData()
     // fd.append('files',this.state.selectedFile)
     // var statebody = Object.assign({},eventData)
     // fd.append('state',JSON.stringify(statebody))
     // axios.post('/api/',fd)
-    console.log(fd.state)
-    // axios
-    //   .post("http://localhost:3000/event/create",eventData)
-    //   .then(() => {
-    //     this.setState({
-    //       submitted: true,
-    //     });
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //     console.error(err);
-    //   });
-    // console.log(eventData);
+    // console.log(fd.state)
+    axios
+      .post("http://localhost:3000/event/create",eventData)
+      .then(() => {
+        this.setState({
+          submitted: true,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        console.error(err);
+      });
+    console.log(eventData);
   };
   fileSelectedHandler = e => {
     this.setState({

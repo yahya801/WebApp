@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import img1 from "../../images/summer.jpg";
+import img2 from "../../images/location-icon.png"
+import Moment from 'moment'
+
 
 
 export class eventdescription extends Component {
@@ -9,7 +12,7 @@ export class eventdescription extends Component {
     this.state = {
       eventname: this.props.eventname || "",
       date: this.props.date || "",
-      location: this.props.loc || "",
+      location: this.props.location || "",
       category: this.props.category || "",
       description: this.props.description || "",
       price: this.props.price || "",
@@ -23,17 +26,22 @@ export class eventdescription extends Component {
   render() {
     return (
       <div>
+        <div class="container"></div>
         <div className="row">
           <div className="col-12 single-event">
             <div className="event-content-wrap">
               <header className="entry-header flex flex-wrap justify-content-between align-items-end">
-                <div className="single-event-heading">
+                <div className="single-event-heading" style={{paddingLeft:"150px"}}>
                   <h2 className="entry-title">{this.state.eventname}</h2>
-                  <div className="event-location">
-                    <a href="#">{this.state.location}</a>
+                  <div>
+                     
+
+                  <div className="event-location" >
+                    <a href="#" >{this.state.location}</a>
+                  </div>
                   </div>
                   <div className="event-date">
-                    {this.state.date} @ {this.state.time}
+                    {Moment(this.state.date).format("LL")} @ {this.state.time}
                   </div>
                 </div>
                 <div
@@ -41,12 +49,12 @@ export class eventdescription extends Component {
                   className="buy-tickets flex justify-content-center align-items-center"
                 >
                   <a className="btn gradient-bg" href="#">
-                    Buy Tikets
+                    Buy Tickets
                   </a>
                 </div>
               </header>
               <br />
-              <figure className="events-thumbnail">
+              <figure style={{paddingLeft:"150px"}} className="events-thumbnail">
                 <img src={img1} alt />
               </figure>
             </div>

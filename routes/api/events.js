@@ -66,12 +66,41 @@ route.patch("/update", (req, res) => {
     });
 });
 route.get("/edit/:id", (req, res) => {
-  Event.findOne(req.param.id).then((event) => {
+  
+  Event.findById(req.params.id).then((event) => {
     return res.json({
       event,
     });
   });
 });
+route.put("/update/:id", (req, res) => {
+  console.log(req.body)
+    Event.findOneAndUpdate(req.param.id,{
+      eventname: req.body.eventdata.eventname,
+      location:  req.body.eventdata.location,
+      description:  req.body.eventdata.description,
+      category:  req.body.eventdata.category,
+      price:  req.body.eventdata.price,
+      date:  req.body.eventdata.date,
+      time:  req.body.eventdata.time
+    }, {new: true})
+    .then(event => {
+      if(!event) {
+          return res.status(404).send({
+              message: "Product not found with id " + req.params.productId
+          });
+      }
+      res.send(event);
+  }).catch(err => {
+      if(err.kind === 'ObjectId') {
+          return res.status(404).send({
+              message: "Product not found with id " + req.params.productId
+          });                
+      }
+      return res.status(500).send({
+          message: "Something wrong updating note with id " + req.params.productId
+      });
+  });})
 route.get("/:eventname", (req, res) => {
   Event.find(req.param.eventname).then((userfound) => {
     return res.json({
@@ -81,6 +110,14 @@ route.get("/:eventname", (req, res) => {
     });
   });
 });
+route.get("/singleevent/:ID",(req,res) => {
+  // console.log(req.params.ID)
+  Event.findById(req.params.ID).then((event) => {
+    return res.json({
+      event
+    })
+  } )
+})
 
 route.get("/", (req, res) => {
   Event.find({}, function (err, events) {
