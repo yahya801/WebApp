@@ -16,6 +16,7 @@ export class create1 extends Component {
       price: this.props.price || "",
       time: this.props.time || "",
       submitted,
+      userid: "",
       edit: this.props.edit || false,
       selectedFile: null,
       userloggedin 
@@ -25,7 +26,7 @@ export class create1 extends Component {
     this.setState({ [e.target.id]: e.target.value });
   };
   onSubmit = (e) => {
-    console.log(localStorage.getItem("user"))
+    console.log(localStorage.getItem("id"))
     e.preventDefault();
 
     const eventData = {
@@ -36,6 +37,7 @@ export class create1 extends Component {
       description: this.state.description,
       price: this.state.price,
       time: this.state.time,
+      userid: localStorage.getItem("id")
       //  image: this.state.selectedFile
     };
     // const fd = new FormData();
@@ -43,24 +45,24 @@ export class create1 extends Component {
     // console.log(eventData)
     // fd.append('name',eventData)
 
-    var fd = new FormData()
+    // var fd = new FormData()
     // fd.append('files',this.state.selectedFile)
     // var statebody = Object.assign({},eventData)
     // fd.append('state',JSON.stringify(statebody))
     // axios.post('/api/',fd)
-    console.log(fd.state)
-    // axios
-    //   .post("http://localhost:3000/event/create",eventData)
-    //   .then(() => {
-    //     this.setState({
-    //       submitted: true,
-    //     });
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //     console.error(err);
-    //   });
-    // console.log(eventData);
+    // console.log(fd.state)
+    axios
+      .post("http://localhost:3000/event/create",eventData)
+      .then(() => {
+        this.setState({
+          submitted: true,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        console.error(err);
+      });
+    console.log(eventData);
   };
   fileSelectedHandler = e => {
     this.setState({

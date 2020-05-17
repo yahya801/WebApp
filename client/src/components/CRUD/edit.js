@@ -1,52 +1,55 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
 import { Link, Redirect } from "react-router-dom";
-import axios from 'axios';
-import Moment from 'moment'
+import axios from "axios";
+import Moment from "moment";
 export class edit extends Component {
-    constructor(props) {
-        super(props);
-       
-        this.state = {
-        Event: []
-        
-        }
-        // this.onChange = this.onChange.bind(this);
-    }
-    async componentWillMount(){
-        this.getEventDetails()
-    }
-   onChange = event => {
-        const { id, value } = event.target;
-        this.setState({
-          [id]: value
-        });
-      }
+  constructor(props) {
+    super(props);
 
-     getEventDetails(){
-        let eventid= this.props.match.params.id
-        axios.get(`http://localhost:3000/event/edit/${eventid}`)
-        .then(res => {
-          //  console.log(res.data.event)
-           this.setState({ Event: res.data.event });  
-            console.log(this.state.Event)
-        })
-        .catch(err => {
-            console.log(err);
-            console.error(err);
-          });
-        
-    }
-    render() {
-      return (
-        <div>
-        <div style={{paddingLeft: "100px"}}className="container">
+    this.state = {
+      Event: [],
+      id:'',
+      value :  ''
+    };
+    // this.onChange = this.onChange.bind(this);
+  }
+  async componentWillMount() {
+    this.getEventDetails();
+  }
+  onChange = (event) => {
+    
+    const { id, value } = event.target;
+    this.setState({
+      [id]: value,
+    });
+  };
+
+  getEventDetails() {
+    let eventid = this.props.match.params.Id;
+    console.log(eventid)
+    axios
+      .get(`http://localhost:3000/event/edit/${eventid}`)
+      .then((res) => {
+        console.log(res.data.event);
+        this.setState({ Event: res.data.event });
+        console.log(this.state.Event);
+      })
+      .catch((err) => {
+        console.log(err);
+        console.error(err);
+      });
+  }
+  render() {
+    return (
+      <div>
+        <div style={{ paddingLeft: "100px" }} className="container">
           <form
             noValidate
             onSubmit={this.onSubmit}
             className="form-horizontal"
             role="form"
           >
-            <h2>Create Event.</h2>
+            <h2>Edit Event.</h2>
 
             <div className="form-group">
               <label htmlFor="eventname" className="col-sm-3 control-label">
@@ -54,7 +57,7 @@ export class edit extends Component {
               </label>
               <div className="col-sm-9">
                 <input
-                  id="eventname"
+                  id="eventname "
                   type="text"
                   value={this.state.Event.eventname}
                   onChange={this.onChange}
@@ -67,13 +70,13 @@ export class edit extends Component {
 
             <div className="form-group">
               <label htmlFor="Date" className="col-sm-3 control-label">
-             Date*{" "}
+                Date*{" "}
               </label>
               <div className="col-sm-9">
                 <input
                   id="date"
                   type="text"
-                  value={Moment( this.state.Event.date).format('L')}
+                  value={Moment(this.state.Event.date).format("LL")}
                   onChange={this.onChange}
                   //   error={errors.email}
 
@@ -85,7 +88,7 @@ export class edit extends Component {
             </div>
             <div className="form-group">
               <label htmlFor="Time" className="col-sm-3 control-label">
-             Time*{" "}
+                Time*{" "}
               </label>
               <div className="col-sm-9">
                 <input
@@ -95,7 +98,7 @@ export class edit extends Component {
                   onChange={this.onChange}
                   //   error={errors.email}
 
-                    // placeholder="Email"
+                  // placeholder="Email"
                   className="form-control"
                   //   name="email"
                 />
@@ -165,14 +168,14 @@ export class edit extends Component {
                 />
               </div>
             </div>
-            
+
             <div>
-            <label htmlFor="Upload Image" className="col-sm-3 control-label">
+              <label htmlFor="Upload Image" className="col-sm-3 control-label">
                 Upload Image*
               </label>
-              <br/>
-              <div  style ={{paddingLeft: "15px"}}>
-              <input type ="file" onChange={this.fileSelectedHandler} />
+              <br />
+              <div style={{ paddingLeft: "15px" }}>
+                <input type="file" onChange={this.fileSelectedHandler} />
               </div>
             </div>
             <div>{this.state.errmissing}</div>
@@ -190,8 +193,8 @@ export class edit extends Component {
         </div>
         ;{/* ./container */}
       </div>
-      );
-        }
-      }
+    );
+  }
+}
 
-export default edit
+export default edit;

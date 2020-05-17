@@ -18,6 +18,7 @@ export class eventlist extends Component {
       Event: [],
       addevent,
       editevent,
+      userid: localStorage.getItem("id")
       // date: Date(this.props.date),
       // formattedDate: Moment(date).format("LL"),
     };
@@ -30,7 +31,13 @@ export class eventlist extends Component {
     }
   }
   async componentDidMount() {
-    axios.get(`http://localhost:3000/event/`).then((res) => {
+    console.log(this.state.userid)
+    // const id = this.state.userid
+    axios.get("http://localhost:3000/event/", {
+      params: {
+       userid: this.state.userid
+      }
+    }).then((res) => {
       //    const event = res.data[0];
       //  this.setState({ event});
       this.setState({ Event: res.data.events });
@@ -42,12 +49,16 @@ export class eventlist extends Component {
   }
 
   editevent = (_id) => {
-    const index = this.state.Event.map(function (Event) {
+    var index = this.state.Event.map(function (Event) {
       return Event._id;
-    })
-
-    window.location = (`/edit-event/${_id}`)
+    }).indexOf(_id)
     console.log(index)
+    let neweventlist = [];
+    neweventlist = this.state.Event;
+    console.log(neweventlist[index]._id)
+
+    window.location = (`/editevent/${_id}`)
+    // console.log(index)
     }
   ;
 
