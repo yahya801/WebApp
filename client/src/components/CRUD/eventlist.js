@@ -18,6 +18,7 @@ export class eventlist extends Component {
       Event: [],
       addevent,
       editevent,
+      userid: localStorage.getItem("id")
       // date: Date(this.props.date),
       // formattedDate: Moment(date).format("LL"),
     };
@@ -30,7 +31,13 @@ export class eventlist extends Component {
     }
   }
   async componentDidMount() {
-    axios.get(`http://localhost:3000/event/`).then((res) => {
+    console.log(this.state.userid)
+    // const id = this.state.userid
+    axios.get("http://localhost:3000/event/", {
+      params: {
+       userid: this.state.userid
+      }
+    }).then((res) => {
       //    const event = res.data[0];
       //  this.setState({ event});
       this.setState({ Event: res.data.events });

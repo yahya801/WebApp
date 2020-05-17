@@ -31,6 +31,7 @@ class login extends React.Component {
       .post(`http://localhost:3000/${this.state.email}/signin`, userData)
       .then((response) => {
         console.log(response.data.user);
+        localStorage.setItem("id",response.data.user.id)
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("user",response.data.user.name)
       

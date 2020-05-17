@@ -23,12 +23,15 @@ import Newsletter from './NewComponents/newsletter'
 import EventHeader from './NewComponents/eventpage/pageheader'
 import Home1 from './NewComponents/home'
 import EventpageHeader from './NewComponents/eventpage/pageheader'
-import EventSearch from './NewComponents/eventpage/eventsearch'
+import EventSearch from './NewComponents/eventpage/search/searchcontainer'
+import EventPage from './NewComponents/eventpage/eventpage'
 // import Eventpage from './NewComponents/eventpage/eventspage'
-import Eventcards from './NewComponents/eventpage/eventcard'
+// import Eventcards from './NewComponents/eventpage/eventcard'
 // import Google from './NewComponents/googlemap'
 import Container from './NewComponents/singleevent/container'
 import CRUDheader from './NewComponents/CRUD/crudheader'
+// import Pal from './NewComponents/singleevent/pallete'
+// import Tab from './NewComponents/singleevent/tabs'
 
 
 // import Event from "./components/Mainpage/event";
@@ -44,15 +47,16 @@ class App extends Component {
           <Route exact path="/" component={Home1} />
           <Route exact path="/" component={Info} />
           <Route exact path="/" component={Newsletter} />
-          
+          {/* <Route exact path="/yahya" component={Tab} /> */}
           {/* <NB /> */}
           {/* <Route exact path="/" component={Landing} /> */}
           {/* <Route exact path="/" component={Event} /> */}
           {/* <Route exact path="/" component={Home} /> */}
-          <Route exact path="/events" component={EventpageHeader} />
+          <Route exact path="/events" component={EventPage} />
          
-          <Route exact path="/events" component={EventSearch} />
-          <Route exact path="/events" component={Eventcards} />
+          {/* <Route exact path="/events" component={EventSearch} />
+          <Route exact path="/events" component={Eventcards} /> */}
+
           <Route exact path="/register" component={Loginheader} />
           <Route exact path="/register" component={Register} />
          
@@ -65,18 +69,22 @@ class App extends Component {
           <Route exact path="/create-event" component={CRUDheader} />
           <Route exact path="/create-event" component={Create} />
           <Route path ="/singleevent/:ID" component={Container} />
+          {/* <Route path ="/singleevent/:ID" component={Tab} /> */}
           {/* <Route path ="/singleevent/:ID" component={Eventdescription} /> */}
-          <Route exact path="/read-events" component={EventpageHeader} />
+          {/* <Route exact path="/read-events" component={EventpageHeader} /> */}
           <Route exact path="/read-events" component={EventList} />
           {/* <Route exact path="/read-events" component={Edit} /> */}
           <Route exact path="/editevent/:Id" component={CRUDheader} />
           <Route exact path="/editevent/:Id" component = {Edit} />
+          <Route path="/search" component = {EventpageHeader} />
+          <Route path="/search" component = {EventSearch} />
+          
           {/* <Route exact path="/edit-event/:id" component = {edit} /> */}
           {/* <Route exact path="/update-event" component={sidebar} />
           <Route exact path="/delete-event" component={sidebar} /> */}
           {/* <Route exact path="/single-event" component={Container} /> */}
 
-          {/* <Route path ="/" component={Footer} /> */}
+          <Route path ="/" component={Footer} />
          
         </div> 
         </Switch>

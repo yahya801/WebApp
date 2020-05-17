@@ -14,6 +14,7 @@ route.post("/create", (req, res) => {
     description,
     price,
     time,
+    userid
   } = req.body;
   if (
     !eventname ||
@@ -38,6 +39,7 @@ route.post("/create", (req, res) => {
   event.price = price;
   event.date = date;
   event.time = time;
+  event.userid= userid;
   
   let eventmodal = new Event(event);
   eventmodal.save();
@@ -56,15 +58,15 @@ route.delete("/delete/:id", (req, res) => {
     .catch((err) => res.status(404).json({ success: false }));
 });
 
-route.patch("/update", (req, res) => {
-  Event.deleteOne({ eventname: req.body.eventname })
-    .exec()
-    .then((user) => {
-      console.log(user);
-      console.log("hehhhh");
-      return res.sendStatus(200);
-    });
-});
+// route.patch("/update", (req, res) => {
+//   Event.deleteOne({ eventname: req.body.eventname })
+//     .exec()
+//     .then((user) => {
+//       console.log(user);
+//       console.log("hehhhh");
+//       return res.sendStatus(200);
+//     });
+// });
 route.get("/edit/:id", (req, res) => {
   
   Event.findById(req.params.id).then((event) => {
@@ -72,6 +74,27 @@ route.get("/edit/:id", (req, res) => {
       event,
     });
   });
+});
+route.get("/search", (req,res) => {
+  let eventname = req.query.eventname
+  if(!eventname){
+    Event.find({})
+      .sort({date: -1})
+      .then((events) => {  return res.json({
+        events
+      });
+  }
+      ) 
+  }
+  else {
+    Event.find({ eventname })
+      .sort({ date: -1 })
+      .then((events) => {  return res.json({
+        events
+      });
+  }
+      ) 
+}
 });
 route.put("/update/:id", (req, res) => {
   console.log(req.body)
@@ -120,7 +143,9 @@ route.get("/singleevent/:ID",(req,res) => {
 })
 
 route.get("/", (req, res) => {
-  Event.find({}, function (err, events) {
+  const userid = req.query.userid
+  console.log(userid)
+  Event.find({userid: userid}, function (err, events) {
     if (err) {
       res.send("Error");
       next();

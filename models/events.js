@@ -13,6 +13,8 @@ const eventschema = new mongoose.Schema({
   category: {
     type: String,
     required: true,
+    default: "Private",
+    enum:["Private","Corperate","Charity"]
   },
   description: {
     type: String,
@@ -24,14 +26,21 @@ const eventschema = new mongoose.Schema({
   },
   date: {
     type: Date,
+    required:true
   },
   time: {
     type: String,
+    required: true
   },
-  image: {
+  city:{
     type: String,
-    
+    required: true
   },
+  userid: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "user",  
+    required: true
+  }
 });
 
 const Event = mongoose.model("Events", eventschema);

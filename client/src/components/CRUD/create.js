@@ -16,6 +16,7 @@ export class create1 extends Component {
       price: this.props.price || "",
       time: this.props.time || "",
       submitted,
+      userid: "",
       edit: this.props.edit || false,
       selectedFile: null,
       userloggedin 
@@ -25,7 +26,7 @@ export class create1 extends Component {
     this.setState({ [e.target.id]: e.target.value });
   };
   onSubmit = (e) => {
-    console.log(localStorage.getItem("user"))
+    console.log(localStorage.getItem("id"))
     e.preventDefault();
 
     const eventData = {
@@ -36,6 +37,7 @@ export class create1 extends Component {
       description: this.state.description,
       price: this.state.price,
       time: this.state.time,
+      userid: localStorage.getItem("id")
       //  image: this.state.selectedFile
     };
     // const fd = new FormData();

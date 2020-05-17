@@ -4,6 +4,8 @@ import EventHeader from "./singleeventheader";
 import "./style.css";
 import axios from "axios";
 import Pallete from './pallete'
+import Tab from './tabs'
+
 
 export class container extends Component {
   constructor(props) {
@@ -62,7 +64,8 @@ export class container extends Component {
           />
        
         </div>
-        <Pallete/>
+        <Tab  eventname={this.state.eventname} />
+        {/* <Pallete/> */}
       </div>
     );
   }
