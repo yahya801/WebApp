@@ -1,29 +1,46 @@
 import React, { Component } from "react";
-import './navbar.css'
+import Link from 'react-dom'
+import "./navbar.css";
 
 export class navbar extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      username: localStorage.getItem("user"),
-      tag: ""
+      username: "" || localStorage.getItem("user") ,
+      tag1: "",
+      link1: "",
     };
   }
-  componentWillMount(){
-    if (this.state.username == "") {
-     this.state.tag = "Logout"
+  componentWillMount() {
+    console.log(this.state.username);
+    let tag = "";
+    let link = "";
+    if (this.state.username != null) {
+      tag = "Logout";
+      link = "/logout";
     } else {
-      this.state.tag = "Login/Register"
+      tag = "Login/Register";
+      link = "/login";
     }
+    // console.log(link)
+    // this.state.tag = tag;
+    // this.state.link = link;
+    this.setState({
+      tag1: tag,
+      link1: link
+    })
+    console.log(this.state.link1)
   }
   handleChange = (event) => {
     this.setState({
-        [event.target.name]: event.target.value,
+      [event.target.name]: event.target.value,
     });
-}
+  };
+ newin(){
+  // window.location = `${this.state.link1}`
+ }
   render() {
-   
     return (
       <div>
         <nav className="site-navigation">
@@ -51,16 +68,18 @@ export class navbar extends Component {
               <a href="/contacts">Contact</a>
             </li>
             <li>
-              <a href="/login" onChange={this.handleChange}>{this.state.tag}</a>
+              <a href={this.state.link1} onChange={this.handleChange}>
+                {this.state.tag1}
+              </a>
             </li>
             <li>
-              <a href="/">{this.state.username}</a>
+              <a >{this.state.username}</a>
             </li>
           </ul>
         </nav>
       </div>
     );
   }
-} 
+}
 
 export default navbar;

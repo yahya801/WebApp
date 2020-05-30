@@ -50,8 +50,8 @@ export default (props) => {
   return (
    
     <Tabs state={state}>
-      <div className='tabs'>
-        <div className='tab-list'>
+      <div className='tabsa'>
+        <div className='tab-lists'>
           <Tab>Details</Tab>
 
           <Tab>Venue</Tab>
@@ -63,7 +63,7 @@ export default (props) => {
 
         <PanelList state={state}>
           <Panel>
-            <p>{props.eventname}animations with framer/motion</p>
+            <p><h4>Event Name: {props.eventname}</h4>animations with framer/motion</p>
           </Panel>
 
           <Panel>

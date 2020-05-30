@@ -3,9 +3,8 @@ import Eventdescription from "./eventdescription";
 import EventHeader from "./singleeventheader";
 import "./style.css";
 import axios from "axios";
-import Pallete from './pallete'
-import Tab from './tabs'
-
+// import Pallete from './pallete'
+import Tab from "./tabs";
 
 export class container extends Component {
   constructor(props) {
@@ -53,7 +52,7 @@ export class container extends Component {
                   price={Event.price} */}
         <EventHeader eventname={this.state.eventname} />
         <div style={{ paddingLeft: "100px" }}>
-          <Eventdescription 
+          <Eventdescription
             eventname={this.state.eventname}
             date={this.state.date}
             location={this.state.location}
@@ -62,9 +61,8 @@ export class container extends Component {
             price={this.state.price}
             time={this.state.time}
           />
-       
         </div>
-        <Tab  eventname={this.state.eventname} />
+        <Tab eventname={this.state.eventname} />
         {/* <Pallete/> */}
       </div>
     );

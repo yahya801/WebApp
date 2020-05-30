@@ -10,9 +10,9 @@ export class eventsearch extends Component {
     var url = new URL(url_string);
 
     this.state = {
-      date: "" || url.searchParams.get("date"),
-      eventname: "" || url.searchParams.get("eventname"),
-      location: "" || url.searchParams.get("location"),
+      date: url.searchParams.get("date") || "" ,
+      eventname: url.searchParams.get("eventname") || "",
+      city: url.searchParams.get("city") || "" ,
     };
   }
   onChange = (e) => {
@@ -21,14 +21,14 @@ export class eventsearch extends Component {
   
   onSubmit = (e) => {
     e.preventDefault();
-
+    window.location = `/search?eventname=${this.state.eventname}&date=${this.state.date}&city=${this.state.city}`
     // const eventData = {
     //   eventname: this.state.eventname,
     //   date: this.state.date,
     //   location: this.state.location,
 
     // };
-    console.log(this.state.location);
+    // console.log(this.state.location);
   };
   render() {
     return (
@@ -57,23 +57,23 @@ export class eventsearch extends Component {
               <div className="col-12 col-md-3">
                 <input
                   type="text"
-                  id="location"
+                  id="city"
                   onChange={this.onChange}
-                  value={this.state.location}
-                  placeholder="Location"
+                  value={this.state.city}
+                  placeholder="City"
                 />
               </div>
               <div className="col-12 col-md-3">
-                <Link
+                {/* <Link
                   to={`/search?eventname=${this.state.eventname}&date=${this.state.date}&location=${this.state.location}`}
-                >
+                > */}
                   <input
-                    // onClick={this.onSubmit}
+                    onClick={this.onSubmit}
                     className="btn gradient-bg"
                     type="submit"
                     defaultValue="Search Events"
                   />
-                </Link>
+                {/* </Link> */}
               </div>
             </div>
           </div>
