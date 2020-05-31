@@ -1,33 +1,24 @@
 import React, { Component } from "react";
+import Eventpage from "./eventspage";
 import axios from "axios";
-import Eventpage from "../eventspage";
-import Spinner from "../../spinner";
 
-export class searchcard extends Component {
+export class eventcard extends Component {
   constructor(props) {
     super(props);
-    var url_string = window.location.href;
-    var url = new URL(url_string);
-    let loading = false;
+    let loading = true;
     this.state = {
       loading,
       Event: [],
-      date: url.searchParams.get("date"),
-      eventname:  url.searchParams.get("eventname"),
-      city:  url.searchParams.get("city"),
     };
   }
   async componentDidMount() {
-    axios
-      .get(
-        `http://localhost:3000/event/search?eventname=${this.state.eventname}&date=${this.state.date}&city=${this.state.city}`
-      )
-      .then((res) => {
-        //    const event = res.data[0];
-        //  this.setState({ event});
-        this.setState({ Event: res.data.events, loading: false });
-        console.log(Event);
-      });
+ 
+    axios.get(`http://localhost:3000/event/categorysearch?category=Charity`).then((res) => {
+      //    const event = res.data[0];
+      //  this.setState({ event});
+      this.setState({ Event: res.data.events, loading: false });
+      // console.log(this.state.Event);
+    });
   }
   handleClick() {
     window.location = `/single_event/${this.state.event_id}`;
@@ -41,19 +32,9 @@ export class searchcard extends Component {
     console.log(index);
   };
   render() {
-    const loading = this.state.loading;
-    const event = this.state.Event;
-    let spinner;
-    if (event === null || loading) {
-      spinner = <Spinner />;
-    }
-    const SPINNER = <div>{spinner}</div>;
     return (
       <div>
-        {/* <div class="spinner-border m-5" role="status">
-          <span class="sr-only">Loading...</span>
-        </div> */}
-        <div style={{ paddingLeft: "100px", paddingBottom: "10px" }}>
+          <div style={{ paddingLeft: "100px" ,paddingTop: "24px" }}>
           <div className="container-fuid">
             <div class="row events-list">
               {this.state.Event.map((Event) => (
@@ -75,11 +56,10 @@ export class searchcard extends Component {
               ))}
             </div>
           </div>
-          {loading ? SPINNER : null}
         </div>
       </div>
     );
   }
 }
 
-export default searchcard;
+export default eventcard;

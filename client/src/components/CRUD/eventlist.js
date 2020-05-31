@@ -99,24 +99,30 @@ export class eventlist extends Component {
             <thead>
               <tr>
                 <th>EventName</th>
-                <th>Location</th>
+                
                 <th>Description</th>
                 <th>Category</th>
+                <th>Location</th>
+                <th>City</th>
                 <th>Date</th>
                 <th>Time</th>
-                <th>Price</th>
+                <th>Basic Entry < br/> Price</th>
+                <th>Vip Entry < br/> Price</th>
               </tr>
             </thead>
 
             {this.state.Event.map((Event) => (
               <tr Key={Event._id}>
-                <td>{Event.eventname}</td>
-                <td>{Event.location}</td>
+                <td>{Event.eventname.toUpperCase()}</td>
+               
                 <td>{Event.description}</td>
                 <td>{Event.category}</td>
+                <td>{Event.location.toUpperCase()}</td>
+                <td>{Event.city.toUpperCase()}</td>
                 <td>{Moment(Event.date).format("LL")}</td>
                 <td>{Event.time}</td>
-                <td>{Event.price}</td>
+                <td>{Event.basicentry}</td>
+                <td>{Event.vipentry}</td>
                 <td>
                   <Link
                     variant="info"

@@ -24,7 +24,7 @@ export class pageheader extends Component {
             <div className="row">
               <div className="col-12">
                 <header className="entry-header">
-                  <h1 className="entry-title">{this.state.eventname}</h1>
+                  <h1 className="entry-title">{this.state.eventname.toUpperCase()}</h1>
                 </header>
               </div>
             </div>

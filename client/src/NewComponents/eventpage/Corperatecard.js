@@ -12,7 +12,7 @@ export class eventcard extends Component {
     };
   }
   async componentDidMount() {
-    axios.get(`http://localhost:3000/event/`).then((res) => {
+    axios.get(`http://localhost:3000/event/categorysearch?category=Corperate`).then((res) => {
       //    const event = res.data[0];
       //  this.setState({ event});
       this.setState({ Event: res.data.events, loading: false });
@@ -47,7 +47,8 @@ export class eventcard extends Component {
                       eventname={Event.eventname}
                       location={Event.location}
                       date={Event.date}
-                      price={Event.price}
+                      basicentry={Event.basicentry}
+                      vipentry={Event.vipentry}
                     />
                   </div>
                 </div>

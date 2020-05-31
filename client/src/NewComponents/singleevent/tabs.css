@@ -1,4 +1,4 @@
-.tabs {
+.tabsa {
     box-sizing: border-box;
     position: relative;
     display: inline-flex;
@@ -14,7 +14,7 @@
     margin: 80px 0;
   }
   
-  .tab-list {
+  .tab-lists {
     display: flex;
   
     padding-bottom: 24px;

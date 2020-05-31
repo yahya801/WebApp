@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import img1 from "../../images/summer.jpg";
 import img2 from "../../images/location-icon.png"
 import Moment from 'moment'
+import { IconContext } from "react-icons";
+import { GoLocation } from "react-icons/go";
+import { MdDateRange } from "react-icons/md";
 
 
 
@@ -32,15 +35,33 @@ export class eventdescription extends Component {
             <div className="event-content-wrap">
               <header className="entry-header flex flex-wrap justify-content-between align-items-end">
                 <div className="single-event-heading" style={{paddingLeft:"150px"}}>
-                  <h2 className="entry-title">{this.state.eventname}</h2>
+                  <h2 className="entry-title">{this.state.eventname.toUpperCase()}</h2>
                   <div>
                      
 
                   <div className="event-location" >
-                    <a href="#" >{this.state.location}</a>
+                  <IconContext.Provider
+                  value={{
+                    color: "purple",
+                    size: "2em",
+                    className: "global-class-name",
+                  }}
+                >
+                  <GoLocation />
+                </IconContext.Provider>
+                    <a >{this.state.location.toUpperCase()}</a>
                   </div>
                   </div>
                   <div className="event-date">
+                  <IconContext.Provider
+                  value={{
+                    color: "purple",
+                    size: "2em",
+                    className: "global-class-name",
+                  }}
+                >
+                  <MdDateRange />
+                </IconContext.Provider>
                     {Moment(this.state.date).format("LL")} @ {this.state.time}
                   </div>
                 </div>

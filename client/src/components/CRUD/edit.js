@@ -8,22 +8,38 @@ export class edit extends Component {
 
     this.state = {
       Event: [],
-      id:'',
-      value :  ''
+      eventname: "",
+      date: "",
+      location: "",
+      city:  "",
+      category:  "",
+      description:  "",
+      basicentry:  "",
+      vipentry:  "",
+      time: "",
+     
     };
     // this.onChange = this.onChange.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+ 
   }
   async componentWillMount() {
     this.getEventDetails();
   }
-  onChange = (event) => {
+  updateInputValue(e) {
     
-    const { id, value } = event.target;
-    this.setState({
-      [id]: value,
-    });
+    // const { target: {value} } = e;
+    // this.setState({ [e.target]: value });
+    this.setState({ [e.target.id]: e.target.value });
   };
-
+  handleChange(event) {
+    const id = event.target.id;
+    const value = event.target.value;
+    console.log(value)
+    this.setState({
+      id: value
+    })
+  }
   getEventDetails() {
     let eventid = this.props.match.params.Id;
     console.log(eventid)
@@ -32,7 +48,8 @@ export class edit extends Component {
       .then((res) => {
         console.log(res.data.event);
         this.setState({ Event: res.data.event });
-        console.log(this.state.Event);
+        this.setState({ eventname: this.state.Event.eventname });
+        console.log(this.state.eventname);
       })
       .catch((err) => {
         console.log(err);
@@ -60,7 +77,7 @@ export class edit extends Component {
                   id="eventname "
                   type="text"
                   value={this.state.Event.eventname}
-                  onChange={this.onChange}
+                  onChange={this.handleChange}
                   placeholder="Event Name"
                   className="form-control"
                   //   autofocus
@@ -77,7 +94,7 @@ export class edit extends Component {
                   id="date"
                   type="text"
                   value={Moment(this.state.Event.date).format("LL")}
-                  onChange={this.onChange}
+                  onChange={this.updateInputValue}
                   //   error={errors.email}
 
                   //   placeholder="Email"
@@ -95,7 +112,7 @@ export class edit extends Component {
                   id="time"
                   type="text"
                   value={this.state.Event.time}
-                  onChange={this.onChange}
+                  onChange={this.updateInputValue}
                   //   error={errors.email}
 
                   // placeholder="Email"
@@ -113,7 +130,7 @@ export class edit extends Component {
                   id="location"
                   type="text"
                   value={this.state.Event.location}
-                  onChange={this.onChange}
+                  onChange={this.updateInputValue}
                   //   error={errors.password}
 
                   placeholder="Location"
@@ -130,7 +147,7 @@ export class edit extends Component {
                   id="category"
                   type="text"
                   value={this.state.Event.category}
-                  onChange={this.onChange}
+                  onChange={this.updateInputValue}
                   placeholder="Category"
                   className="form-control"
                 />
@@ -145,7 +162,7 @@ export class edit extends Component {
                   id="description"
                   type="text"
                   value={this.state.Event.description}
-                  onChange={this.onChange}
+                  onChange={this.updateInputValue}
                   id="description"
                   type="text"
                   placeholder="Description"
@@ -154,16 +171,31 @@ export class edit extends Component {
               </div>
             </div>
             <div className="form-group">
-              <label htmlFor="Price" className="col-sm-3 control-label">
-                Price*
+              <label htmlFor="Basic" className="col-sm-3 control-label">
+                Basic Entry*
               </label>
               <div className="col-sm-9">
                 <input
-                  id="price"
+                  id="basicentry"
                   type="number"
-                  value={this.state.Event.price}
-                  onChange={this.onChange}
-                  placeholder="Price"
+                  value={this.state.Event.basicentry}
+                  onChange={this.updateInputValue}
+                  placeholder="Basic Entry Price"
+                  className="form-control"
+                />
+              </div>
+            </div>
+            <div className="form-group">
+              <label htmlFor="Vip" className="col-sm-3 control-label">
+                Vip Entry*
+              </label>
+              <div className="col-sm-9">
+                <input
+                  id="vipentry"
+                  type="number"
+                  value={this.state.Event.vipentry}
+                  onChange={this.updateInputValue}
+                  placeholder="Vip Entry Price"
                   className="form-control"
                 />
               </div>

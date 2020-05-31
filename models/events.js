@@ -20,9 +20,13 @@ const eventschema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  price: {
+  basicentry: {
     type: Number,
     required: true,
+  },
+  vipentry: {
+    type: Number,
+    
   },
   date: {
     type: Date,
