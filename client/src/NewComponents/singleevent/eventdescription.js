@@ -18,9 +18,11 @@ export class eventdescription extends Component {
       location: this.props.location || "",
       category: this.props.category || "",
       description: this.props.description || "",
-      price: this.props.price || "",
+     
+     
       time: this.props.time || "",
-
+      basicentry:this.props.basicentry || "",
+      vipentry:this.props.vipentry || "",
       edit: this.props.edit || false,
       selectedFile: null,
     };

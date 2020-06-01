@@ -5,6 +5,7 @@ import "./style.css";
 import axios from "axios";
 // import Pallete from './pallete'
 import Tab from "./tabs";
+import Tickets from "./tickets";
 
 export class container extends Component {
   constructor(props) {
@@ -16,7 +17,8 @@ export class container extends Component {
       location: this.props.loc || "",
       category: this.props.category || "",
       description: this.props.description || "",
-      price: this.props.price || "",
+      basicentry: this.props.basicentry || "",
+      vipentry: this.props.vipentry || "",
       time: this.props.time || "",
       eventid: this.props.match.params.ID,
       loading: "",
@@ -35,10 +37,12 @@ export class container extends Component {
           location: res.data.event.location,
           category: res.data.event.category,
           description: res.data.event.description,
-          price: res.data.event.price,
+          basicentry: res.data.event.basicentry,
+          vipentry: res.data.event.vipentry,
           time: res.data.event.time,
           loading: true,
         });
+        console.log(this.state.basicentry);
         // console.log(this.state.Event.eventname);
       });
   }
@@ -58,12 +62,18 @@ export class container extends Component {
             location={this.state.location}
             category={this.state.category}
             description={this.state.description}
-            price={this.state.price}
+            basicentry={this.state.basicentry}
+            vipentry={this.state.vipentry}
             time={this.state.time}
           />
         </div>
         <Tab eventname={this.state.eventname} />
         {/* <Pallete/> */}
+
+        <Tickets
+          basicentry={this.state.basicentry}
+          vipentry={this.state.vipentry}
+        />
       </div>
     );
   }
