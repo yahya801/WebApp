@@ -2,9 +2,7 @@ import React, { Component, useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import axios from "axios";
 import moment from 'moment'
-import AddOrganizerModal from './AddOrganizerModal';
-
-export class CreateEvent extends Component {
+export class Create extends Component {
   constructor(props) {
     super(props);
     let submitted = false;
@@ -24,14 +22,12 @@ export class CreateEvent extends Component {
       edit: this.props.edit || false,
       selectedFile: null,
       userloggedin,
-      addModalShow: false
     };
   }
   onChange = (e) => {
     this.setState({ [e.target.id]: e.target.value });
   };
   onSubmit = (e) => {
-
     console.log(localStorage.getItem("id"));
     e.preventDefault();
 
@@ -64,7 +60,6 @@ export class CreateEvent extends Component {
       .then(() => {
         this.setState({
           submitted: true,
-      //    addModalShow: true
         });
       })
       .catch((err) => {
@@ -72,7 +67,6 @@ export class CreateEvent extends Component {
         console.error(err);
       });
     console.log(eventData);
-    console.log(this.state.addModalShow)
   };
   fileSelectedHandler = (e) => {
     this.setState({
@@ -80,23 +74,10 @@ export class CreateEvent extends Component {
     });
     console.log(e.target.files[0]);
   };
-  
-  //notloggedin() {
-    //window.location = "/";
-  //}
-
+  notloggedin() {
+    window.location = "/";
+  }
   render() {
-    let addModalClose = () => this.setState({addModalShow: false})
-    let {addModalShow} = this.state
-    let {submitted} = this.state
-    let show
-    if (submitted == true ){
-     addModalShow = true
-    }
-    if (addModalShow == true){
-      show = <AddOrganizerModal />
-    }
-    const ModalShow = <div>{show}</div>;
     if (!localStorage.getItem("user") == "") {
       console.log("ahajcb");
     } else {
@@ -112,6 +93,7 @@ export class CreateEvent extends Component {
             className="form-horizontal"
             role="form"
           >
+            <h2>Create Event.</h2>
 
             <div className="form-group">
               <label htmlFor="eventName" className="col-sm-3 control-label">
@@ -206,7 +188,7 @@ export class CreateEvent extends Component {
               Category* 
               <div >
                 <select value={this.state.category}  id="category" onChange={this.onChange}>
-                  <option value="Private" >Private</option>
+                  <option value="Private">Private</option>
                   <option value="Corperate">Corperate</option>
                   <option value="Charity">Charity</option>
                   
@@ -292,12 +274,6 @@ export class CreateEvent extends Component {
             <button type="submit" className="btn btn-primary">
               Register
             </button>
-            {/* <AddOrganizerModal
-            show = {this.state.addModalShow}
-            onHide = {addModalClose}
-            /> */}
-              {submitted ? ModalShow : null}
-
           </form>
           {/* /form */}
         </div>
@@ -307,5 +283,4 @@ export class CreateEvent extends Component {
   }
 }
 
-export default CreateEvent;
-
+export default Create;

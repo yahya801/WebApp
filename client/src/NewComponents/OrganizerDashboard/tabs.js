@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Tabs, useTabState, Panel } from "@bumaga/tabs";
 import "./tabs.css";
 import EventForm from './CreateEvent'
+import ListEvent from './EventList'
 
 const cn = (...args) => args.filter(Boolean).join(" ");
 const Tab = ({ children }) => {
@@ -36,6 +37,9 @@ export default class tabs extends Component {
                             <Panel>
                                 <br/>
                                 <EventForm/>
+                            </Panel>
+                            <Panel>
+                                <ListEvent/>
                             </Panel>
                             
 
