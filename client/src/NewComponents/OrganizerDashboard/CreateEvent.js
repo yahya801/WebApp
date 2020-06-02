@@ -1,8 +1,10 @@
 import React, { Component, useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import axios from "axios";
-import moment from 'moment'
-import AddOrganizerModal from './AddOrganizerModal';
+import moment from "moment";
+import AddOrganizerModal from "./AddOrganizerModal";
+import { Button, ButtonToolbar } from "react-bootstrap";
+import Popup from "reactjs-popup";
 
 export class CreateEvent extends Component {
   constructor(props) {
@@ -19,19 +21,18 @@ export class CreateEvent extends Component {
       basicentry: this.props.basicentry || "",
       vipentry: this.props.vipentry || "",
       time: this.props.time || "",
-      submitted,
+      submitted: false,
       userid: "",
       edit: this.props.edit || false,
       selectedFile: null,
       userloggedin,
-      addModalShow: false
+      addModalShow: false,
     };
   }
   onChange = (e) => {
     this.setState({ [e.target.id]: e.target.value });
   };
   onSubmit = (e) => {
-
     console.log(localStorage.getItem("id"));
     e.preventDefault();
 
@@ -39,7 +40,7 @@ export class CreateEvent extends Component {
       eventname: this.state.eventname,
       date: this.state.date,
       location: this.state.location,
-      city : this.state.city,
+      city: this.state.city,
       category: this.state.category,
       description: this.state.description,
       basicentry: this.state.basicentry,
@@ -48,6 +49,10 @@ export class CreateEvent extends Component {
       userid: localStorage.getItem("id"),
       //  image: this.state.selectedFile
     };
+    // this.setState({
+    //   submitted: true,
+    //   addModalShow: true,
+    // });
     // const fd = new FormData();
     // fd.append('image',this.state.selectedFile)
     // console.log(eventData)
@@ -59,20 +64,20 @@ export class CreateEvent extends Component {
     // fd.append('state',JSON.stringify(statebody))
     // axios.post('/api/',fd)
     // console.log(fd.state)
-    axios
-      .post("http://localhost:3000/event/create", eventData)
-      .then(() => {
-        this.setState({
-          submitted: true,
-      //    addModalShow: true
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-        console.error(err);
-      });
-    console.log(eventData);
-    console.log(this.state.addModalShow)
+    // axios
+    //   .post("http://localhost:3000/event/create", eventData)
+    //   .then(() => {
+    //     this.setState({
+    //       submitted: true,
+
+    //     });
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //     console.error(err);
+    //   });
+    // console.log(eventData);
+    console.log(this.state.addModalShow);
   };
   fileSelectedHandler = (e) => {
     this.setState({
@@ -80,25 +85,27 @@ export class CreateEvent extends Component {
     });
     console.log(e.target.files[0]);
   };
-  
+
   //notloggedin() {
-    //window.location = "/";
+  //window.location = "/";
   //}
 
   render() {
-    let addModalClose = () => this.setState({addModalShow: false})
-    let {addModalShow} = this.state
-    let {submitted} = this.state
-    let show
-    if (submitted == true ){
-     addModalShow = true
-    }
-    if (addModalShow == true){
-      show = <AddOrganizerModal />
-    }
-    const ModalShow = <div>{show}</div>;
+    let addModalClose = () => this.setState({ addModalShow: false });
+    // let {addModalShow} = this.state
+    // let {submitted} = this.state
+    // console.log(submitted)
+    // let show
+    // if (submitted == true ){
+    //  addModalShow = true
+    // }
+    // if (addModalShow == true){
+    //   console.log(addModalShow," gyghjk")
+    //   show = <AddOrganizerModal  onHide = {true}/>
+    // }
+    // const MODALSHOW = <div>{show}</div>;
     if (!localStorage.getItem("user") == "") {
-      console.log("ahajcb");
+      // console.log("ahajcb");
     } else {
       return <Redirect to="/" />;
     }
@@ -112,7 +119,6 @@ export class CreateEvent extends Component {
             className="form-horizontal"
             role="form"
           >
-
             <div className="form-group">
               <label htmlFor="eventName" className="col-sm-3 control-label">
                 Event Name
@@ -167,7 +173,7 @@ export class CreateEvent extends Component {
                 />
               </div>
             </div>
-           <div className="form-group">
+            <div className="form-group">
               <label htmlFor="Location" className="col-sm-3 control-label">
                 Location*
               </label>
@@ -177,7 +183,7 @@ export class CreateEvent extends Component {
                   type="text"
                   value={this.state.location}
                   onChange={this.onChange}
-                   //   error={errors.password}
+                  //   error={errors.password}
 
                   placeholder="Location"
                   className="form-control"
@@ -194,7 +200,7 @@ export class CreateEvent extends Component {
                   type="text"
                   value={this.state.city}
                   onChange={this.onChange}
-                   //   error={errors.password}
+                  //   error={errors.password}
 
                   placeholder="City"
                   className="form-control"
@@ -203,16 +209,18 @@ export class CreateEvent extends Component {
             </div>
             <div className="form-group">
               <label htmlFor="category" className="col-sm-4 control-label">
-              Category* 
-              <div >
-                <select value={this.state.category}  id="category" onChange={this.onChange}>
-                  <option value="Private" >Private</option>
-                  <option value="Corperate">Corperate</option>
-                  <option value="Charity">Charity</option>
-                  
-                </select>
-                </div> 
-                
+                Category*
+                <div>
+                  <select
+                    value={this.state.category}
+                    id="category"
+                    onChange={this.onChange}
+                  >
+                    <option value="Private">Private</option>
+                    <option value="Corperate">Corperate</option>
+                    <option value="Charity">Charity</option>
+                  </select>
+                </div>
               </label>
               {/* <div className="col-sm-9">
                 <input
@@ -289,15 +297,23 @@ export class CreateEvent extends Component {
                 <span className="help-block">*Required fields</span>
               </div>
             </div>
-            <button type="submit" className="btn btn-primary">
-              Register
-            </button>
-            {/* <AddOrganizerModal
-            show = {this.state.addModalShow}
-            onHide = {addModalClose}
-            /> */}
-              {submitted ? ModalShow : null}
-
+            <ButtonToolbar>
+              <Button
+                type="submit"
+                onClick={() => this.setState({ addModalShow: true })}
+                // className="btn btn-primary"
+              >
+                Register
+              </Button>
+              <AddOrganizerModal
+              // show={this.state.addModalShow}
+              // onHide={addModalClose}
+              />
+            </ButtonToolbar>
+            <Popup modal trigger={<button>Click Me</button>}>
+              Modal Content
+            </Popup>
+            {/* {submitted ? MODALSHOW : null} */}
           </form>
           {/* /form */}
         </div>
@@ -308,4 +324,3 @@ export class CreateEvent extends Component {
 }
 
 export default CreateEvent;
-

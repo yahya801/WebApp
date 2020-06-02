@@ -5,7 +5,6 @@ const route = express.Router();
 const upload = require("../../middleware/upload");
 
 route.post("/create", (req, res) => {
- 
   const {
     eventname,
     date,
@@ -16,7 +15,7 @@ route.post("/create", (req, res) => {
     basicentry,
     vipentry,
     time,
-    userid
+    userid,
   } = req.body;
   if (
     !eventname ||
@@ -28,10 +27,10 @@ route.post("/create", (req, res) => {
     !basicentry ||
     !time
   ) {
-    console.log('hello')
+    console.log("hello");
     return res.status(400).json({ msg: "Please enter all Event details" });
   }
-  Event.findOne({ eventname }).then((event) => {
+  Event.findOne({ eventname: eventname.toLowerCase() }).then((event) => {
     if (event) return res.status(400).json({ msg: "Event already exists" });
   });
 
@@ -45,18 +44,14 @@ route.post("/create", (req, res) => {
   event.vipentry = vipentry;
   event.date = date;
   event.time = time;
-  event.userid= userid;
-  
+  event.userid = userid;
+
   let eventmodal = new Event(event);
   eventmodal.save();
   console.log(eventmodal);
   res.json(eventmodal);
 });
-route.post("/upload-image", (req, res) => {
-
-
-}
-)
+route.post("/upload-image", (req, res) => {});
 
 route.delete("/delete/:id", (req, res) => {
   Event.findById(req.params.id)
@@ -74,121 +69,128 @@ route.delete("/delete/:id", (req, res) => {
 //     });
 // });
 route.get("/edit/:id", (req, res) => {
-  
   Event.findById(req.params.id).then((event) => {
     return res.json({
       event,
     });
   });
 });
-route.get("/search", (req,res) => {
-  let Eventname = req.query.eventname
-  let Date = req.query.date
-  let City = req.query.city
-  console.log(Date)
-  console.log(City)
-  console.log(Eventname.toLowerCase())
-  // const query = 
+route.get("/search", (req, res) => {
+  let Eventname = req.query.eventname;
+  let Date = req.query.date;
+  let City = req.query.city;
+  console.log(Date);
+  console.log(City);
+  console.log(Eventname.toLowerCase());
+  // const query =
   // console.log(query)
-  if(!Eventname && !Date  && !City  ){
-    console.log("kjabchv")
+  if (!Eventname && !Date && !City) {
+    console.log("kjabchv");
     Event.find({})
-      .sort({date: -1})
-      .then((events) => {  return res.json({
-        events
-      });
-  }
-      ) 
-  }
-  else if(!Eventname && !Date  && City  ){
-    
-    Event.find({city: City.toLowerCase()})
-      .sort({date: -1})
-      .then((events) => {  return res.json({
-        events
-      });
-  }
-      ) 
-  }
-  else if(Eventname && !Date  && !City  ) {
-    console.log("hjkdbhjv")
-    Event.find({ eventname : Eventname.toLowerCase() })
-   
       .sort({ date: -1 })
-      .then((events) => { console.log(events) 
+      .then((events) => {
         return res.json({
-        events
+          events,
+        });
+      });
+  } else if (!Eventname && !Date && City) {
+    Event.find({ city: City.toLowerCase() })
+      .sort({ date: -1 })
+      .then((events) => {
+        return res.json({
+          events,
+        });
+      });
+  } else if (Eventname && !Date && !City) {
+    console.log("hjkdbhjv");
+    Event.find({ eventname: Eventname.toLowerCase() })
+
+      .sort({ date: -1 })
+      .then((events) => {
+        console.log(events);
+        return res.json({
+          events,
+        });
+      });
+  } else if (!Eventname && Date && !City) {
+    console.log("hjkdbhjv3");
+    Event.find({ date: Date })
+
+      .sort({ date: -1 })
+      .then((events) => {
+        console.log(events);
+        return res.json({
+          events,
+        });
+      });
+  } else if (Eventname && Date && !City) {
+    Event.find({ eventname: Eventname.toLowerCase(), date: Date })
+
+      .sort({ date: -1 })
+      .then((events) => {
+        console.log(events);
+        return res.json({
+          events,
+        });
+      });
+  } else if (Eventname && !Date && City) {
+    Event.find({ eventname: Eventname.toLowerCase(), city: City.toLowerCase() })
+
+      .sort({ date: -1 })
+      .then((events) => {
+        console.log(events);
+        return res.json({
+          events,
+        });
+      });
+  } else if (Eventname && Date && City) {
+    Event.find({ eventname: Eventname.toLowerCase(), date: Date, city: City.toLowerCase() })
+
+      .sort({ date: -1 })
+      .then((events) => {
+        console.log(events);
+        return res.json({
+          events,
+        });
       });
   }
-      ) 
-}
-else if(!Eventname && Date  && !City  ) {
-  console.log("hjkdbhjv3")
-  Event.find({date: Date })
- 
-    .sort({ date: -1 })
-    .then((events) => { console.log(events) 
-      return res.json({
-      events
-    });
-}
-    ) 
-}
-
-else if(Eventname && Date  && !City  ){
-  Event.find({ eventname : Eventname.toLowerCase(), date: Date })
-   
-  .sort({ date: -1 })
-  .then((events) => { console.log(events) 
-    return res.json({
-    events
-  });
-}
-  ) 
-}
-
-else if(Eventname && Date  && City  ){
-  Event.find({ eventname : Eventname.toLowerCase(), date: Date, city: City })
-   
-  .sort({ date: -1 })
-  .then((events) => { console.log(events) 
-    return res.json({
-    events
-  });
-}
-  ) 
-}
 });
 
-
 route.put("/update/:id", (req, res) => {
-  console.log(req.body)
-    Event.findOneAndUpdate(req.param.id,{
+  console.log(req.body);
+  Event.findOneAndUpdate(
+    req.param.id,
+    {
       eventname: req.body.eventdata.eventname,
-      location:  req.body.eventdata.location,
-      description:  req.body.eventdata.description,
-      category:  req.body.eventdata.category,
-      price:  req.body.eventdata.price,
-      date:  req.body.eventdata.date,
-      time:  req.body.eventdata.time
-    }, {new: true})
-    .then(event => {
-      if(!event) {
-          return res.status(404).send({
-              message: "Product not found with id " + req.params.productId
-          });
+      location: req.body.eventdata.location,
+      description: req.body.eventdata.description,
+      category: req.body.eventdata.category,
+      price: req.body.eventdata.price,
+      date: req.body.eventdata.date,
+      time: req.body.eventdata.time,
+    },
+    { new: true }
+  )
+    .then((event) => {
+      if (!event) {
+        return res.status(404).send({
+          message: "Product not found with id " + req.params.productId,
+        });
       }
       res.send(event);
-  }).catch(err => {
-      if(err.kind === 'ObjectId') {
-          return res.status(404).send({
-              message: "Product not found with id " + req.params.productId
-          });                
+    })
+    .catch((err) => {
+      if (err.kind === "ObjectId") {
+        return res.status(404).send({
+          message: "Product not found with id " + req.params.productId,
+        });
       }
       return res.status(500).send({
-          message: "Something wrong updating note with id " + req.params.productId
+        message:
+          "Something wrong updating note with id " + req.params.productId,
       });
-  });})
+    });
+});
 // route.get("/:eventname", (req, res) => {
 //   Event.find(req.param.eventname).then((userfound) => {
 //     return res.json({
@@ -198,19 +200,19 @@ route.put("/update/:id", (req, res) => {
 //     });
 //   });
 // });
-route.get("/singleevent/:ID",(req,res) => {
+route.get("/singleevent/:ID", (req, res) => {
   // console.log(req.params.ID)
   Event.findById(req.params.ID).then((event) => {
     return res.json({
-      event
-    })
-  } )
-})
+      event,
+    });
+  });
+});
 
 route.get("/", (req, res) => {
-  const userid = req.query.userid
-  console.log(userid)
-  Event.find({userid: userid}, function (err, events) {
+  const userid = req.query.userid;
+  console.log(userid);
+  Event.find({ userid: userid }, function (err, events) {
     if (err) {
       res.send("Error");
       next();
@@ -222,26 +224,25 @@ route.get("/", (req, res) => {
   });
 });
 
-route.get("/categorysearch", (req,res) => {
-  let category = req.query.category
-  console.log("hello2")
-  if(!category){
+route.get("/categorysearch", (req, res) => {
+  let category = req.query.category;
+  console.log("hello2");
+  if (!category) {
     Event.find({})
-      .sort({date: -1})
-      .then((events) => {  return res.json({
-        events
+      .sort({ date: -1 })
+      .then((events) => {
+        return res.json({
+          events,
+        });
       });
-  }
-      ) 
-  }
-  else {
+  } else {
     Event.find({ category })
       .sort({ date: -1 })
-      .then((events) => {  return res.json({
-        events
+      .then((events) => {
+        return res.json({
+          events,
+        });
       });
   }
-      ) 
-}
 });
 module.exports = route;
