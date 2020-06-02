@@ -43,7 +43,7 @@ class login extends React.Component {
           window.location= 'http://localhost:3000/admin/resources/user';
 
         }
-        if (response.data.user.role == "admin"){
+        if (response.data.user.role == "customer"){
             console.log('hell')
            window.location= '/read-events';
 

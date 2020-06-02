@@ -30,6 +30,7 @@ import EventPage from './NewComponents/eventpage/eventpage'
 // import Google from './NewComponents/googlemap'
 import Container from './NewComponents/singleevent/container'
 import CRUDheader from './NewComponents/CRUD/crudheader'
+import OrgDashboard from './NewComponents/OrganizerDashboard/OrganizerDash'
 // import Pal from './NewComponents/singleevent/pallete'
 // import Tab from './NewComponents/singleevent/tabs'
 
@@ -78,6 +79,8 @@ class App extends Component {
           <Route exact path="/editevent/:Id" component = {Edit} />
           <Route path="/search" component = {EventpageHeader} />
           <Route path="/search" component = {EventSearch} />
+
+          <Route path ="/orgdash" component = {OrgDashboard}/>
           
           {/* <Route exact path="/edit-event/:id" component = {edit} /> */}
           {/* <Route exact path="/update-event" component={sidebar} />
