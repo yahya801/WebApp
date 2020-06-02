@@ -6,22 +6,24 @@ export class tickets extends Component {
     super(props);
     this.state = {
       count: 1,
-      count2: 1,
+      count2: 0,
       a: this.props.basicentry || "",
-      b: this.props.vipentry || "",
+      b: 55  || "",
       basicentry: this.props.basicentry || "",
-      vipentry: this.props.vipentry || "",
+      vipentry:55 || "",
     };
   }
 
   incrementCount = () => {
-    this.setState({
-      count: this.state.count + 1,
-      basicentry: this.state.basicentry + this.state.a,
-    });
+    if (this.state.count < 10) {
+      this.setState({
+        count: this.state.count + 1,
+        basicentry: this.state.basicentry + this.state.a,
+      });
+    }
   };
   decrementCount = () => {
-    if (this.state.count > 1) {
+    if (this.state.count > 1 || this.state.vipentry) {
       this.setState({
         count: this.state.count - 1,
         basicentry: this.state.basicentry - this.state.a,
@@ -47,15 +49,15 @@ export class tickets extends Component {
   render() {
     let { count } = this.state;
     let { basicentry } = this.state;
-    let Vip = false
-    
+    let Vip = false;
+
     let { vipentry } = this.state;
-    if(vipentry > 0){
-        Vip = true
+    if (vipentry > 0) {
+      Vip = true;
     }
     let VipTicket;
     console.log("Hgfjhjlhgjfh2");
-    if (Vip ===true) {
+    if (Vip === true) {
       console.log("Hgfjhjlhgjfh");
       VipTicket = <TicketVip vipentry={this.state.vipentry} />;
     }
@@ -96,7 +98,6 @@ export class tickets extends Component {
                 />
               </div>
               {vipentry ? VIPTICKET : null}
-              {/* <TicketVip vipentry={this.state.vipentry} /> */}
             </div>
           </div>
         </div>
