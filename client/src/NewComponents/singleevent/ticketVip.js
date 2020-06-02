@@ -7,10 +7,9 @@ export class ticketVip extends Component {
     this.state = {
       count2: 1,
 
-    //   b: this.props.vipentry || "",
-      b: 56,
-    //   vipentry: this.props.vipentry || "",
-    vipentry: 56
+      b: this.props.vipentry || "",
+
+      vipentry: this.props.vipentry || "",
     };
   }
 
@@ -24,7 +23,7 @@ export class ticketVip extends Component {
       console.log("hhh2");
       this.setState({
         count2: 1,
-        vipentry: this.state.b
+        vipentry: this.state.b,
       });
     }
   }
