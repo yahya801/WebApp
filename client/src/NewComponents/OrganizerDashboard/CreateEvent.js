@@ -2,15 +2,19 @@ import React, { Component, useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import axios from "axios";
 import moment from "moment";
-import AddOrganizerModal from "./AddOrganizerModal";
 import { Button, ButtonToolbar } from "react-bootstrap";
 import Popup from "reactjs-popup";
+import {Row, Col, Form} from "react-bootstrap";
+import Modal from "react-modal";
+import Content from "./Content"
+import './content.css';
 
 export class CreateEvent extends Component {
   constructor(props) {
     super(props);
     let submitted = false;
     let userloggedin = false;
+    let setModalIsOpen = false;
     this.state = {
       eventname: this.props.eventname || "",
       date: this.props.date || "",
@@ -26,7 +30,8 @@ export class CreateEvent extends Component {
       edit: this.props.edit || false,
       selectedFile: null,
       userloggedin,
-      addModalShow: false,
+      
+      //addModalShow: false,
     };
   }
   onChange = (e) => {
@@ -77,7 +82,7 @@ export class CreateEvent extends Component {
     //     console.error(err);
     //   });
     // console.log(eventData);
-    console.log(this.state.addModalShow);
+    //console.log(this.state.addModalShow);
   };
   fileSelectedHandler = (e) => {
     this.setState({
@@ -86,12 +91,19 @@ export class CreateEvent extends Component {
     console.log(e.target.files[0]);
   };
 
+  handleSubmit(e){
+    console.log("helloiamsubmitted")
+  }
+
   //notloggedin() {
   //window.location = "/";
   //}
 
+
   render() {
-    let addModalClose = () => this.setState({ addModalShow: false });
+    
+    
+    //let addModalClose = () => this.setState({ addModalShow: false });
     // let {addModalShow} = this.state
     // let {submitted} = this.state
     // console.log(submitted)
@@ -300,19 +312,62 @@ export class CreateEvent extends Component {
             <ButtonToolbar>
               <Button
                 type="submit"
-                onClick={() => this.setState({ addModalShow: true })}
-                // className="btn btn-primary"
+                className="btn btn-primary"
+
               >
                 Register
               </Button>
-              <AddOrganizerModal
-              // show={this.state.addModalShow}
-              // onHide={addModalClose}
-              />
+              <Popup modal trigger={<button>Click Me</button>}>
+                <div className = "container">
+                <h3>Add the Organizer Details</h3>
+                <div className="form-group">
+              <label htmlFor="organizerName" className="col-sm-3 control-label">
+                Oganizer Name
+              </label>
+              <div className="col-sm-9">
+                <input
+                  id="organizername"
+                  type="text"
+                  value={this.state.organizername}
+                  onChange={this.onChange}
+                  placeholder="Organizer Name"
+                  className="form-control"
+                  //   autofocus
+                />
+              </div>
+            </div>
+            <div className="form-group">
+              <label htmlFor="Company Name" className="col-sm-3 control-label">
+                Company Name
+              </label>
+              <div className="col-sm-9">
+                <input
+                  id="companyname"
+                  type="text"
+                  value={this.state.companyname}
+                  onChange={this.onChange}
+                  placeholder="Company Name"
+                  className="form-control"
+                  //   autofocus
+                />
+              </div>
+            </div>
+            <Button
+      
+                className="btn btn-primary"
+                onClick = {(e) => this.handleSubmit(e)}
+
+              >
+                Submit
+              </Button>
+
+                
+
+
+                  </div>
+              </Popup>
+
             </ButtonToolbar>
-            <Popup modal trigger={<button>Click Me</button>}>
-              Modal Content
-            </Popup>
             {/* {submitted ? MODALSHOW : null} */}
           </form>
           {/* /form */}
