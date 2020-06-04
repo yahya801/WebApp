@@ -63,15 +63,23 @@ export default (props) => {
 
         <PanelList state={state}>
           <Panel>
-            <p><h4>Event Name: {props.eventname}</h4>animations with framer/motion</p>
+            <p>
+            <h4>Event Name: {props.eventname}</h4>
+            <h4>Event Date: {props.date} </h4>
+            <h4>Event Description: {props.description} </h4>
+            
+            </p>
           </Panel>
 
           <Panel>
-            <p>is pure</p>
+            <p><h4>Event Location: {props.location} </h4></p>
           </Panel>
 
           <Panel>
-            <p>❤️</p>
+            <p><h4>Organizer Name: {props.organizername} </h4>
+            <h4>Company Name: {props.companyname} </h4>
+            
+            </p>
           </Panel>
         </PanelList>
       </div>

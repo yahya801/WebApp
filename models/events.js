@@ -44,7 +44,16 @@ const eventschema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "user",  
     required: true
-  }
+  },
+  organizername: {
+    type: String,  
+    required: true
+  },
+  companyname: {
+    type: String,  
+    required: true
+  },
+  
 });
 
 const Event = mongoose.model("Events", eventschema);

@@ -22,6 +22,9 @@ export class container extends Component {
       time: this.props.time || "",
       eventid: this.props.match.params.ID,
       loading: "",
+      organizername: this.props.organizername || "",
+      companyname: this.props.companyname || "",
+
     };
   }
   async componentDidMount() {
@@ -41,6 +44,9 @@ export class container extends Component {
           vipentry: res.data.event.vipentry,
           time: res.data.event.time,
           loading: true,
+          organizername: res.data.event.organizername,
+          companyname: res.data.event.companyname,
+
         });
         console.log(this.state.basicentry);
         // console.log(this.state.Event.eventname);
@@ -65,9 +71,17 @@ export class container extends Component {
             basicentry={this.state.basicentry}
             vipentry={this.state.vipentry}
             time={this.state.time}
+            organizername = {this.state.organizername}
+            companyname = {this.state.companyname}
           />
         </div>
-        <Tab eventname={this.state.eventname} />
+        <Tab eventname={this.state.eventname}
+        date = {this.state.date}
+        description = {this.state.description}
+        location = {this.state.location}
+        organizername = {this.state.organizername}
+        companyname = {this.state.companyname}
+         />
         {/* <Pallete/> */}
 
         <Tickets

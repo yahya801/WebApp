@@ -30,16 +30,35 @@ export class CreateEvent extends Component {
       edit: this.props.edit || false,
       selectedFile: null,
       userloggedin,
+      organizername: this.props.organizername || "",
+      companyname: this.props.companyname || "",
       
       //addModalShow: false,
     };
   }
+
+  
+  
   onChange = (e) => {
     this.setState({ [e.target.id]: e.target.value });
   };
   onSubmit = (e) => {
     console.log(localStorage.getItem("id"));
     e.preventDefault();
+
+    // const eventData = {
+    //   eventname: this.state.eventname,
+    //   date: this.state.date,
+    //   location: this.state.location,
+    //   city: this.state.city,
+    //   category: this.state.category,
+    //   description: this.state.description,
+    //   basicentry: this.state.basicentry,
+    //   vipentry: this.state.vipentry,
+    //   time: this.state.time,
+    //   userid: localStorage.getItem("id"),
+    //   //  image: this.state.selectedFile
+    // };
 
     const eventData = {
       eventname: this.state.eventname,
@@ -54,6 +73,11 @@ export class CreateEvent extends Component {
       userid: localStorage.getItem("id"),
       //  image: this.state.selectedFile
     };
+ 
+
+
+
+    
     // this.setState({
     //   submitted: true,
     //   addModalShow: true,
@@ -91,8 +115,50 @@ export class CreateEvent extends Component {
     console.log(e.target.files[0]);
   };
 
-  handleSubmit(e){
+  handleSubmit = (e) => {
+    
+    console.log(localStorage.getItem("id"));
+    
+    e.preventDefault();
+
+    const copyEvent = {eventname: this.state.eventname,
+      date: this.state.date,
+      location: this.state.location,
+      city: this.state.city,
+      category: this.state.category,
+      description: this.state.description,
+      basicentry: this.state.basicentry,
+      vipentry: this.state.vipentry,
+      time: this.state.time,
+      userid: localStorage.getItem("id"),}
+
+    
+
+
+
+    const organizerData = {
+      organizername: this.state.organizername, 
+      companyname: this.state.companyname,
+    }
+
+    const combinedData = {...copyEvent, ...organizerData};
+
+    
+    
     console.log("helloiamsubmitted")
+    axios
+    .post("http://localhost:3000/event/create", combinedData)
+    .then(() => {
+      this.setState({
+        submitted: true,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      console.error(err);
+    });
+    console.log(combinedData);
+    console.log("jhahsjabdhdb")
   }
 
   //notloggedin() {
@@ -355,7 +421,9 @@ export class CreateEvent extends Component {
             <Button
       
                 className="btn btn-primary"
-                onClick = {(e) => this.handleSubmit(e)}
+                onClick = {(e) => 
+                  this.handleSubmit(e)
+                }
 
               >
                 Submit
