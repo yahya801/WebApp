@@ -2,15 +2,19 @@ import React, { Component, useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import axios from "axios";
 import moment from "moment";
-
-// import { Button, ButtonToolbar } from "react-bootstrap";
+import { Button, ButtonToolbar } from "react-bootstrap";
 import Popup from "reactjs-popup";
+import {Row, Col, Form} from "react-bootstrap";
+import Modal from "react-modal";
+import Content from "./Content"
+import './content.css';
 
 export class CreateEvent extends Component {
   constructor(props) {
     super(props);
     let submitted = false;
     let userloggedin = false;
+    let setModalIsOpen = false;
     this.state = {
       eventname: this.props.eventname || "",
       date: this.props.date || "",
@@ -26,15 +30,35 @@ export class CreateEvent extends Component {
       edit: this.props.edit || false,
       selectedFile: null,
       userloggedin,
-      addModalShow: false,
+      organizername: this.props.organizername || "",
+      companyname: this.props.companyname || "",
+      
+      //addModalShow: false,
     };
   }
+
+  
+  
   onChange = (e) => {
     this.setState({ [e.target.id]: e.target.value });
   };
   onSubmit = (e) => {
     console.log(localStorage.getItem("id"));
     e.preventDefault();
+
+    // const eventData = {
+    //   eventname: this.state.eventname,
+    //   date: this.state.date,
+    //   location: this.state.location,
+    //   city: this.state.city,
+    //   category: this.state.category,
+    //   description: this.state.description,
+    //   basicentry: this.state.basicentry,
+    //   vipentry: this.state.vipentry,
+    //   time: this.state.time,
+    //   userid: localStorage.getItem("id"),
+    //   //  image: this.state.selectedFile
+    // };
 
     const eventData = {
       eventname: this.state.eventname,
@@ -49,6 +73,11 @@ export class CreateEvent extends Component {
       userid: localStorage.getItem("id"),
       //  image: this.state.selectedFile
     };
+ 
+
+
+
+    
     // this.setState({
     //   submitted: true,
     //   addModalShow: true,
@@ -64,20 +93,20 @@ export class CreateEvent extends Component {
     // fd.append('state',JSON.stringify(statebody))
     // axios.post('/api/',fd)
     // console.log(fd.state)
-    axios
-      .post("http://localhost:3000/event/create", eventData)
-      .then(() => {
-        this.setState({
-          submitted: true,
+    // axios
+    //   .post("http://localhost:3000/event/create", eventData)
+    //   .then(() => {
+    //     this.setState({
+    //       submitted: true,
 
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-        console.error(err);
-      });
-    console.log(eventData);
-    console.log(this.state.addModalShow);
+    //     });
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //     console.error(err);
+    //   });
+    // console.log(eventData);
+    //console.log(this.state.addModalShow);
   };
   fileSelectedHandler = (e) => {
     this.setState({
@@ -86,12 +115,61 @@ export class CreateEvent extends Component {
     console.log(e.target.files[0]);
   };
 
+  handleSubmit = (e) => {
+    
+    console.log(localStorage.getItem("id"));
+    
+    e.preventDefault();
+
+    const copyEvent = {eventname: this.state.eventname,
+      date: this.state.date,
+      location: this.state.location,
+      city: this.state.city,
+      category: this.state.category,
+      description: this.state.description,
+      basicentry: this.state.basicentry,
+      vipentry: this.state.vipentry,
+      time: this.state.time,
+      userid: localStorage.getItem("id"),}
+
+    
+
+
+
+    const organizerData = {
+      organizername: this.state.organizername, 
+      companyname: this.state.companyname,
+    }
+
+    const combinedData = {...copyEvent, ...organizerData};
+
+    
+    
+    console.log("helloiamsubmitted")
+    axios
+    .post("http://localhost:3000/event/create", combinedData)
+    .then(() => {
+      this.setState({
+        submitted: true,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      console.error(err);
+    });
+    console.log(combinedData);
+    console.log("jhahsjabdhdb")
+  }
+
   //notloggedin() {
   //window.location = "/";
   //}
 
+
   render() {
-    let addModalClose = () => this.setState({ addModalShow: false });
+    
+    
+    //let addModalClose = () => this.setState({ addModalShow: false });
     // let {addModalShow} = this.state
     // let {submitted} = this.state
     // console.log(submitted)
@@ -297,10 +375,67 @@ export class CreateEvent extends Component {
                 <span className="help-block">*Required fields</span>
               </div>
             </div>
-          
-            <Popup modal trigger={<button>Click Me</button>}>
-              Modal Content
-            </Popup>
+            <ButtonToolbar>
+              <Button
+                type="submit"
+                className="btn btn-primary"
+
+              >
+                Register
+              </Button>
+              <Popup modal trigger={<button>Click Me</button>}>
+                <div className = "container">
+                <h3>Add the Organizer Details</h3>
+                <div className="form-group">
+              <label htmlFor="organizerName" className="col-sm-3 control-label">
+                Oganizer Name
+              </label>
+              <div className="col-sm-9">
+                <input
+                  id="organizername"
+                  type="text"
+                  value={this.state.organizername}
+                  onChange={this.onChange}
+                  placeholder="Organizer Name"
+                  className="form-control"
+                  //   autofocus
+                />
+              </div>
+            </div>
+            <div className="form-group">
+              <label htmlFor="Company Name" className="col-sm-3 control-label">
+                Company Name
+              </label>
+              <div className="col-sm-9">
+                <input
+                  id="companyname"
+                  type="text"
+                  value={this.state.companyname}
+                  onChange={this.onChange}
+                  placeholder="Company Name"
+                  className="form-control"
+                  //   autofocus
+                />
+              </div>
+            </div>
+            <Button
+      
+                className="btn btn-primary"
+                onClick = {(e) => 
+                  this.handleSubmit(e)
+                }
+
+              >
+                Submit
+              </Button>
+
+                
+
+
+                  </div>
+              </Popup>
+
+            </ButtonToolbar>
             {/* {submitted ? MODALSHOW : null} */}
           </form>
           {/* /form */}

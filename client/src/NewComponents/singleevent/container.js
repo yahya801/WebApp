@@ -24,6 +24,9 @@ export class container extends Component {
       loading: "",
       userid: localStorage.getItem("id") || "",
       userrole: "",
+      organizername: this.props.organizername || "",
+      companyname: this.props.companyname || "",
+
     };
   }
   async componentDidMount() {
@@ -46,7 +49,9 @@ export class container extends Component {
           vipentry: res.data.event.vipentry,
           time: res.data.event.time,
           loading: true,
-          
+          organizername: res.data.event.organizername,
+          companyname: res.data.event.companyname,
+
         });
         if(res.data.userdata){
           this.setState({
@@ -83,9 +88,17 @@ export class container extends Component {
             basicentry={this.state.basicentry}
             vipentry={this.state.vipentry}
             time={this.state.time}
+            organizername = {this.state.organizername}
+            companyname = {this.state.companyname}
           />
         </div>
-        <Tab eventname={this.state.eventname} />
+        <Tab eventname={this.state.eventname}
+        date = {this.state.date}
+        description = {this.state.description}
+        location = {this.state.location}
+        organizername = {this.state.organizername}
+        companyname = {this.state.companyname}
+         />
         {/* <Pallete/> */}
 
         <Tickets

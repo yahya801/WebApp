@@ -17,6 +17,8 @@ route.post("/create", (req, res) => {
     vipentry,
     time,
     userid,
+    organizername,
+    companyname,
   } = req.body;
   if (
     !eventname ||
@@ -46,6 +48,8 @@ route.post("/create", (req, res) => {
   event.date = date;
   event.time = time;
   event.userid = userid;
+  event.organizername = organizername;
+  event.companyname = companyname;
 
   let eventmodal = new Event(event);
   eventmodal.save();
