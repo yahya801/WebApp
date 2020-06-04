@@ -2,8 +2,8 @@ import React, { Component, useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import axios from "axios";
 import moment from "moment";
-import AddOrganizerModal from "./AddOrganizerModal";
-import { Button, ButtonToolbar } from "react-bootstrap";
+
+// import { Button, ButtonToolbar } from "react-bootstrap";
 import Popup from "reactjs-popup";
 
 export class CreateEvent extends Component {
@@ -64,19 +64,19 @@ export class CreateEvent extends Component {
     // fd.append('state',JSON.stringify(statebody))
     // axios.post('/api/',fd)
     // console.log(fd.state)
-    // axios
-    //   .post("http://localhost:3000/event/create", eventData)
-    //   .then(() => {
-    //     this.setState({
-    //       submitted: true,
+    axios
+      .post("http://localhost:3000/event/create", eventData)
+      .then(() => {
+        this.setState({
+          submitted: true,
 
-    //     });
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //     console.error(err);
-    //   });
-    // console.log(eventData);
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        console.error(err);
+      });
+    console.log(eventData);
     console.log(this.state.addModalShow);
   };
   fileSelectedHandler = (e) => {
@@ -297,19 +297,7 @@ export class CreateEvent extends Component {
                 <span className="help-block">*Required fields</span>
               </div>
             </div>
-            <ButtonToolbar>
-              <Button
-                type="submit"
-                onClick={() => this.setState({ addModalShow: true })}
-                // className="btn btn-primary"
-              >
-                Register
-              </Button>
-              <AddOrganizerModal
-              // show={this.state.addModalShow}
-              // onHide={addModalClose}
-              />
-            </ButtonToolbar>
+          
             <Popup modal trigger={<button>Click Me</button>}>
               Modal Content
             </Popup>

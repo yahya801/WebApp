@@ -1,5 +1,6 @@
 const express = require("express");
 const Event = require("../../models/events");
+const User = require("../../models/users");
 const Image = require("../../models/eventimage");
 const route = express.Router();
 const upload = require("../../middleware/upload");
@@ -144,7 +145,11 @@ route.get("/search", (req, res) => {
         });
       });
   } else if (Eventname && Date && City) {
-    Event.find({ eventname: Eventname.toLowerCase(), date: Date, city: City.toLowerCase() })
+    Event.find({
+      eventname: Eventname.toLowerCase(),
+      date: Date,
+      city: City.toLowerCase(),
+    })
 
       .sort({ date: -1 })
       .then((events) => {
@@ -202,9 +207,27 @@ route.put("/update/:id", (req, res) => {
 // });
 route.get("/singleevent/:ID", (req, res) => {
   // console.log(req.params.ID)
+
+  let userdata;
+  let userid = req.query.userid;
+  console.log(userid)
+  // let userdata
+  if (userid) {
+    User.find({_id: userid}).then((user) => {
+   userdata = user
+    
+      
+   console.log(userdata)
+    });
+  }
+ console.log(userdata)
+//  newuser.name = user.name
+//  console.log(newuser)
   Event.findById(req.params.ID).then((event) => {
-    return res.json({
+    console.log(event)
+    return res.json({ 
       event,
+      userdata,
     });
   });
 });

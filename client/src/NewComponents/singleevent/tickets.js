@@ -1,9 +1,16 @@
 import React, { Component } from "react";
 import Button from "./buttons.js";
+import Popup from "reactjs-popup";
+import axios from "axios";
+// import "./form.css";
+import { useHistory } from "react-router-dom";
+import Login from "./login&register/login";
 
 export class tickets extends Component {
   constructor(props) {
     super(props);
+    // let {loginshow}= ''
+    // const history = useHistory();
     this.state = {
       count: 1,
       count2: 1,
@@ -11,6 +18,9 @@ export class tickets extends Component {
       b: this.props.vipentry || "",
       basicentry: this.props.basicentry || "",
       vipentry: this.props.vipentry || "",
+      userid: "",
+      userrole: this.props.userrole || "",
+      // history,
     };
   }
 
@@ -62,27 +72,51 @@ export class tickets extends Component {
       });
     }
   }
+  handleSubmit(signup) {
+    console.log(signup);
+    if (signup == "Login/Register") {
+      // if(this.state.history.goBack())  {}   // window.location = `/login`
+      // console.log('hjh')  // console.log(window.history.back.toString)
+      // loginshow = <div><Login /></div>
+    }
+  }
 
   render() {
     let { count } = this.state;
     let { basicentry } = this.state;
     let { count2 } = this.state;
     let { vipentry } = this.state;
+    let { userrole } = this.state;
+    let signup;
+    let popup;
+    let loading = false;
+    let POPUP = "";
+    let POPUP2 = "";
+    console.log(this.props.userrole)
+    if (this.props.userrole === "customer") {
+      console.log("customer")
+      loading = true;
+      signup = "Book Ticket";
+      popup = <Popup2 eventid={this.props.eventid} signup={signup} />;
+      POPUP = <div>{popup}</div>;
+    } else {
+      let msg;
+      if (userrole != "customer") {
+        msg = "In order to buy tickets you must login as customer";
+      }
+      console.log('admin  ')
+      loading = true;
+      signup = "Login/Register";
+      popup = <Popup3 eventid={this.props.eventid} signup={signup} msg={msg} />;
+      POPUP = <div>{popup}</div>;
+    }
     let Vip = false;
 
-    // let { vipentry } = this.state;
     if (vipentry > 0) {
       Vip = true;
     } else {
       count2 = 0;
     }
-    // let VipTicket;
-    // console.log("Hgfjhjlhgjfh2");
-    // if (Vip === true) {
-    //   console.log("Hgfjhjlhgjfh");
-    //   VipTicket = <TicketVip vipentry={this.state.vipentry} />;
-    // }
-    // const VIPTICKET = <div>{VipTicket}</div>;
 
     return (
       <div>
@@ -143,14 +177,19 @@ export class tickets extends Component {
                     task={() => this.handleChange(1)}
                   />
                 </div>
-                <input
-                  type="submit"
-                  className="btn gradient-bg"
-                  defaultValue="Buy Ticket"
-                />
+
+                {/* <Login /> */}
               </div>
-              {/* {vipentry ? VIPTICKET : null} */}
             </div>
+            {/* <Button
+            type='submit'
+              title={signup}
+              className="clear-ticket-count"
+              task={()=>this.handleSubmit(signup)}
+            >
+              {this.props.signup}
+            </Button>  */}
+            {loading ? POPUP : POPUP2}
           </div>
         </div>
       </div>
@@ -159,3 +198,234 @@ export class tickets extends Component {
 }
 
 export default tickets;
+
+class Popup2 extends Component {
+  handleSubmit(e) {
+  }
+  render() {
+
+    return (
+      <div>
+        <Popup modal trigger={<button>{this.props.signup}</button>}>
+          <button onClick={this.handleSubmit(this.props.signup)} type="button">
+            {this.props.signup}
+          </button>
+        </Popup>
+      </div>
+    );
+  }
+}
+class Popup3 extends Component {
+  constructor(props) {
+    super(props);
+    let loggedin = false;
+    this.state = {
+      email: "",
+      password: "",
+      errors: "",
+      loggedin,
+      errmsg: "",
+      open: false,
+    };
+    this.closeModal = this.closeModal.bind(this);
+    this.openModal = this.openModal.bind(this);
+    // this.state = { open: false };
+    this.onChange = this.onChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  openModal() {
+    this.setState({ open: true });
+  }
+  closeModal() {
+    this.setState({ open: false });
+  }
+  onChange = (e) => {
+    this.setState({ [e.target.id]: e.target.value });
+  };
+
+  onSubmit = (e) => {
+   
+  };
+  onredirect = (e) => {
+    window.location.replace("//http://localhost:3000/admin/resources/user");
+  };
+  handleSubmit(e) {
+    console.log("jhgjf");
+    e.preventDefault();
+
+    const userData = {
+      email: this.state.email,
+      password: this.state.password,
+    };
+    axios
+      .post(`http://localhost:3000/${this.state.email}/signin`, userData)
+      .then((response) => {
+        console.log(response.data.user);
+        localStorage.setItem("id", response.data.user.id);
+        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("user", response.data.user.name);
+
+        this.setState({
+          loggedin: true,
+          // open: false,
+        });
+        
+        if (response.data.user.role == "super-admin") {
+          console.log("hell");
+          window.location = "http://localhost:3000/admin/resources/user";
+        }
+        if (response.data.user.role == "admin") {
+          console.log("hell");
+          this.setState({
+            open: false
+          })
+         
+        }
+        if (response.data.user.role == "customer") {
+          this.closeModal()
+          window.location= `/singleevent/${this.props.eventid}`;
+          
+        }
+        // window.location = "/read-events";
+        //window.location= 'http://localhost:3000/admin/resources/user';
+      })
+      .catch((err) => {
+        //  console.log(err);
+        console.error(err.response.data);
+        this.setState({ errmsg: err.response.data.msg });
+        console.log(this.state.errmsg);
+      });
+    // this.closeModal()
+  }
+
+  render() {
+    const { errors } = this.state;
+    let { loggedin } = this.state;
+    let close = "";
+    if (loggedin) {
+      console.log("Hogaya");
+    }
+
+    return (
+      <div>
+        <Popup
+          modal
+          trigger={<button>{this.props.signup}</button>}
+          open={this.state.open}
+          closeOnDocumentClick
+          onClose={this.closeModal}
+        >
+          {this.props.msg}
+          <div>
+            {/* <Login /> */}
+            <div>
+              {/* {close => { */}
+              <a className="close" onClick={this.closeModal}>
+                &times;
+              </a>
+              <div className="container">
+                <div className="row">
+                  <div className="col-md-5 mx-auto">
+                    <div id="first">
+                      <div className="myform form ">
+                        <div className="logo mb-3">
+                          <div className="col-md-12 text-center"></div>
+                        </div>
+                        <form onSubmit={this.handleSubmit} name="login">
+                          <div className="form-group">
+                            <label htmlFor="exampleInputEmail1">
+                              Email address
+                            </label>
+                            <input
+                              type="email"
+                              name="email"
+                              className="form-control"
+                              id="email"
+                              aria-describedby="emailHelp"
+                              placeholder="Enter email"
+                              onChange={this.onChange}
+                              value={this.state.email}
+                              error={errors.email}
+                            />
+                          </div>
+                          <div className="form-group">
+                            <label htmlFor="exampleInputEmail1">Password</label>
+                            <input
+                              type="password"
+                              name="password"
+                              id="password"
+                              className="form-control"
+                              aria-describedby="emailHelp"
+                              placeholder="Enter Password"
+                              onChange={this.onChange}
+                              value={this.state.password}
+                              error={errors.password}
+                            />
+                          </div>
+                          <div>{this.state.errmsg}</div>
+                          <div className="form-group">
+                            <p className="text-center">
+                              By signing up you accept our{" "}
+                              <a href="#">Terms Of Use</a>
+                            </p>
+                          </div>
+                          <div className="col-md-12 text-center ">
+                            <button
+                              type="submit"
+                              className=" btn btn-block mybtn btn-primary tx-tfm"
+                            >
+                              Login
+                            </button>
+                          </div>
+                          <div className="col-md-12 ">
+                            <div className="login-or">
+                              <hr className="hr-or" />
+                              <span className="span-or">or</span>
+                            </div>
+                          </div>
+                          <div className="col-md-12 mb-3">
+                            <p className="text-center">
+                              <a
+                                href="javascript:void();"
+                                className="google btn mybtn"
+                              >
+                                <i className="fa fa-google-plus"></i> Signup
+                                using Google
+                              </a>
+                            </p>
+                          </div>
+                          <div className="form-group">
+                            <p className="text-center">
+                              Don't have account?{" "}
+                              <a href="/register" id="signup">
+                                Sign up here
+                              </a>
+                            </p>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* }} */}
+            </div>
+          </div>
+        </Popup>
+      </div>
+    );
+  }
+}
+
+class Loginmsg extends Component {
+  render() {
+    return (
+      <div>
+        <Popup modal trigger={this.props.loggedin}>
+          The User has been successfully Logged in.
+        </Popup>
+      </div>
+    );
+  }
+}

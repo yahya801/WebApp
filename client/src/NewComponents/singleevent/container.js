@@ -22,13 +22,18 @@ export class container extends Component {
       time: this.props.time || "",
       eventid: this.props.match.params.ID,
       loading: "",
+      userid: localStorage.getItem("id") || "",
+      userrole: "",
     };
   }
   async componentDidMount() {
     console.log(this.state.eventid);
     axios
-      .get(`http://localhost:3000/event/singleevent/${this.state.eventid}`)
+      .get(`http://localhost:3000/event/singleevent/${this.state.eventid}`, {
+        params: { userid: this.state.userid },
+      })
       .then((res) => {
+        console.log(res.data);
         //    const event = res.data[0];
         //  this.setState({ event});
         this.setState({
@@ -41,8 +46,21 @@ export class container extends Component {
           vipentry: res.data.event.vipentry,
           time: res.data.event.time,
           loading: true,
+          
         });
-        console.log(this.state.basicentry);
+        if(res.data.userdata){
+          this.setState({
+            userrole: res.data.userdata[0].role
+          })
+          console.log('hgh')}
+          
+          else{
+            this.setState({
+              userrole: ""
+            })
+          }
+        
+        console.log(this.state.userrole);
         // console.log(this.state.Event.eventname);
       });
   }
@@ -73,6 +91,8 @@ export class container extends Component {
         <Tickets
           basicentry={this.state.basicentry}
           vipentry={this.state.vipentry}
+          userrole={this.state.userrole}
+          eventid={this.state.eventid}
         />
       </div>
     );

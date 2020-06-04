@@ -62,6 +62,7 @@ export class ticketVip extends Component {
               <Button title="+" task={() => this.incrementCount2()} />
             </div>
             <Button
+            to="/fvhjkj"
               title="Clear"
               className="clear-ticket-count"
               task={() => this.handleChange(1)}

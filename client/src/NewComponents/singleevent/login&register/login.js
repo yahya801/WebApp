@@ -45,8 +45,11 @@ class login extends React.Component {
         }
         if (response.data.user.role == "admin"){
             console.log('hell')
-           window.location= '/orgdash';
+          //  window.location= '/orgdash';
 
+        }
+        if(response.data.user.role == 'customer'){
+        
         }
         // window.location = "/read-events";
         //window.location= 'http://localhost:3000/admin/resources/user';

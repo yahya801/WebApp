@@ -7,6 +7,7 @@ export class Lougout extends Component {
         super(props)
         localStorage.removeItem("token")
         localStorage.removeItem("user")
+        localStorage.removeItem("id")
     }
     render() {
         return (

@@ -3,7 +3,7 @@ import React, { Component } from "react";
 export class Buttons extends Component {
   render() {
     let { title, task } = this.props;
-    return <button onClick={task}>{title}</button>;
+    return <button type={this.props.type}onClick={task}>{title}</button>;
   }
 }
 
