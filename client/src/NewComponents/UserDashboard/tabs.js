@@ -5,6 +5,7 @@ import Private from "../eventpage/Privatecard";
 import Charity from "../eventpage/Charitycard";
 import Corperate from "../eventpage/Corperatecard"
 import {Button} from 'react-bootstrap';
+import Card from './BookingCard';
 
 const cn = (...args) => args.filter(Boolean).join(" ");
 const Tab = ({ children }) => {
@@ -52,7 +53,10 @@ export default class tabs extends Component {
                                 <br/>
                             </Panel>
                             <Panel>
-                                Booking Details
+                                <br/>
+                                <Card/>
+                                <br/>
+                                <Card/>
                             </Panel>
                             
 
