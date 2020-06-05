@@ -1,6 +1,6 @@
-import Card from './BookingCard';
 import axios from "axios";
 import React, { Component } from 'react'
+import BookingCard from './BookingCard';
 
 export default class Cards extends Component {
     constructor(props){
@@ -8,7 +8,7 @@ export default class Cards extends Component {
 
         this.state = {
             userid: localStorage.getItem("id"),
-            BookedEvents = [],
+            BookedEvents: [],
         }
 
 
@@ -18,12 +18,20 @@ export default class Cards extends Component {
     async componentWillMount() {
 
     
-        axios
-          .get(`http://localhost:3000/eventbooking`)
+        axios.get(`http://localhost:3000/booking/bookedevent`, {
+        params: { userid: this.state.userid },
+      })
           .then((response) => {
             console.log(response.data);
+            console.log("abccccddd")
             this.setState({ BookedEvents: response.data.cartevents });
-            console.log(this.state.Events);
+            console.log(this.state.BookedEvents);
+
+            this.setState = (
+                {
+
+                }
+            )
           });
       }
 
@@ -32,6 +40,26 @@ export default class Cards extends Component {
     render() {
    return (
             <div>
+                <div className = "container">
+                    <div className = "row">
+                        {this.state.BookedEvents.map(BookedEvents => (
+                            <div className="justify-content">
+                                <div className='col-sm-4'>
+                                    <BookingCard 
+                                    title={BookedEvents.eventname} 
+                                    price = {BookedEvents.totalprice}
+                                    normalticket = {BookedEvents.normalticket}
+                                    vipticket = {BookedEvents.vipticket}
+                                    bookingdate = {BookedEvents.bookingdate} />
+                                </div>
+                            
+                            </div>
+
+                        )) }
+
+                    </div>
+
+                </div>
                 
             </div>
         )

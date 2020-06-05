@@ -9,8 +9,18 @@ export default class BookingCard extends Component {
             <div>
                 <Card text="center" style={{ width: "18rem" }}>
         <Card.Body>
-          <Card.Title> Event Booked </Card.Title>
-          <Card.Text>Booked Event Details</Card.Text>
+          <Card.Title> Event: {this.props.title} </Card.Title>
+        <Card.Text>
+            Booking Date: {this.props.bookingdate}
+            <br/>
+            Normal Tickets: {this.props.normalticket}
+            <br/>
+            VIP Tickets: {this.props.vipticket}
+            <br/>
+            Total Amount: {this.props.price}
+            <br/>
+
+        </Card.Text>
         </Card.Body>
       </Card>
             </div>

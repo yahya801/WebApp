@@ -80,5 +80,20 @@ route.get("/cart/:userid", (req, res) => {
      
     });
 });
+route.get("/bookedevent", (req, res) => {
+  const userid = req.query.userid;
+  let cart;
+  Booking.find({ userid: userid, cart: true })
+    .sort({ date: -1 })
+    .then((cartevents) => {
+      console.log(cartevents);
+      
+
+        return res.json({
+          cartevents,
+        });
+     
+    });
+});
 
 module.exports = route;
