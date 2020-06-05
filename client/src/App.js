@@ -31,6 +31,7 @@ import EventPage from './NewComponents/eventpage/eventpage'
 import Container from './NewComponents/singleevent/container'
 import CRUDheader from './NewComponents/CRUD/crudheader'
 import OrgDashboard from './NewComponents/OrganizerDashboard/OrganizerDash'
+import Cart from './NewComponents/Cartpage/usercardblock'
 // import Pal from './NewComponents/singleevent/pallete'
 // import Tab from './NewComponents/singleevent/tabs'
 
@@ -81,6 +82,7 @@ class App extends Component {
           <Route path="/search" component = {EventSearch} />
 
           <Route path ="/orgdash" component = {OrgDashboard}/>
+          <Route path = "/cart" component={Cart} />
           
           {/* <Route exact path="/edit-event/:id" component = {edit} /> */}
           {/* <Route exact path="/update-event" component={sidebar} />

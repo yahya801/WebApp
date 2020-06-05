@@ -1,6 +1,23 @@
 const mongoose = require("mongoose");
 const bookingschema = new mongoose.Schema(
   {
+    eventname: {
+      type: String,
+      required: true,
+    },
+    location: {
+      type: String,
+      required: true,
+    },
+    category: {
+      type: String,
+      required: true,
+    },
+
+    city: {
+      type: String,
+      required: true,
+    },
     eventid: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Events",
@@ -22,6 +39,11 @@ const bookingschema = new mongoose.Schema(
     totalprice: {
       type: Number,
       required: true,
+    },
+    cart: {
+      type: Boolean,
+      required: true,
+      default: false,
     },
   },
   { timestamps: true }

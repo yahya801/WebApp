@@ -64,6 +64,16 @@ route.delete("/delete/:id", (req, res) => {
     .catch((err) => res.status(404).json({ success: false }));
 });
 
+route.get("/eventdetails/:id",(req,res) => {
+  const eventid = req.params.id
+  Event.findById(eventid)
+    .then((event) => {
+      return res.json({
+        event,
+      });
+    });
+  });
+
 // route.patch("/update", (req, res) => {
 //   Event.deleteOne({ eventname: req.body.eventname })
 //     .exec()
