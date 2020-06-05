@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { Tabs, useTabState, Panel } from "@bumaga/tabs";
 import "./tabs.css";
-import Private from "../eventpage/Privatecard";
-import Charity from "../eventpage/Charitycard";
-import Corperate from "../eventpage/Corperatecard"
+import Private from "./CategoryTabs/private";
+import Charity from "./CategoryTabs/charity";
+import Corperate from "./CategoryTabs/corperate"
 import {Button} from 'react-bootstrap';
 
 const cn = (...args) => args.filter(Boolean).join(" ");

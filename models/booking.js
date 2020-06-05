@@ -21,10 +21,12 @@ const bookingschema = new mongoose.Schema(
     eventid: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Events",
+      required: true,
     },
     userid: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "user",
+      required: true,
     },
     bookingdate: {
       type: Date,

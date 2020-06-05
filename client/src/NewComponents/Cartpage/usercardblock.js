@@ -23,6 +23,22 @@ export class UserCardBlock extends Component {
         console.log(this.state.Events);
       });
   }
+  deleteevent = (_id) => {
+    console.log(_id);
+
+    var removeindex = this.state.Events.map(function (Event) {
+      return Event._id;
+    }).indexOf(_id);
+    console.log(removeindex);
+    let neweventlist = [];
+    neweventlist = this.state.Events;
+    neweventlist.splice(removeindex, 1);
+    this.setState({ Events: neweventlist });
+    console.log(this.state.Events)
+    axios.delete(`http://localhost:3000/booking/delete/${_id}`).then(() => {
+      console.log("Deleted Successfully");
+    });
+  };
   //   totalprice(eventprice){
   //     let amount= eventprice
   //     this.setState({

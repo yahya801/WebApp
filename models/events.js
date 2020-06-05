@@ -14,46 +14,53 @@ const eventschema = new mongoose.Schema({
     type: String,
     required: true,
     default: "Private",
-    enum:["Private","Corperate","Charity"]
+    enum: ["Private", "Corperate", "Charity"],
   },
   description: {
     type: String,
     required: true,
   },
+  basictickets: {
+    type: Number,
+    required: true,
+  },
+  viptickets: {
+    type: Number,
+    required: true,
+  },
+
   basicentry: {
     type: Number,
     required: true,
   },
   vipentry: {
     type: Number,
-    
   },
   date: {
     type: Date,
-    required:true
+    required: true,
   },
   time: {
     type: String,
-    required: true
+    required: true,
   },
-  city:{
+  city: {
     type: String,
-    required: true
+    required: true,
   },
   userid: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "user",  
-    required: true
+    ref: "user",
+    required: true,
   },
   organizername: {
-    type: String,  
-    required: true
+    type: String,
+    required: true,
   },
   companyname: {
-    type: String,  
-    required: true
+    type: String,
+    required: true,
   },
-  
 });
 
 const Event = mongoose.model("Events", eventschema);

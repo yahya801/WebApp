@@ -25,7 +25,7 @@ mongoose
   .catch(err => console.log(err));
 
 //redirect to /user
-app.use("/:user", require("./routes/api/user"))    ;
+app.use("/user", require("./routes/api/user"))    ;
 app.use("/event", require("./routes/api/events"));
 app.use("/booking", require("./routes/api/booking"));
 app.use("/admin", require("./admin")); //for the admin panel

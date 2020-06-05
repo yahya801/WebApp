@@ -32,6 +32,8 @@ export class CreateEvent extends Component {
       userloggedin,
       organizername: this.props.organizername || "",
       companyname: this.props.companyname || "",
+      basictickets: "",
+      viptickets: "",
       
       //addModalShow: false,
     };
@@ -69,6 +71,8 @@ export class CreateEvent extends Component {
       description: this.state.description,
       basicentry: this.state.basicentry,
       vipentry: this.state.vipentry,
+      basictickets: this.state.basictickets,
+      viptickets: this.state.viptickets,
       time: this.state.time,
       userid: localStorage.getItem("id"),
       //  image: this.state.selectedFile
@@ -130,7 +134,10 @@ export class CreateEvent extends Component {
       basicentry: this.state.basicentry,
       vipentry: this.state.vipentry,
       time: this.state.time,
-      userid: localStorage.getItem("id"),}
+      userid: localStorage.getItem("id"),
+      basictickets: this.state.basictickets,
+      viptickets: this.state.viptickets
+    }
 
     
 
@@ -330,6 +337,21 @@ export class CreateEvent extends Component {
             </div>
             <div className="form-group">
               <label htmlFor="Basic" className="col-sm-3 control-label">
+                Total Basic Entry*
+              </label>
+              <div className="col-sm-9">
+                <input
+                  id="basictickets"
+                  type="number"
+                  value={this.state.basictickets}
+                  onChange={this.onChange}
+                  placeholder="Total Basic Entry"
+                  className="form-control"
+                />
+              </div>
+            </div>
+            <div className="form-group">
+              <label htmlFor="Basic" className="col-sm-3 control-label">
                 Basic Entry*
               </label>
               <div className="col-sm-9">
@@ -339,6 +361,21 @@ export class CreateEvent extends Component {
                   value={this.state.basicentry}
                   onChange={this.onChange}
                   placeholder="Basic Entry Price"
+                  className="form-control"
+                />
+              </div>
+            </div>
+            <div className="form-group">
+              <label htmlFor="Basic" className="col-sm-3 control-label">
+                Total Vip Entry
+              </label>
+              <div className="col-sm-9">
+                <input
+                  id="viptickets"
+                  type="number"
+                  value={this.state.viptickets}
+                  onChange={this.onChange}
+                  placeholder="Total Vip Entry"
                   className="form-control"
                 />
               </div>

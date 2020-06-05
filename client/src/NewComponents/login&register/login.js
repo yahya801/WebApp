@@ -28,7 +28,7 @@ class login extends React.Component {
       password: this.state.password,
     };
     axios
-      .post(`http://localhost:3000/${this.state.email}/signin`, userData)
+      .post(`http://localhost:3000/user/signin`, userData)
       .then((response) => {
         console.log(response.data.user);
         localStorage.setItem("id",response.data.user.id)
@@ -48,6 +48,11 @@ class login extends React.Component {
            window.location= '/orgdash';
 
         }
+        if (response.data.user.role == "customer"){
+          console.log('hell')
+         window.location= '/userdash';
+
+      }
         // window.location = "/read-events";
         //window.location= 'http://localhost:3000/admin/resources/user';
       })

@@ -1,18 +1,45 @@
 import React, { Component } from "react";
 import Link from 'react-dom'
 import "./navbar.css";
+import axios from "axios";
 
 export class navbar extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      userid: localStorage.getItem("id") || "",
       username: "" || localStorage.getItem("user") ,
       tag1: "",
       link1: "",
+      link2: "",
+      cart:"",
+      carttag: ""
     };
   }
-  componentWillMount() {
+  async componentWillMount() {
+    if(this.state.userid){
+    axios
+      .get(`http://localhost:3000/user/navbar/${this.state.userid}`)
+      .then((res)=> {
+          console.log(res.data.user)
+          if(res.data.user){
+            if(res.data.user.role == 'admin'){
+              this.setState({
+                link2: '/orgdash'
+              })
+            }
+            else if(res.data.user.role == 'customer'){
+              this.setState({
+                link2: '/userdash',
+                cart: '/cart',
+                carttag: "Cart"
+              })
+            }
+
+          }
+      })
+    }
     console.log(this.state.username);
     let tag = "";
     let link = "";
@@ -73,7 +100,10 @@ export class navbar extends Component {
               </a>
             </li>
             <li>
-              <a >{this.state.username}</a>
+              <a href={this.state.link2}>{this.state.username}</a>
+            </li>
+            <li>
+              <a href={this.state.cart}>{this.state.carttag}</a>
             </li>
           </ul>
         </nav>

@@ -28,7 +28,7 @@ class login extends React.Component {
       password: this.state.password,
     };
     axios
-      .post(`http://localhost:3000/${this.state.email}/signin`, userData)
+      .post(`http://localhost:3000/user/signin`, userData)
       .then((response) => {
         console.log(response.data.user);
         localStorage.setItem("id",response.data.user.id)

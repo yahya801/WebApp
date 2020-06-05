@@ -76,7 +76,7 @@ route.post("/signin", (req, res) => {
               id: user.id,
               name: user.name,
               email: user.email,
-              role: user.role
+              role: user.role,
             },
           });
         }
@@ -92,6 +92,14 @@ route.get("/get", (req, res) => {
       console.log(user);
       res.status(200).json(user);
     });
+});
+route.get("/navbar/:id", (req, res) => {
+  const userid = req.params.id;
+  User.findById(userid).then((user) => {
+    return res.json({
+      user,
+    });
+  });
 });
 
 //  console.log("Got a GET request for the homepage");
