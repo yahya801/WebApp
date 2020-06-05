@@ -3,7 +3,11 @@ body{
 }
 
 .card{
-    width: 20rem;
+    width:280px;
+  display: block;
+  margin: 60px auto;
+  box-shadow: 10px 5px 40px 20px darken(#341cac, 5%);
+  transition: .25s;
 }
 
 .card:hover{
@@ -15,7 +19,7 @@ body{
 }
 
 .card-text{
-    font-size: 0.9rem;
+    font-size: 1rem;
     padding: 0.4rem 1.9rem;
 }
 
@@ -41,3 +45,11 @@ body{
 .card-img.Top:hover{
     transform: scale(1.8);
 }
+
+.designer-link {
+    color:#fff;
+    text-align:center;
+    font-size: 12px;
+    text-decoration: none;
+    display:block;
+  }
