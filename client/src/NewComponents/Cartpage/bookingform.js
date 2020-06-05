@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './bookingform.css';
 
 
+
 export default class bookingform extends Component {
     render() {
         return (

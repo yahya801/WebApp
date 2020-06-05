@@ -34,6 +34,8 @@ import OrgDashboard from './NewComponents/OrganizerDashboard/OrganizerDash'
 import Cart from './NewComponents/Cartpage/usercardblock'
 // import Pal from './NewComponents/singleevent/pallete'
 // import Tab from './NewComponents/singleevent/tabs'
+import Book from './NewComponents/Cartpage/bookingform'
+import Check from './NewComponents/Cartpage/checkoutform'
 
 import UserDash from './NewComponents/UserDashboard/UserDashboard';
 
@@ -87,13 +89,14 @@ class App extends Component {
           <Route path ="/userdash" component = {UserDash}/>
 
           <Route path = "/cart" component={Cart} />
-          
+          <Route path = "/book" component = {Book} />   
+         < Route path = "/check" component = {Check} />          
           {/* <Route exact path="/edit-event/:id" component = {edit} /> */}
           {/* <Route exact path="/update-event" component={sidebar} />
           <Route exact path="/delete-event" component={sidebar} /> */}
           {/* <Route exact path="/single-event" component={Container} /> */}
 
-          <Route path ="/" component={Footer} />
+          {/* <Route path ="/" component={Footer} /> */}
          
         </div> 
         </Switch>

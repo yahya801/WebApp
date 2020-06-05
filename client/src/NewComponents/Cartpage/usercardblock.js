@@ -4,6 +4,9 @@ import { Link, Redirect } from "react-router-dom";
 import axios from "axios";
 import { Container, Button, Alert } from "react-bootstrap";
 import Moment from "moment";
+import Popup from "reactjs-popup";
+import BookForm from "./bookingform";
+
 
 export class UserCardBlock extends Component {
   constructor(props) {
@@ -15,8 +18,6 @@ export class UserCardBlock extends Component {
     };
   }
   async componentWillMount() {
-
-    
     axios
       .get(`http://localhost:3000/booking/cart/${this.state.userid}`)
       .then((response) => {
@@ -36,7 +37,7 @@ export class UserCardBlock extends Component {
     neweventlist = this.state.Events;
     neweventlist.splice(removeindex, 1);
     this.setState({ Events: neweventlist });
-    console.log(this.state.Events)
+    console.log(this.state.Events);
     axios.delete(`http://localhost:3000/booking/delete/${_id}`).then(() => {
       console.log("Deleted Successfully");
     });
