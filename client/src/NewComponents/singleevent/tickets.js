@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import Button from "./buttons.js";
 import Popup from "reactjs-popup";
 import axios from "axios";
+
+import './style.css';
 // import "./form.css";
 import { useHistory } from "react-router-dom";
 import Login from "./login&register/login";
@@ -139,7 +141,7 @@ export class tickets extends Component {
 
     return (
       <div>
-        <div className="row" style={{ width: "1500px", paddingLeft: "250px" }}>
+        <div className="row">
           <div className="col-12">
             <div className="event-tickets">
               <div className="ticket-row flex flex-wrap justify-content-between align-items-center">
@@ -192,7 +194,7 @@ export class tickets extends Component {
                   </div>
                   <Button
                     title="Clear"
-                    className="clear-ticket-count"
+                    className="btn gradient-bg"
                     task={() => this.handleChange(1)}
                   />
                 </div>
