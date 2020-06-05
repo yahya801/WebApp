@@ -34,6 +34,8 @@ import OrgDashboard from './NewComponents/OrganizerDashboard/OrganizerDash'
 // import Pal from './NewComponents/singleevent/pallete'
 // import Tab from './NewComponents/singleevent/tabs'
 
+import UserDash from './NewComponents/UserDashboard/UserDashboard';
+
 
 // import Event from "./components/Mainpage/event";
 
@@ -81,6 +83,8 @@ class App extends Component {
           <Route path="/search" component = {EventSearch} />
 
           <Route path ="/orgdash" component = {OrgDashboard}/>
+          <Route path ="/userdash" component = {UserDash}/>
+
           
           {/* <Route exact path="/edit-event/:id" component = {edit} /> */}
           {/* <Route exact path="/update-event" component={sidebar} />
