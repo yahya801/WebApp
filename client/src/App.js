@@ -35,6 +35,8 @@ import Cart from './NewComponents/Cartpage/usercardblock'
 // import Pal from './NewComponents/singleevent/pallete'
 // import Tab from './NewComponents/singleevent/tabs'
 
+import UserDash from './NewComponents/UserDashboard/UserDashboard';
+
 
 // import Event from "./components/Mainpage/event";
 
@@ -83,6 +85,8 @@ class App extends Component {
 
           <Route path ="/orgdash" component = {OrgDashboard}/>
           <Route path = "/cart" component={Cart} />
+          <Route path ="/userdash" component = {UserDash}/>
+
           
           {/* <Route exact path="/edit-event/:id" component = {edit} /> */}
           {/* <Route exact path="/update-event" component={sidebar} />
