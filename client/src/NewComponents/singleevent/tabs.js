@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect, cloneElement } from 'react'
 import { Tabs, useTabState, Panel } from '@bumaga/tabs'
 import { motion, AnimatePresence } from 'framer-motion'
+import moment from 'moment'
 import './tabs.css'
 
 const cn = (...args) => args.filter(Boolean).join(' ')
@@ -64,15 +65,15 @@ export default (props) => {
         <PanelList state={state}>
           <Panel>
             <p>
-            <h4>Event Name: {props.eventname}</h4>
-            <h4>Event Date: {props.date} </h4>
+            <h4>Event Name: {props.eventname.toUpperCase()}</h4>
+            <h4>Event Date: {moment(props.date).format("LL")} </h4>
             <h4>Event Description: {props.description} </h4>
             
             </p>
           </Panel>
 
           <Panel>
-            <p><h4>Event Location: {props.location} </h4></p>
+            <p><h4>Event Location: {props.location.toUpperCase()} </h4></p>
           </Panel>
 
           <Panel>

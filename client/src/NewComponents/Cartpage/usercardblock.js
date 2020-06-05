@@ -49,6 +49,10 @@ export class UserCardBlock extends Component {
   //     })
   //     console.log(this.state.totalamount)
   //   }
+  handleSubmit(e){
+    console.log("jhgvgh")
+    window.location = `/check`
+  }
 
   render() {
     let { Events } = this.state;
@@ -118,7 +122,7 @@ export class UserCardBlock extends Component {
           </Table>
         </Container>
         <h2>Total Amount: {totalamount}</h2>
-        <Button variant="danger">Proceed to Checkout</Button>
+        <Button variant="danger" onClick={this.handleSubmit}>Proceed to Checkout</Button>
       </div>
     );
   }

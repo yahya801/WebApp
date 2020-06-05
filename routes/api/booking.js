@@ -39,13 +39,11 @@ route.post("/eventbooking", (req, res) => {
   booking.location = location;
   booking.city = city;
   console.log("hjj");
-
-  Booking.find({ eventid: eventid, userid: userid }).then((event) => {
-    console.log(event);
-    if (!event) {
-      console.log("STop");
-      return res.status(400).json({ msg: "Event already exists in cart" });
-    } else {
+//  var success=  false
+  Booking.findOne({ eventid: eventid, userid: userid }).then((event) => {
+    if (event) return res.status(400).json({ msg: "Event already in Cart or Booked. Visit Cart to complete checkout" });
+    console.log(event);success= true
+   
       //   console.log(success, 'jh')
       console.log(booking);
       let bookingmodal = new Booking(booking);
@@ -88,7 +86,7 @@ route.post("/eventbooking", (req, res) => {
         });
 
       res.json(bookingmodal);
-    }
+    
   });
 });
 

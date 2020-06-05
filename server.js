@@ -28,6 +28,7 @@ mongoose
 app.use("/user", require("./routes/api/user"))    ;
 app.use("/event", require("./routes/api/events"));
 app.use("/booking", require("./routes/api/booking"));
+app.use("/creditcard", require("./routes/api/creditcard"))
 app.use("/admin", require("./admin")); //for the admin panel
 
 

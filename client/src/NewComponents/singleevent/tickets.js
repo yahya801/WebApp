@@ -222,7 +222,8 @@ class Popup2 extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      Event: []
+      Event: [],
+      errmsg: ""
     }
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -258,7 +259,14 @@ class Popup2 extends Component {
       .post(`http://localhost:3000/booking/eventbooking`, cart)
       .then((response) => {
         console.log(response.data);
-   
+        window.location =`/cart`
+      })
+      .catch((err) => {
+        //  console.log(err);
+        console.error(err.response.data);
+        this.setState({ errmsg: err.response.data.msg });
+        console.log(this.state.errmsg);
+      });
       
       //   this.setState({
       // //    loggedin: true,
@@ -278,14 +286,17 @@ class Popup2 extends Component {
       //   }
       //   // window.location = "/read-events";
         //window.location= 'http://localhost:3000/admin/resources/user';
-      })
+      
   }
   render() {
     return (
       <div>
+         <div style={{color: "red"}}> {this.state.errmsg}
+       </div>
         <button onClick={this.handleSubmit} type="button">
           {this.props.signup}
         </button>
+      
       </div>
     );
   }
@@ -331,7 +342,7 @@ class Popup3 extends Component {
       password: this.state.password,
     };
     axios
-      .post(`http://localhost:3000/${this.state.email}/signin`, userData)
+      .post(`http://localhost:3000/user/signin`, userData)
       .then((response) => {
         console.log(response.data.user);
         localStorage.setItem("id", response.data.user.id);
