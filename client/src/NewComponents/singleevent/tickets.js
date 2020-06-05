@@ -92,22 +92,41 @@ export class tickets extends Component {
     let loading = false;
     let POPUP = "";
     let POPUP2 = "";
-    console.log(this.props.userrole)
+    console.log(this.props.userrole);
     if (this.props.userrole === "customer") {
-      console.log("customer")
+      console.log("customer");
       loading = true;
-      signup = "Book Ticket";
-      popup = <Popup2 eventid={this.props.eventid} signup={signup} />;
+      signup = "Add to cart";
+      popup = (
+        <Popup2
+          count={count}
+          count2={count2}
+          vipentry={vipentry}
+          basicentry={basicentry}
+          eventid={this.props.eventid}
+          signup={signup}
+        />
+      );
       POPUP = <div>{popup}</div>;
     } else {
       let msg;
       if (userrole != "customer") {
         msg = "In order to buy tickets you must login as customer";
       }
-      console.log('admin  ')
+      console.log("admin  ");
       loading = true;
       signup = "Login/Register";
-      popup = <Popup3 eventid={this.props.eventid} signup={signup} msg={msg} />;
+      popup = (
+        <Popup3
+          count={count}
+          count2={count2}
+          vipentry={vipentry}
+          basicentry={basicentry}
+          eventid={this.props.eventid}
+          signup={signup}
+          msg={msg}
+        />
+      );
       POPUP = <div>{popup}</div>;
     }
     let Vip = false;
@@ -200,17 +219,73 @@ export class tickets extends Component {
 export default tickets;
 
 class Popup2 extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      Event: []
+    }
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+   componentWillMount(){
+    let eventid = this.props.eventid
+    axios
+      .get(`http://localhost:3000/event/eventdetails/${eventid}`)
+      .then((response) => {
+        console.log(response.data.event);
+        this.setState({
+          Event: response.data.event
+        })
+        console.log(this.state.Event)
+  })}
+
   handleSubmit(e) {
+    // wind;
+    console.log("jhgf");
+    const cart = {
+      count: this.props.count,
+      count2: this.props.count2,
+      totalprice: this.props.vipentry + this.props.basicentry,
+      eventid: this.props.eventid,
+      userid: localStorage.getItem("id"),
+      eventname: this.state.Event.eventname,
+      category: this.state.Event.category,
+      city: this.state.Event.city,
+      location: this.state.Event.location
+    };
+    console.log(cart);
+
+    axios
+      .post(`http://localhost:3000/booking/eventbooking`, cart)
+      .then((response) => {
+        console.log(response.data);
+   
+      
+      //   this.setState({
+      // //    loggedin: true,
+      //   });
+      //   if (response.data.user.role == "super-admin"){
+      //       console.log('hell')
+      //     window.location= 'http://localhost:3000/admin/resources/user';
+
+      //   }
+      //   if (response.data.user.role == "admin"){
+      //       console.log('hell')
+      //     //  window.location= '/orgdash';
+
+      //   }
+      //   if(response.data.user.role == 'customer'){
+        
+      //   }
+      //   // window.location = "/read-events";
+        //window.location= 'http://localhost:3000/admin/resources/user';
+      })
   }
   render() {
-
     return (
       <div>
-        <Popup modal trigger={<button>{this.props.signup}</button>}>
-          <button onClick={this.handleSubmit(this.props.signup)} type="button">
-            {this.props.signup}
-          </button>
-        </Popup>
+        <button onClick={this.handleSubmit} type="button">
+          {this.props.signup}
+        </button>
       </div>
     );
   }
@@ -243,9 +318,7 @@ class Popup3 extends Component {
     this.setState({ [e.target.id]: e.target.value });
   };
 
-  onSubmit = (e) => {
-   
-  };
+  onSubmit = (e) => {};
   onredirect = (e) => {
     window.location.replace("//http://localhost:3000/admin/resources/user");
   };
@@ -269,7 +342,7 @@ class Popup3 extends Component {
           loggedin: true,
           // open: false,
         });
-        
+
         if (response.data.user.role == "super-admin") {
           console.log("hell");
           window.location = "http://localhost:3000/admin/resources/user";
@@ -277,14 +350,12 @@ class Popup3 extends Component {
         if (response.data.user.role == "admin") {
           console.log("hell");
           this.setState({
-            open: false
-          })
-         
+            open: false,
+          });
         }
         if (response.data.user.role == "customer") {
-          this.closeModal()
-          window.location= `/singleevent/${this.props.eventid}`;
-          
+          this.closeModal();
+          window.location = `/singleevent/${this.props.eventid}`;
         }
         // window.location = "/read-events";
         //window.location= 'http://localhost:3000/admin/resources/user';
