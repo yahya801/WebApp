@@ -84,9 +84,9 @@ class App extends Component {
           <Route path="/search" component = {EventSearch} />
 
           <Route path ="/orgdash" component = {OrgDashboard}/>
-          <Route path = "/cart" component={Cart} />
           <Route path ="/userdash" component = {UserDash}/>
 
+          <Route path = "/cart" component={Cart} />
           
           {/* <Route exact path="/edit-event/:id" component = {edit} /> */}
           {/* <Route exact path="/update-event" component={sidebar} />

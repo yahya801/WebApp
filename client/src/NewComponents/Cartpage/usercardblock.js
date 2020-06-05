@@ -15,6 +15,8 @@ export class UserCardBlock extends Component {
     };
   }
   async componentWillMount() {
+
+    
     axios
       .get(`http://localhost:3000/booking/cart/${this.state.userid}`)
       .then((response) => {
