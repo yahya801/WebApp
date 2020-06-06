@@ -2,13 +2,14 @@ import axios from "axios";
 import React, { Component } from 'react'
 import BookingCard from './BookingCard';
 
+
 export default class Cards extends Component {
     constructor(props){
         super(props);
 
         this.state = {
             userid: localStorage.getItem("id"),
-            BookedEvents: [],
+            BookedEvents: []
         }
 
 

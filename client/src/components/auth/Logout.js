@@ -9,11 +9,14 @@ export class Lougout extends Component {
         localStorage.removeItem("user")
         localStorage.removeItem("id")
     }
+    async componentWillMount(){
+        window.location = `/`
+    }
     render() {
         return (
             <div>
-                <h1> You have been logged out</h1> 
-                <Link to="/"> Login in Again</Link>
+               
+                {/* <Link to="/"> Login in Again</Link> */}
                 
             </div>
         )
