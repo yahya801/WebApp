@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Header from './pageheader'
 import Tab from './tabs'
+import Footer from "../footer"
 
 
 
@@ -11,6 +12,7 @@ export default class OrganizerDash extends Component {
             <div>
               <Header/> 
               <Tab/>
+              <Footer />
                 
             </div>
         )

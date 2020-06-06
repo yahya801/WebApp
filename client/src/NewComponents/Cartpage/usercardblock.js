@@ -97,7 +97,7 @@ export class UserCardBlock extends Component {
             {this.state.Events.map((Event) => (
               //   <div onChange={this.totalprice(Event.totalprice)}>
               <tr Key={Event._id}>
-                <td>{Event.eventname}</td>
+                <td>{Event.eventname.toUpperCase()}</td>
 
                 <td>{Event.category}</td>
 
@@ -122,7 +122,7 @@ export class UserCardBlock extends Component {
           </Table>
         </Container>
         <h2>Total Amount: {totalamount}</h2>
-        <Button variant="danger" onClick={this.handleSubmit}>Proceed to Checkout</Button>
+        <Button variant="success" onClick={this.handleSubmit}>Proceed to Checkout</Button>
       </div>
     );
   }

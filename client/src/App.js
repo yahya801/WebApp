@@ -31,11 +31,11 @@ import EventPage from './NewComponents/eventpage/eventpage'
 import Container from './NewComponents/singleevent/container'
 import CRUDheader from './NewComponents/CRUD/crudheader'
 import OrgDashboard from './NewComponents/OrganizerDashboard/OrganizerDash'
-import Cart from './NewComponents/Cartpage/usercardblock'
+import Cart from './NewComponents/Cartpage/CART'
 // import Pal from './NewComponents/singleevent/pallete'
 // import Tab from './NewComponents/singleevent/tabs'
 import Book from './NewComponents/Cartpage/bookingform'
-import Check from './NewComponents/Cartpage/checkoutform'
+import Check from './NewComponents/Cartpage/CHECKOUT'
 
 import UserDash from './NewComponents/UserDashboard/UserDashboard';
 
@@ -72,16 +72,16 @@ class App extends Component {
           <Route exact path="/logout" component={Logout} />
           <Route exact path="/dashboard" component={EventList} />
           {/* <Route exact path = "/about/:id" component = {About} /> */}
-          <Route exact path="/create-event" component={CRUDheader} />
-          <Route exact path="/create-event" component={Create} />
+          {/* <Route exact path="/create-event" component={CRUDheader} />
+          <Route exact path="/create-event" component={Create} /> */}
           <Route path ="/singleevent/:ID" component={Container} />
           {/* <Route path ="/singleevent/:ID" component={Tab} /> */}
           {/* <Route path ="/singleevent/:ID" component={Eventdescription} /> */}
           {/* <Route exact path="/read-events" component={EventpageHeader} /> */}
-          <Route exact path="/read-events" component={EventList} />
+          {/* <Route exact path="/read-events" component={EventList} /> */}
           {/* <Route exact path="/read-events" component={Edit} /> */}
-          <Route exact path="/editevent/:Id" component={CRUDheader} />
-          <Route exact path="/editevent/:Id" component = {Edit} />
+          {/* <Route exact path="/editevent/:Id" component={CRUDheader} />
+          <Route exact path="/editevent/:Id" component = {Edit} /> */}
           <Route path="/search" component = {EventpageHeader} />
           <Route path="/search" component = {EventSearch} />
 

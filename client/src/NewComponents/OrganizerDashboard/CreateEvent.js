@@ -159,6 +159,7 @@ export class CreateEvent extends Component {
       this.setState({
         submitted: true,
       });
+      window.location = `/orgdash`
     })
     .catch((err) => {
       console.log(err);
@@ -413,14 +414,14 @@ export class CreateEvent extends Component {
               </div>
             </div>
             <ButtonToolbar>
-              <Button
+              {/* <Button
                 type="submit"
                 className="btn btn-primary"
 
               >
                 Register
-              </Button>
-              <Popup modal trigger={<button>Click Me</button>}>
+              </Button> */}
+              <Popup modal trigger={<button>Register</button>}>
                 <div className = "container">
                 <h3>Add the Organizer Details</h3>
                 <div className="form-group">

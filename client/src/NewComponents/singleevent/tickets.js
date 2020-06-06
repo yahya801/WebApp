@@ -1,9 +1,11 @@
 import React, { Component } from "react";
-import Button from "./buttons.js";
+import Button1 from "./buttons.js";
+// import BUTTON from "react-bootstrap"
+import { Container, Button, Alert } from "react-bootstrap";
 import Popup from "reactjs-popup";
 import axios from "axios";
 
-import './style.css';
+import "./style.css";
 // import "./form.css";
 import { useHistory } from "react-router-dom";
 import Login from "./login&register/login";
@@ -156,16 +158,16 @@ export class tickets extends Component {
                     className="number-of-ticket flex justify-content-between align-items-center"
                     style={{ position: "inherit" }}
                   >
-                    <Button title="- " task={() => this.decrementCount()} />
+                    <Button1 title="- " task={() => this.decrementCount()} />
                     <input
                       type="number"
                       className="ticket-count"
                       Value={count}
                       disabled
                     />
-                    <Button title="+" task={() => this.incrementCount()} />
+                    <Button1 title="+" task={() => this.incrementCount()} />
                   </div>
-                  <Button
+                  <Button1
                     title="Clear"
                     className="clear-ticket-count"
                     task={() => this.handleChange(0)}
@@ -182,7 +184,7 @@ export class tickets extends Component {
                 <div className="flex align-items-center">
                   <div className="number-of-ticket flex justify-content-between align-items-center">
                     {/* <span className="decrease-ticket">-</span> */}
-                    <Button title="- " task={() => this.decrementCount2()} />
+                    <Button1 title="- " task={() => this.decrementCount2()} />
                     <input
                       type="number"
                       className="ticket-count"
@@ -190,9 +192,9 @@ export class tickets extends Component {
                       disabled
                     />
                     {/* <span className="increase-ticket">+</span> */}
-                    <Button title="+" task={() => this.incrementCount2()} />
+                    <Button1 title="+" task={() => this.incrementCount2()} />
                   </div>
-                  <Button
+                  <Button1
                     title="Clear"
                     className="btn gradient-bg"
                     task={() => this.handleChange(1)}
@@ -225,21 +227,22 @@ class Popup2 extends Component {
     super(props);
     this.state = {
       Event: [],
-      errmsg: ""
-    }
+      errmsg: "",
+    };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-   componentWillMount(){
-    let eventid = this.props.eventid
+  componentWillMount() {
+    let eventid = this.props.eventid;
     axios
       .get(`http://localhost:3000/event/eventdetails/${eventid}`)
       .then((response) => {
         console.log(response.data.event);
         this.setState({
-          Event: response.data.event
-        })
-        console.log(this.state.Event)
-  })}
+          Event: response.data.event,
+        });
+        console.log(this.state.Event);
+      });
+  }
 
   handleSubmit(e) {
     // wind;
@@ -253,7 +256,7 @@ class Popup2 extends Component {
       eventname: this.state.Event.eventname,
       category: this.state.Event.category,
       city: this.state.Event.city,
-      location: this.state.Event.location
+      location: this.state.Event.location,
     };
     console.log(cart);
 
@@ -261,7 +264,7 @@ class Popup2 extends Component {
       .post(`http://localhost:3000/booking/eventbooking`, cart)
       .then((response) => {
         console.log(response.data);
-        window.location =`/cart`
+        window.location = `/cart`;
       })
       .catch((err) => {
         //  console.log(err);
@@ -269,36 +272,40 @@ class Popup2 extends Component {
         this.setState({ errmsg: err.response.data.msg });
         console.log(this.state.errmsg);
       });
-      
-      //   this.setState({
-      // //    loggedin: true,
-      //   });
-      //   if (response.data.user.role == "super-admin"){
-      //       console.log('hell')
-      //     window.location= 'http://localhost:3000/admin/resources/user';
 
-      //   }
-      //   if (response.data.user.role == "admin"){
-      //       console.log('hell')
-      //     //  window.location= '/orgdash';
+    //   this.setState({
+    // //    loggedin: true,
+    //   });
+    //   if (response.data.user.role == "super-admin"){
+    //       console.log('hell')
+    //     window.location= 'http://localhost:3000/admin/resources/user';
 
-      //   }
-      //   if(response.data.user.role == 'customer'){
-        
-      //   }
-      //   // window.location = "/read-events";
-        //window.location= 'http://localhost:3000/admin/resources/user';
-      
+    //   }
+    //   if (response.data.user.role == "admin"){
+    //       console.log('hell')
+    //     //  window.location= '/orgdash';
+
+    //   }
+    //   if(response.data.user.role == 'customer'){
+
+    //   }
+    //   // window.location = "/read-events";
+    //window.location= 'http://localhost:3000/admin/resources/user';
   }
   render() {
     return (
       <div>
-         <div style={{color: "red"}}> {this.state.errmsg}
-       </div>
-        <button onClick={this.handleSubmit} type="button">
+        <div style={{ color: "red",position: "absolute", right: "150px"}}> {this.state.errmsg}</div>
+        <br />
+        <Button
+          variant="success"
+          style={{ position: "absolute", right: "150px" }}
+          onClick={this.handleSubmit}
+        >
           {this.props.signup}
-        </button>
-      
+        </Button>
+        <br />
+        <br />
       </div>
     );
   }
@@ -394,7 +401,18 @@ class Popup3 extends Component {
       <div>
         <Popup
           modal
-          trigger={<button>{this.props.signup}</button>}
+          trigger={
+            <div>
+              <Button
+                variant="success"
+                style={{ position: "absolute", right: "150px" }}
+              >
+                {this.props.signup}
+              </Button>
+              <br />
+              <br />
+            </div>
+          }
           open={this.state.open}
           closeOnDocumentClick
           onClose={this.closeModal}
