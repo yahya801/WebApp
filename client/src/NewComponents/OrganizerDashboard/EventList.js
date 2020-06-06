@@ -124,14 +124,14 @@ export class EventList extends Component {
                 <td>{Event.basicentry}</td>
                 <td>{Event.vipentry}</td>
                 <td>
-                  <Link
+                  {/* <Link
                     variant="info"
                     className="btn"
                     // to={`/edit-event/${Event._id}`}
                     onClick={() => this.editevent(Event._id)}
                   >
                     Edit
-                  </Link>
+                  </Link> */}
                   <Button
                     variant="danger"
                     onClick={() => this.deleteevent(Event._id)}

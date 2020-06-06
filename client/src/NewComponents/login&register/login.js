@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, Redirect } from "react-router-dom";
 import axios from "axios";
-
+import Footer from "../footer"
 class login extends React.Component {
   constructor(props) {
     super(props);
@@ -160,6 +160,7 @@ class login extends React.Component {
           </div>
         </div>
         ;
+        <Footer />
       </div>
     );
   }

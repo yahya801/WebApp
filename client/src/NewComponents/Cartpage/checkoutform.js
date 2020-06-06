@@ -84,7 +84,7 @@ export default class checkoutform extends Component {
     }
     return (
       <div>
-        <div className="container">
+        <div className="container" style={{ right:"150px"}}>
           <div className="row">
             <div className="well col-xs-10 col-sm-10 col-md-6 col-xs-offset-1 col-sm-offset-1 col-md-offset-3">
               <div className="row">
@@ -182,21 +182,24 @@ export default class checkoutform extends Component {
                     </tr>
                   </tbody>
                 </table>
+                {/* <div > */}
                 <button
                   type="button"
                   onClick={this.handleSubmit}
                   className="btn btn-success btn-lg btn-block"
+                //   style={{position: "absolute", right:"150px"}}
                 >
                   Pay Now&nbsp;&nbsp;&nbsp;
                   <span className="glyphicon glyphicon-chevron-right" />
                 </button>
+                {/* </div> */}
               </div>
             </div>
             {/* <CheckoutPopup /> */}
             {paynow ? PAYNOW : null}
           </div>
         </div>
-        ;
+        
       </div>
     );
   }

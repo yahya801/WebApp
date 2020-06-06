@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import EventpageHeader from './pageheader'
 import EventSearch from './search/searchcontainer'
 import CatTabs from './CategoryTabs/cattabs'
+import Footer from "../footer"
 
 
 export class eventpage extends Component {
@@ -11,6 +12,7 @@ export class eventpage extends Component {
                 <EventpageHeader />
                 <EventSearch />
                 <CatTabs />
+                <Footer />
                 
                 {/* <Eventcards /> */}
             </div>

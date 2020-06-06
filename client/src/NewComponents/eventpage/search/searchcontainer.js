@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import EventSearchBar from "./eventsearch";
 import Eventcard from "./searchcard";
+import Footer from "../../footer"
 export class searchcontainer extends Component {
   constructor(props) {
     super(props);
@@ -28,6 +29,7 @@ export class searchcontainer extends Component {
       <div>
         <EventSearchBar />
         {search ? SEARCHEVENT : null}
+        {/* <Footer /> */}
       </div>
     );
   }

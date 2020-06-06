@@ -6,6 +6,7 @@ import axios from "axios";
 // import Pallete from './pallete'
 import Tab from "./tabs";
 import Tickets from "./tickets";
+import Footer from "../footer"
 
 export class container extends Component {
   constructor(props) {
@@ -107,6 +108,7 @@ export class container extends Component {
           userrole={this.state.userrole}
           eventid={this.state.eventid}
         />
+        <Footer />
       </div>
     );
   }
