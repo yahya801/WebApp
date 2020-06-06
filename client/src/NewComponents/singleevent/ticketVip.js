@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Button from "./buttons.js";
-
+import './style.css';
 export class ticketVip extends Component {
   constructor(props) {
     super(props);
@@ -64,7 +64,7 @@ export class ticketVip extends Component {
             <Button
             to="/fvhjkj"
               title="Clear"
-              className="clear-ticket-count"
+              className="btn gradient-bg"
               task={() => this.handleChange(1)}
             />
           </div>

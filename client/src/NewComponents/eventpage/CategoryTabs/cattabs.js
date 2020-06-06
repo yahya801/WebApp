@@ -33,18 +33,37 @@ export class cattabs extends Component {
 
           <div className="tab-progress" />
 
-          <Panel>
+          
+            
+              <Panel>
             <br />
             <Privatecards />
           </Panel>
+          
 
-          <Panel>
-          <Corperatecard />
+
+
+          
+            
+              <Panel>
+            <br />
+            <Corperatecard />
           </Panel>
 
-          <Panel>
-          <Charitycard />
+              
+         
+
+          
+            
+              <Panel>
+            <br />
+            <Charitycard />
           </Panel>
+
+              
+          
+
+         
         </div>
       </Tabs>
     );
