@@ -253,20 +253,20 @@ route.get("/singleevent/:ID", (req, res) => {
   }) .catch((err) => res.status(404).json({ success: false }));;
 });
 
-// route.get("/", (req, res) => {
-//   const userid = req.query.userid;
-//   console.log(userid);
-//   Event.find({ userid: userid }, function (err, events) {
-//     if (err) {
-//       res.send("Error");
-//       next();
-//     }
+route.get("/", (req, res) => {
+  const userid = req.query.userid;
+  console.log(userid);
+  Event.find({ userid: userid }, function (err, events) {
+    if (err) {
+      res.send("Error");
+      next();
+    }
 
-//     res.json({
-//       events,
-//     });
-//   });
-// });
+    res.json({
+      events,
+    });
+  });
+});
 
 route.get("/categorysearch", (req, res) => {
   let category = req.query.category;
