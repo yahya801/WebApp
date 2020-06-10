@@ -12,6 +12,7 @@ export class eventcard extends Component {
     };
   }
   async componentDidMount() {
+    await axios.get(`http://localhost:3000/event/countofevent?cxategory=Private`)
     axios.get(`http://localhost:3000/event/categorysearch?category=Private`).then((res) => {
       //    const event = res.data[0];
       //  this.setState({ event});

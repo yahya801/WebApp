@@ -71,12 +71,13 @@ route.delete("/delete/:id", (req, res) => {
 
 route.get("/eventdetails/:id", (req, res) => {
   const eventid = req.params.id;
-  Event.findById(eventid).then((event) => {
-    return res.json({
-      event,
-    });
-  })
-  .catch((err) => res.status(404).json({ success: false }));;
+  Event.findById(eventid)
+    .then((event) => {
+      return res.json({
+        event,
+      });
+    })
+    .catch((err) => res.status(404).json({ success: false }));
 });
 
 // route.patch("/update", (req, res) => {
@@ -89,12 +90,13 @@ route.get("/eventdetails/:id", (req, res) => {
 //     });
 // });
 route.get("/edit/:id", (req, res) => {
-  Event.findById(req.params.id).then((event) => {
-    return res.json({
-      event,
-    });
-  })
-  .catch((err) => res.status(404).json({ success: false }));;
+  Event.findById(req.params.id)
+    .then((event) => {
+      return res.json({
+        event,
+      });
+    })
+    .catch((err) => res.status(404).json({ success: false }));
 });
 route.get("/search", (req, res) => {
   let Eventname = req.query.eventname;
@@ -114,7 +116,7 @@ route.get("/search", (req, res) => {
           events,
         });
       })
-      .catch((err) => res.status(404).json({ success: false }));;
+      .catch((err) => res.status(404).json({ success: false }));
   } else if (!Eventname && !Date && City) {
     Event.find({ city: City.toLowerCase() })
       .sort({ date: -1 })
@@ -122,7 +124,8 @@ route.get("/search", (req, res) => {
         return res.json({
           events,
         });
-      }) .catch((err) => res.status(404).json({ success: false }));;
+      })
+      .catch((err) => res.status(404).json({ success: false }));
   } else if (Eventname && !Date && !City) {
     console.log("hjkdbhjv");
     Event.find({ eventname: Eventname.toLowerCase() })
@@ -134,7 +137,7 @@ route.get("/search", (req, res) => {
           events,
         });
       })
-      .catch((err) => res.status(404).json({ success: false }));;
+      .catch((err) => res.status(404).json({ success: false }));
   } else if (!Eventname && Date && !City) {
     console.log("hjkdbhjv3");
     Event.find({ date: Date })
@@ -145,7 +148,8 @@ route.get("/search", (req, res) => {
         return res.json({
           events,
         });
-      }) .catch((err) => res.status(404).json({ success: false }));;
+      })
+      .catch((err) => res.status(404).json({ success: false }));
   } else if (Eventname && Date && !City) {
     Event.find({ eventname: Eventname.toLowerCase(), date: Date })
 
@@ -165,7 +169,8 @@ route.get("/search", (req, res) => {
         return res.json({
           events,
         });
-      }) .catch((err) => res.status(404).json({ success: false }));;
+      })
+      .catch((err) => res.status(404).json({ success: false }));
   } else if (Eventname && Date && City) {
     Event.find({
       eventname: Eventname.toLowerCase(),
@@ -179,7 +184,8 @@ route.get("/search", (req, res) => {
         return res.json({
           events,
         });
-      }) .catch((err) => res.status(404).json({ success: false }));;
+      })
+      .catch((err) => res.status(404).json({ success: false }));
   }
 });
 
@@ -235,22 +241,26 @@ route.get("/singleevent/:ID", (req, res) => {
   console.log(userid);
   // let userdata
   if (userid) {
-    User.find({ _id: userid }).then((user) => {
-      userdata = user;
+    User.find({ _id: userid })
+      .then((user) => {
+        userdata = user;
 
-      console.log(userdata);
-    }) .catch((err) => res.status(404).json({ success: false }));;
+        console.log(userdata);
+      })
+      .catch((err) => res.status(404).json({ success: false }));
   }
   console.log(userdata);
   //  newuser.name = user.name
   //  console.log(newuser)
-  Event.findById(req.params.ID).then((event) => {
-    console.log(event);
-    return res.json({
-      event,
-      userdata,
-    });
-  }) .catch((err) => res.status(404).json({ success: false }));;
+  Event.findById(req.params.ID)
+    .then((event) => {
+      console.log(event);
+      return res.json({
+        event,
+        userdata,
+      });
+    })
+    .catch((err) => res.status(404).json({ success: false }));
 });
 
 route.get("/", (req, res) => {
@@ -269,11 +279,19 @@ route.get("/", (req, res) => {
 });
 
 route.get("/categorysearch", (req, res) => {
-  let category = req.query.category;
+  const page = parseInt(req.query.page);
+  const limit = parseInt(req.query.limit);
+
+  const startIndex = (page - 1) * limit;
+  const endIndex = page * limit;
+  let category = req.query.category || "";
   console.log("hello2");
   if (!category) {
     Event.find({})
       .sort({ date: "desc" })
+      .skip(startIndex)
+      .limit(limit)
+
       .then((events) => {
         return res.json({
           events,
@@ -282,6 +300,9 @@ route.get("/categorysearch", (req, res) => {
   } else {
     Event.find({ category })
       .sort({ date: "desc" })
+      .skip(startIndex)
+      .limit(limit)
+
       .then((events) => {
         return res.json({
           events,
@@ -289,4 +310,27 @@ route.get("/categorysearch", (req, res) => {
       });
   }
 });
+
+route.get("/countofevent",(req,res) =>{
+ let category = req.query.category 
+ console.log(req.query)
+ if(category == 'Private' || category == "Corperate" || category =='Charity'){
+  Event.countDocuments({category: category}).exec()
+  .then((count)=> {
+    
+    return res.json ({
+      count,
+      msg: "help",
+      category
+    })
+  })
+ }
+ else{
+  Event.countDocuments().exec()
+    .then((count)=> {
+      return res.json ({
+        count
+      })
+    }) }
+} )
 module.exports = route;
