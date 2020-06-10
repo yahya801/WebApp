@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 
 const User = require("./models/users");
 const Event = require("./models/events");
+const Booking = require("./models/booking")
 
 AdminBro.registerAdapter(AdminBroMongoose);
 
@@ -41,6 +42,17 @@ const adminBro = new AdminBro({
         }
       }
     }
+    // {
+    //   resource: Booking,
+    //   options: {
+    //     eventname: {
+    //       isVisible: { list: true, filter: true, show: true, edit: true }
+    //     },
+    //     _id: {
+    //       isVisible: { list: false, filter: false, show: false, edit: false }
+    //     }
+    //   }
+    // }
   ]
 });
 

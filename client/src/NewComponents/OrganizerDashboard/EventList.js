@@ -64,6 +64,7 @@ export class EventList extends Component {
 
   deleteevent = (_id) => {
     console.log(_id);
+    
 
     var removeindex = this.state.Event.map(function (Event) {
       return Event._id;
@@ -71,14 +72,15 @@ export class EventList extends Component {
     console.log(removeindex);
     let neweventlist = [];
     neweventlist = this.state.Event;
+    const r = window.confirm(`Do you really want to Delete ${this.state.Event[removeindex].eventname.toUpperCase()}?`); if(r == true){
     neweventlist.splice(removeindex, 1);
     this.setState({ Event: neweventlist });
 
     axios.delete(`http://localhost:3000/event/delete/${_id}`).then(() => {
       console.log("Deleted Successfully");
-    });
+    })};
   };
-  onClick() {}
+
 
   render() {
     if(!localStorage.getItem("user")== ""){

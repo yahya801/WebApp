@@ -35,12 +35,13 @@ export class UserCardBlock extends Component {
     console.log(removeindex);
     let neweventlist = [];
     neweventlist = this.state.Events;
+    const r = window.confirm(`Do you really want to delete ${this.state.Events[removeindex].eventname.toUpperCase()} from Cart?`); if(r == true){ 
     neweventlist.splice(removeindex, 1);
     this.setState({ Events: neweventlist });
     console.log(this.state.Events);
     axios.delete(`http://localhost:3000/booking/delete/${_id}`).then(() => {
       console.log("Deleted Successfully");
-    });
+    })};
   };
   //   totalprice(eventprice){
   //     let amount= eventprice
