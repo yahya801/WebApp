@@ -1,24 +1,44 @@
-import React, { Component } from "react";
+import React, { Component} from "react";
 import Eventpage from "./eventspage";
 import axios from "axios";
+
+
 
 export class eventcard extends Component {
   constructor(props) {
     super(props);
     let loading = true;
+    let count;
     this.state = {
       loading,
       Event: [],
+      count,
     };
   }
+  
   async componentDidMount() {
+
  
     axios.get(`http://localhost:3000/event/categorysearch?category=Charity`).then((res) => {
       //    const event = res.data[0];
       //  this.setState({ event});
       this.setState({ Event: res.data.events, loading: false });
+      console.log(this.state.Event);
       // console.log(this.state.Event);
     });
+
+    // axios.get(`http://localhost:3000/event/countevent`).then((res) => {
+    //   //    const event = res.data[0];
+    //   //  this.setState({ event});
+    //   this.setState({ count: res.data.count });
+    //   console.log(this.state.count);
+
+    //   // console.log(this.state.Event);
+    // });
+
+    
+
+
   }
   handleClick() {
     window.location = `/single_event/${this.state.event_id}`;
@@ -31,6 +51,9 @@ export class eventcard extends Component {
     window.location = `singleevent/${_id}`;
     console.log(index);
   };
+
+
+  
   render() {
     return (
       <div>
