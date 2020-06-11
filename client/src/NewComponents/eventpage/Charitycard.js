@@ -1,44 +1,35 @@
-import React, { Component} from "react";
+import React, { Component } from "react";
 import Eventpage from "./eventspage";
 import axios from "axios";
-
-
+import Pagination from "./Pagination";
 
 export class eventcard extends Component {
   constructor(props) {
     super(props);
-    let loading = true;
+    let loading = true; 
     let count;
+    let paginate;
     this.state = {
       loading,
       Event: [],
       count,
+      paginate,
     };
   }
-  
   async componentDidMount() {
-
+  await axios.get(`http://localhost:3000/event/countofevent?category=Charity`)
+    .then((res)=>{
+      this.setState({count: res.data.count})
+      console.log(res.data.count)
+    })
  
-    axios.get(`http://localhost:3000/event/categorysearch?category=Charity`).then((res) => {
+    axios.get(`http://localhost:3000/event/categorysearch?category=Charity&page=2&limit=1`).then((res) => {
       //    const event = res.data[0];
       //  this.setState({ event});
       this.setState({ Event: res.data.events, loading: false });
-      console.log(this.state.Event);
+      console.log(Event)
       // console.log(this.state.Event);
     });
-
-    // axios.get(`http://localhost:3000/event/countevent`).then((res) => {
-    //   //    const event = res.data[0];
-    //   //  this.setState({ event});
-    //   this.setState({ count: res.data.count });
-    //   console.log(this.state.count);
-
-    //   // console.log(this.state.Event);
-    // });
-
-    
-
-
   }
   handleClick() {
     window.location = `/single_event/${this.state.event_id}`;
@@ -51,10 +42,9 @@ export class eventcard extends Component {
     window.location = `singleevent/${_id}`;
     console.log(index);
   };
-
-
-  
   render() {
+    let count = this.setState;
+    let paginate = this.setState;
     return (
       <div>
           <div style={{ paddingLeft: "100px" ,paddingTop: "24px" }}>
@@ -75,6 +65,13 @@ export class eventcard extends Component {
                       vipentry={Event.vipentry}
                     />
                   </div>
+                  <Pagination 
+                  
+                  postsPerPage={1}
+                  totalPosts={count}
+                  paginate={paginate}
+                  
+                  />
                 </div>
               ))}
             </div>
