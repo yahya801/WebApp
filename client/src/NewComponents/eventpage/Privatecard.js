@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Eventpage from "./eventspage";
 import axios from "axios";
+import Pagination from './Pagination';
 
 export class eventcard extends Component {
   constructor(props) {
@@ -9,8 +10,18 @@ export class eventcard extends Component {
     this.state = {
       loading,
       Event: [],
+      showPerPage: 1,
+      pagination: { start: 0, end:1 }
     };
   }
+  onPaginationChange = (start, end) => {
+    console.log(start, end);
+    // setPagination({ start: start, end: end });
+    this.setState({
+      pagination: { start: start, end: end }
+    })
+
+  };
   async componentDidMount() {
     await axios.get(`http://localhost:3000/event/countofevent?cxategory=Private`)
     axios.get(`http://localhost:3000/event/categorysearch?category=Private`).then((res) => {
@@ -38,7 +49,7 @@ export class eventcard extends Component {
           <div style={{ paddingLeft: "100px" ,paddingTop: "10px"}}>
           <div className="container-fuid">
             <div class="row events-list">
-              {this.state.Event.map((Event) => (
+              {this.state.Event.slice(this.state.pagination.start, this.state.pagination.end).map((Event) => (
                 <div
                   Key={Event._id}
                   onClick={() => this.singleevent(Event._id)}
@@ -57,6 +68,11 @@ export class eventcard extends Component {
               ))}
             </div>
           </div>
+          <Pagination
+            showPerPage={this.state.showPerPage}
+            onPaginationChange={this.onPaginationChange}
+            total={this.state.Event.length}
+            />
         </div>
       </div>
     );
