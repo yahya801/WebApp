@@ -279,18 +279,18 @@ route.get("/", (req, res) => {
 });
 
 route.get("/categorysearch", (req, res) => {
-  const page = parseInt(req.query.page);
-  const limit = parseInt(req.query.limit);
+  // const page = parseInt(req.query.page);
+  // const limit = parseInt(req.query.limit);
 
-  const startIndex = (page - 1) * limit;
-  const endIndex = page * limit;
+  // const startIndex = (page - 1) * limit;
+  // const endIndex = page * limit;
   let category = req.query.category || "";
   console.log("hello2");
   if (!category) {
     Event.find({})
       .sort({ date: "desc" })
-      .skip(startIndex)
-      .limit(limit)
+      // .skip(startIndex)
+      // .limit(limit)
 
       .then((events) => {
         return res.json({
@@ -300,8 +300,8 @@ route.get("/categorysearch", (req, res) => {
   } else {
     Event.find({ category })
       .sort({ date: "desc" })
-      .skip(startIndex)
-      .limit(limit)
+      // .skip(startIndex)
+      // .limit(limit)
 
       .then((events) => {
         return res.json({
