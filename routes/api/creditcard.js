@@ -33,6 +33,7 @@ route.post("/payment", (req, res) => {
     creditcardmodal.save();
     console.log(creditcardmodal)
     console.log('kkk')
+    events=[]
     for(i=0;i<booking.length; i++) {
         console.log(booking[i])
         let b = booking[i]
@@ -41,6 +42,7 @@ route.post("/payment", (req, res) => {
             cart: true
         }, { new: true })
         .then((event) => {
+          
             console.log(booking[i])
             if (!event) {
               return res.status(404).send({
@@ -48,7 +50,7 @@ route.post("/payment", (req, res) => {
               });
             }
             console.log(event)
-            res.send(event);
+            // res.send(event);
           })
     }
     // for(i=0;i<booking.length; i++) {

@@ -56,7 +56,7 @@ route.post("/eventbooking", (req, res) => {
       });
 
       Event.findOneAndUpdate(
-        eventid,
+       {_id: eventid},
         {
           $inc: { basictickets: -event1.basictickets },
           $inc: { viptickets: -event1.viptickets },
@@ -66,6 +66,7 @@ route.post("/eventbooking", (req, res) => {
         { new: true }
       )
         .then((event) => {
+          console.log('Done')
           if (!event) {
             return res.status(404).send({
               message: "Product not found with id " + req.params.productId,
