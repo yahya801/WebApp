@@ -10,8 +10,8 @@ export class eventcard extends Component {
     this.state = {
       loading,
       Event: [],
-      showPerPage: 1,
-      pagination: { start: 0, end:1 }
+      showPerPage: 5,
+      pagination: { start: 0, end:5 }
     };
   }
   onPaginationChange = (start, end) => {

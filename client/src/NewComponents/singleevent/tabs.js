@@ -68,6 +68,7 @@ export default (props) => {
             <h4>Event Name: {props.eventname.toUpperCase()}</h4>
             <h4>Event Date: {moment(props.date).format("LL")} </h4>
             <h4>Event Description: {props.description} </h4>
+            <h4>Event Category: {props.category}</h4>
             
             </p>
           </Panel>
