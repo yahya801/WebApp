@@ -4,6 +4,7 @@ import "./cattabs.css";
 import Privatecards from "../Privatecard";
 import Corperatecard from "../Corperatecard"
 import Charitycard from "../Charitycard"
+import AllCard from '../Allpage'
 
 const cn = (...args) => args.filter(Boolean).join(" ");
 
@@ -29,6 +30,8 @@ export class cattabs extends Component {
             <Tab>Corperate</Tab>
 
             <Tab>Charity</Tab>
+
+            <Tab>All</Tab>
           </div>
 
           <div className="tab-progress" />
@@ -58,6 +61,11 @@ export class cattabs extends Component {
               <Panel>
             <br />
             <Charitycard />
+          </Panel>
+
+          <Panel>
+            <br />
+            <AllCard />
           </Panel>
 
               

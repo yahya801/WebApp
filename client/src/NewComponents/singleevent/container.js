@@ -99,6 +99,7 @@ export class container extends Component {
         location = {this.state.location}
         organizername = {this.state.organizername}
         companyname = {this.state.companyname}
+        category = {this.state.category}
          />
         {/* <Pallete/> */}
 
